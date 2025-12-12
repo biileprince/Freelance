@@ -9,7 +9,7 @@ export function HeroSection() {
   return (
     <section className="relative w-full overflow-hidden border-b border-border/40 bg-background">
       {/* Grid Background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px]" />
 
       <div className="container relative py-24 md:py-32 lg:py-40">
         <div className="mx-auto max-w-4xl text-center">
@@ -34,7 +34,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
+            className="mb-8 text-balance text-5xl font-semibold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
           >
             Do you need a website?
             <br />
@@ -55,12 +55,12 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mb-4 text-xl font-medium text-foreground md:text-2xl"
+            className="mb-6 text-xl font-medium text-foreground/90 md:text-2xl lg:text-3xl"
           >
-            I Build Them From The Ground Up.
+            Complete Full-Stack Development.
             <br />
             <span className="text-muted-foreground">
-              Frontend. Backend. Everything.
+              Frontend. Backend. Database. Deployment.
             </span>
           </motion.p>
 
@@ -69,9 +69,13 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="mb-12 text-lg text-muted-foreground"
+            className="mb-12 text-lg text-muted-foreground md:text-xl"
           >
-            Transforming ideas into fast, secure, and fully-functional websites.
+            From simple landing pages to complex web applications—I handle every
+            aspect of your project.
+            <br className="hidden sm:block" />
+            Fast, secure, scalable, and fully-functional websites built with
+            modern technologies.
           </motion.p>
 
           {/* CTA Buttons */}

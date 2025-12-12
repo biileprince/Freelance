@@ -71,6 +71,39 @@ export default function RegisterPage() {
           </p>
         </div>
 
+        <div className="mb-6">
+          <Button
+            type="button"
+            variant="outline"
+            className="w-full"
+            onClick={async () => {
+              try {
+                await signIn.social({
+                  provider: "google",
+                  callbackURL: "/dashboard",
+                });
+              } catch (err) {
+                console.error("Google sign-in error:", err);
+                setError("Failed to sign in with Google");
+              }
+            }}
+          >
+            <Mail className="mr-2 h-4 w-4" />
+            Sign up with Google
+          </Button>
+        </div>
+
+        <div className="relative mb-6">
+          <div className="absolute inset-0 flex items-center">
+            <span className="w-full border-t" />
+          </div>
+          <div className="relative flex justify-center text-xs uppercase">
+            <span className="bg-card px-2 text-muted-foreground">
+              Or continue with email
+            </span>
+          </div>
+        </div>
+
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
             <Label htmlFor="name">Full Name</Label>
@@ -136,39 +169,6 @@ export default function RegisterPage() {
             )}
           </Button>
         </form>
-
-        <div className="mt-6 space-y-4">
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t" />
-            </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-card px-2 text-muted-foreground">
-                Or continue with
-              </span>
-            </div>
-          </div>
-
-          <Button
-            type="button"
-            variant="outline"
-            className="w-full"
-            onClick={async () => {
-              try {
-                await signIn.social({
-                  provider: "google",
-                  callbackURL: "/dashboard",
-                });
-              } catch (err) {
-                console.error("Google sign-in error:", err);
-                setError("Failed to sign in with Google");
-              }
-            }}
-          >
-            <Mail className="mr-2 h-4 w-4" />
-            Sign up with Google
-          </Button>
-        </div>
 
         <div className="mt-6 text-center text-sm">
           <span className="text-muted-foreground">

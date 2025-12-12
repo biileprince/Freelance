@@ -8,13 +8,6 @@ import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
 import { Textarea } from "@/app/components/ui/textarea";
 import { Label } from "@/app/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/app/components/ui/select";
 import { Card } from "@/app/components/ui/card";
 import { contactFormSchema, type ContactFormData } from "@/lib/schemas";
 import { submitContactForm } from "@/app/actions/contact";
@@ -66,10 +59,10 @@ export function ContactSection() {
             transition={{ duration: 0.5 }}
             className="mb-16 text-center"
           >
-            <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+            <h2 className="mb-4 text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl">
               Start Your Project
             </h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg text-muted-foreground md:text-xl">
               Tell me about your project and I&apos;ll get back to you within 24
               hours.
             </p>
@@ -126,34 +119,12 @@ export function ContactSection() {
                 {/* Project Type */}
                 <div className="space-y-2">
                   <Label htmlFor="projectType">Project Type</Label>
-                  <Select
-                    onValueChange={(value) => setValue("projectType", value)}
-                  >
-                    <SelectTrigger
-                      className={errors.projectType ? "border-destructive" : ""}
-                    >
-                      <SelectValue placeholder="Select a project type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="student-association">
-                        Student Association/Club
-                      </SelectItem>
-                      <SelectItem value="corporate">
-                        Corporate Website
-                      </SelectItem>
-                      <SelectItem value="ecommerce">
-                        E-Commerce Store
-                      </SelectItem>
-                      <SelectItem value="blog">
-                        Blog/Content Platform
-                      </SelectItem>
-                      <SelectItem value="landing">Landing Page</SelectItem>
-                      <SelectItem value="maintenance">
-                        Website Maintenance
-                      </SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <Input
+                    id="projectType"
+                    placeholder="E.g., E-Commerce Store, Corporate Website, Blog Platform..."
+                    {...register("projectType")}
+                    className={errors.projectType ? "border-destructive" : ""}
+                  />
                   {errors.projectType && (
                     <p className="text-sm text-destructive">
                       {errors.projectType.message}
@@ -164,18 +135,11 @@ export function ContactSection() {
                 {/* Budget */}
                 <div className="space-y-2">
                   <Label htmlFor="budget">Budget (Optional)</Label>
-                  <Select onValueChange={(value) => setValue("budget", value)}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select your budget range" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="less-than-1k">&lt; $1,000</SelectItem>
-                      <SelectItem value="1k-5k">$1,000 - $5,000</SelectItem>
-                      <SelectItem value="5k-10k">$5,000 - $10,000</SelectItem>
-                      <SelectItem value="10k-plus">$10,000+</SelectItem>
-                      <SelectItem value="not-sure">Not sure yet</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <Input
+                    id="budget"
+                    placeholder="E.g., $5,000 - $10,000 or Not sure yet"
+                    {...register("budget")}
+                  />
                 </div>
 
                 {/* Message */}

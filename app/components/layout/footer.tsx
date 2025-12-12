@@ -3,9 +3,9 @@ import { Github, Linkedin, Twitter } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="w-full border-t border-border/40 bg-background">
-      <div className="container py-12 md:py-16">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
+    <footer className="w-full border-t border-border/40 bg-background mt-auto">
+      <div className="container mx-auto max-w-7xl px-4 py-12 sm:px-6 md:py-16 lg:px-8">
+        <div className="grid grid-cols-2 gap-8 md:grid-cols-4 text-center md:text-left">
           {/* Brand */}
           <div className="space-y-3">
             <h3 className="font-mono text-lg font-bold">WebAxiom</h3>
@@ -96,7 +96,7 @@ export function Footer() {
           {/* Social */}
           <div className="space-y-3">
             <h4 className="text-sm font-semibold">Connect</h4>
-            <div className="flex gap-4">
+            <div className="flex gap-4 justify-center md:justify-start">
               <Link
                 href="https://github.com"
                 className="text-muted-foreground hover:text-foreground transition-colors"

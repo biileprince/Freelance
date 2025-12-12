@@ -42,13 +42,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navigation />
-        <main>{children}</main>
-        <Footer />
+        <div className="flex min-h-screen flex-col">
+          <Navigation />
+          <main className="flex-1 flex flex-col">{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );
