@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Card } from "@/app/components/ui/card";
 import {
   GraduationCap,
   Building2,
@@ -17,228 +16,160 @@ import {
 
 interface Service {
   title: string;
+  tagline: string;
   description: string;
-  icon: LucideIcon;
-  color: string;
   features: string[];
+  icon: LucideIcon;
 }
 
 const services: Service[] = [
   {
     title: "E-Commerce Stores",
+    tagline: "Sell products online with ease",
     description:
-      "Full-featured online stores with payment processing, inventory systems, and customer management. From boutique shops to large-scale marketplaces.",
+      "Launch your own online shop where customers can browse, add to cart, and pay securely. Perfect for businesses wanting to sell products 24/7.",
+    features: ["Secure payments", "Inventory tracking", "Order management"],
     icon: ShoppingCart,
-    color: "text-green-500",
-    features: [
-      "Payment Integration (Stripe, PayPal)",
-      "Inventory Management",
-      "Customer Dashboards",
-      "Order Tracking",
-    ],
   },
   {
-    title: "Corporate & Business Websites",
+    title: "Business Websites",
+    tagline: "Establish your online presence",
     description:
-      "Professional websites that establish credibility and drive business growth with modern design and functionality.",
+      "Get a professional website that showcases your services, builds trust with visitors, and helps potential customers find and contact you easily.",
+    features: ["Professional design", "Contact forms", "Google-friendly"],
     icon: Building2,
-    color: "text-violet-500",
-    features: [
-      "Company Profiles",
-      "Service Pages",
-      "Contact Forms",
-      "Team Showcases",
-    ],
   },
   {
-    title: "Student Associations & Clubs",
+    title: "School & Club Websites",
+    tagline: "Connect with your community",
     description:
-      "Dynamic platforms to showcase events, manage memberships, and engage your community effectively.",
+      "Whether it's a student association, sports club, or community group, get a website to share events, news, and keep members engaged.",
+    features: ["Event calendar", "Member area", "News updates"],
     icon: GraduationCap,
-    color: "text-blue-500",
-    features: [
-      "Event Calendars",
-      "Member Portals",
-      "News & Updates",
-      "Photo Galleries",
-    ],
   },
   {
-    title: "Blog & Content Platforms",
+    title: "Blogs & News Sites",
+    tagline: "Share your story with the world",
     description:
-      "SEO-optimized content management systems designed to engage readers and grow your audience.",
+      "Start a blog or content website where you can write articles, share ideas, and grow an audience. Easy to update yourself with no tech skills needed.",
+    features: ["Easy editing", "SEO optimized", "Social sharing"],
     icon: PenTool,
-    color: "text-orange-500",
-    features: [
-      "CMS Integration",
-      "SEO Optimization",
-      "Social Sharing",
-      "Comment Systems",
-    ],
   },
   {
-    title: "Landing Pages & Portfolios",
+    title: "Landing Pages",
+    tagline: "Convert visitors into customers",
     description:
-      "High-converting pages that capture leads, showcase your work, and establish your personal brand.",
+      "One focused page designed to get visitors to take action, whether that's signing up, booking a call, or making a purchase.",
+    features: ["High converting", "Fast loading", "A/B testing ready"],
     icon: UserCircle,
-    color: "text-pink-500",
-    features: [
-      "Lead Capture",
-      "Project Showcases",
-      "Contact Forms",
-      "Social Links",
-    ],
   },
   {
-    title: "Mobile-First Web Apps",
+    title: "Mobile-Friendly Apps",
+    tagline: "Reach users on any device",
     description:
-      "Progressive web applications optimized for mobile devices with offline capabilities and app-like experiences.",
+      "Web applications that work beautifully on phones, tablets, and computers. Your customers can access your service from anywhere.",
+    features: ["Works offline", "App-like feel", "Push notifications"],
     icon: Smartphone,
-    color: "text-indigo-500",
-    features: [
-      "Responsive Design",
-      "PWA Features",
-      "Touch Optimized",
-      "Fast Loading",
-    ],
   },
   {
-    title: "Custom Web Applications",
+    title: "Custom Web Apps",
+    tagline: "Tailored solutions for your needs",
     description:
-      "Tailored solutions for unique business needs including dashboards, booking systems, and internal tools.",
+      "Need something specific? I build custom tools like booking systems, client portals, dashboards, and internal business applications.",
+    features: ["Booking systems", "Client portals", "Admin dashboards"],
     icon: Database,
-    color: "text-cyan-500",
-    features: [
-      "Custom Features",
-      "Database Design",
-      "API Integration",
-      "User Authentication",
-    ],
   },
   {
-    title: "Website Redesign & Migration",
+    title: "Website Makeovers",
+    tagline: "Upgrade your outdated website",
     description:
-      "Transform outdated websites into modern, performant platforms with seamless data migration.",
+      "Is your current website slow or looking dated? I'll redesign it with modern looks and faster performance while keeping your existing content.",
+    features: ["Modern design", "Faster speed", "Better security"],
     icon: Sparkles,
-    color: "text-yellow-500",
-    features: [
-      "Modern Design",
-      "Performance Boost",
-      "Data Migration",
-      "SEO Preservation",
-    ],
   },
   {
-    title: "Maintenance & Support",
+    title: "Ongoing Support",
+    tagline: "Keep your site running smoothly",
     description:
-      "Ongoing updates, security patches, bug fixes, and technical support to keep your website running smoothly.",
+      "Websites need regular care. I provide updates, security checks, backups, and fixes so you can focus on running your business.",
+    features: ["Regular updates", "Security patches", "Priority support"],
     icon: Wrench,
-    color: "text-red-500",
-    features: [
-      "Regular Updates",
-      "Bug Fixes",
-      "Security Monitoring",
-      "Performance Optimization",
-    ],
   },
 ];
-
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0 },
-};
 
 export function ServicesSection() {
   return (
     <section
       id="services"
-      className="w-full border-b border-border/40 bg-background py-24 md:py-32"
+      className="relative w-full bg-muted/30 py-16 sm:py-24 md:py-32"
     >
-      <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="mx-auto mb-16 max-w-3xl text-center">
+        <div className="mx-auto mb-12 sm:mb-16 max-w-3xl text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="mb-6 text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl">
-              I Can Build Anything You Need
+            <div className="mb-4 sm:mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1.5 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              What I Can Build For You
+            </div>
+            <h2 className="mb-4 sm:mb-6 text-3xl sm:text-4xl font-bold tracking-tight md:text-5xl">
+              Websites for every need
             </h2>
-            <p className="text-lg text-muted-foreground md:text-xl">
-              From simple websites to complex web applications—if you can
-              imagine it, I can build it.
-              <br className="hidden sm:block" />
-              Here are some common projects I specialize in, but I&apos;m not
-              limited to these.
+            <p className="text-base sm:text-lg text-muted-foreground md:text-xl leading-relaxed px-2">
+              From simple landing pages to fully-featured online stores, I
+              create websites that help businesses like yours succeed online. No
+              tech jargon, just results.
             </p>
           </motion.div>
         </div>
 
-        {/* Bento Grid */}
+        {/* Grid */}
         <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="show"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
         >
-          {services.map((service, index) => {
+          {services.map((service) => {
             const Icon = service.icon;
             return (
-              <motion.div
+              <div
                 key={service.title}
-                variants={item}
-                className={index === 2 ? "md:col-span-2 lg:col-span-1" : ""}
+                className="group rounded-2xl border border-border bg-background/50 backdrop-blur-sm p-5 sm:p-6 transition-all duration-300 hover:bg-accent/50 hover:border-accent"
               >
-                <Card className="group relative h-full overflow-hidden border-border bg-card p-6 transition-all hover:shadow-lg">
-                  {/* Background Gradient on Hover */}
-                  <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+                {/* Icon */}
+                <div className="mb-4 sm:mb-6 flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-background transition-transform duration-300 group-hover:scale-110">
+                  <Icon className="h-5 w-5 text-foreground" />
+                </div>
 
-                  <div className="relative space-y-4">
-                    {/* Icon */}
-                    <div className="inline-flex h-12 w-12 items-center justify-center rounded-lg border border-border bg-background/50">
-                      <Icon className={`h-6 w-6 ${service.color}`} />
-                    </div>
+                {/* Content */}
+                <h3 className="mb-1 text-base sm:text-lg font-semibold tracking-tight">
+                  {service.title}
+                </h3>
+                <p className="text-xs sm:text-sm font-medium text-emerald-600 dark:text-emerald-400 mb-2 sm:mb-3">
+                  {service.tagline}
+                </p>
+                <p className="text-xs sm:text-sm leading-relaxed text-muted-foreground mb-3 sm:mb-4">
+                  {service.description}
+                </p>
 
-                    {/* Content */}
-                    <div>
-                      <h3 className="mb-2 text-xl font-semibold">
-                        {service.title}
-                      </h3>
-                      <p className="text-sm leading-relaxed text-muted-foreground">
-                        {service.description}
-                      </p>
-                    </div>
-
-                    {/* Features List */}
-                    <div className="border-t border-border/50 pt-4">
-                      <ul className="grid grid-cols-2 gap-2">
-                        {service.features.map((feature) => (
-                          <li
-                            key={feature}
-                            className="flex items-center gap-2 text-xs text-muted-foreground"
-                          >
-                            <div className="h-1.5 w-1.5 rounded-full bg-primary/60" />
-                            {feature}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </Card>
-              </motion.div>
+                {/* Features list */}
+                <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                  {service.features.map((feature) => (
+                    <span
+                      key={feature}
+                      className="inline-flex items-center rounded-full bg-muted px-2 py-0.5 sm:px-2.5 sm:py-1 text-[10px] sm:text-xs text-muted-foreground"
+                    >
+                      {feature}
+                    </span>
+                  ))}
+                </div>
+              </div>
             );
           })}
         </motion.div>

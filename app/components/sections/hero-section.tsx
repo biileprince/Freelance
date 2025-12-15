@@ -3,122 +3,118 @@
 import { motion } from "framer-motion";
 import { Button } from "@/app/components/ui/button";
 import Link from "next/link";
-import { ArrowRight, Code2, Database, Layers } from "lucide-react";
+import { ArrowRight, Sparkles, CheckCircle2 } from "lucide-react";
 
 export function HeroSection() {
   return (
-    <section className="relative w-full overflow-hidden border-b border-border/40 bg-background">
-      {/* Grid Background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px]" />
+    <section className="relative w-full overflow-hidden bg-background pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-40 lg:pb-32">
+      {/* Subtle grid background */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border)/0.3)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)/0.3)_1px,transparent_1px)] bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
-      <div className="container relative py-24 md:py-32 lg:py-40">
+      {/* Gradient glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-250 h-150 pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-radial from-primary/5 via-transparent to-transparent opacity-60" />
+      </div>
+
+      <div className="container relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
-          {/* Animated Badge */}
+          {/* Animated Badge - Resend style */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-8 inline-flex"
+            className="mb-6 sm:mb-8 inline-flex"
           >
-            <div className="inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-4 py-1.5 text-sm font-medium">
+            <div className="inline-flex items-center gap-2 rounded-full border border-border bg-background/50 backdrop-blur-sm px-3 py-1 sm:px-4 sm:py-1.5 text-xs sm:text-sm">
               <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
               </span>
-              Available for new projects
+              <span className="font-medium text-muted-foreground">
+                Available for new projects
+              </span>
             </div>
           </motion.div>
 
-          {/* Main Headline */}
+          {/* Main Headline - More descriptive for everyone */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="mb-8 text-balance text-5xl font-semibold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
+            className="mb-4 sm:mb-6 text-3xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
           >
-            Do you need a website?
-            <br />
-            <span className="relative inline-block">
-              <span className="relative z-10">I develop </span>
-              <motion.span
-                initial={{ width: 0 }}
-                animate={{ width: "100%" }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                className="absolute bottom-2 left-0 h-3 bg-primary/20"
-              />
+            <span className="text-muted-foreground/80 block text-xl sm:text-2xl md:text-3xl font-semibold mb-2 sm:mb-4">
+              Looking for a website?
             </span>
-            <span className="text-primary">any</span> website!
+            I build{" "}
+            <span className="relative inline-block">
+              <span className="text-emerald-500">stunning websites</span>
+            </span>
+            <br className="hidden sm:block" />
+            <span className="sm:hidden"> </span>
+            that{" "}
+            <span className="text-muted-foreground">grow your business</span>
           </motion.h1>
 
-          {/* Sub-headline */}
+          {/* Sub-headline - More descriptive */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mb-6 text-xl font-medium text-foreground/90 md:text-2xl lg:text-3xl"
+            className="mb-6 sm:mb-8 text-base sm:text-lg text-muted-foreground md:text-xl max-w-2xl mx-auto leading-relaxed px-2"
           >
-            Complete Full-Stack Development.
-            <br />
-            <span className="text-muted-foreground">
-              Frontend. Backend. Database. Deployment.
-            </span>
+            Whether you need an online store, business website, or custom web
+            app, I design and develop professional websites that attract
+            customers and help your business succeed.
           </motion.p>
 
-          {/* Tagline */}
-          <motion.p
+          {/* Trust points - Quick value props */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.25 }}
+            className="mb-8 flex flex-wrap justify-center gap-x-4 gap-y-2 sm:gap-x-6 text-xs sm:text-sm text-muted-foreground"
+          >
+            <span className="flex items-center gap-1.5">
+              <CheckCircle2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-emerald-500" />
+              Fast & Secure
+            </span>
+            <span className="flex items-center gap-1.5">
+              <CheckCircle2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-emerald-500" />
+              Mobile Friendly
+            </span>
+            <span className="flex items-center gap-1.5">
+              <CheckCircle2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-emerald-500" />
+              SEO Optimized
+            </span>
+          </motion.div>
+
+          {/* CTA Buttons - Pill style like Resend */}
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="mb-12 text-lg text-muted-foreground md:text-xl"
+            className="flex flex-col gap-3 sm:gap-4 sm:flex-row sm:justify-center px-4 sm:px-0"
           >
-            From simple landing pages to complex web applications—I handle every
-            aspect of your project.
-            <br className="hidden sm:block" />
-            Fast, secure, scalable, and fully-functional websites built with
-            modern technologies.
-          </motion.p>
-
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="flex flex-col gap-4 sm:flex-row sm:justify-center"
-          >
-            <Link href="/#work">
-              <Button size="lg" className="group">
-                View My Work
+            <Link href="/#contact" className="w-full sm:w-auto">
+              <Button
+                size="lg"
+                className="group h-11 sm:h-12 w-full sm:w-auto rounded-full px-6 sm:px-8 text-sm sm:text-base font-semibold shadow-none"
+              >
+                Get a Free Quote
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
-            <Link href="/#contact">
-              <Button size="lg" variant="outline">
-                Start a Project
+            <Link href="/work" className="w-full sm:w-auto">
+              <Button
+                size="lg"
+                variant="outline"
+                className="h-11 sm:h-12 w-full sm:w-auto rounded-full px-6 sm:px-8 text-sm sm:text-base font-semibold border-border hover:bg-accent"
+              >
+                <Sparkles className="mr-2 h-4 w-4" />
+                View My Work
               </Button>
             </Link>
-          </motion.div>
-
-          {/* Tech Icons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            className="mt-16 flex items-center justify-center gap-8 text-muted-foreground"
-          >
-            <div className="flex flex-col items-center gap-2">
-              <Layers className="h-8 w-8" />
-              <span className="text-xs font-medium">Frontend</span>
-            </div>
-            <div className="h-12 w-px bg-border" />
-            <div className="flex flex-col items-center gap-2">
-              <Database className="h-8 w-8" />
-              <span className="text-xs font-medium">Backend</span>
-            </div>
-            <div className="h-12 w-px bg-border" />
-            <div className="flex flex-col items-center gap-2">
-              <Code2 className="h-8 w-8" />
-              <span className="text-xs font-medium">Full Stack</span>
-            </div>
           </motion.div>
         </div>
       </div>

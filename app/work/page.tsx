@@ -96,34 +96,40 @@ export default function WorkPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <section className="border-b border-border/40 bg-background py-24">
-        <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="relative bg-background pt-32 pb-20 lg:pt-40">
+        {/* Subtle grid background */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border)/0.3)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)/0.3)_1px,transparent_1px)] bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+
+        <div className="container relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="mx-auto max-w-3xl text-center"
           >
-            <h1 className="mb-6 text-5xl font-semibold tracking-tight sm:text-6xl md:text-7xl">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-background/50 backdrop-blur-sm px-3 py-1.5 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              Portfolio
+            </div>
+            <h1 className="mb-6 text-5xl font-bold tracking-tight sm:text-6xl">
               Recent Work
             </h1>
-            <p className="text-lg text-muted-foreground md:text-xl">
+            <p className="text-lg text-muted-foreground md:text-xl leading-relaxed">
               A selection of projects I&apos;ve built for clients across various
-              industries. Each project is crafted with attention to detail,
-              modern technology, and user experience.
+              industries. Each project is crafted with attention to detail.
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* Projects Grid */}
-      <section className="py-24">
-        <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={container}
             initial="hidden"
             animate="show"
-            className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
+            className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
           >
             {projects.map((project) => (
               <motion.div
@@ -133,10 +139,10 @@ export default function WorkPage() {
                   project.featured ? "md:col-span-2 lg:col-span-2" : ""
                 }
               >
-                <Card className="group h-full overflow-hidden transition-all hover:shadow-lg">
+                <Card className="group h-full overflow-hidden border-border transition-all hover:border-border/80 hover:shadow-lg">
                   {/* Project Image */}
                   <div className="relative aspect-video w-full overflow-hidden bg-muted">
-                    <div className="absolute inset-0 flex items-center justify-center bg-linear-to-br from-primary/10 to-primary/5">
+                    <div className="absolute inset-0 flex items-center justify-center bg-linear-to-br from-muted to-muted/50">
                       <span className="text-sm font-medium text-muted-foreground">
                         Project Image
                       </span>
@@ -146,11 +152,11 @@ export default function WorkPage() {
                   {/* Project Info */}
                   <div className="space-y-4 p-6">
                     <div>
-                      <div className="mb-2 flex items-center justify-between">
-                        <span className="text-xs font-medium text-primary">
+                      <div className="mb-3 flex items-center justify-between">
+                        <span className="inline-flex items-center rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
                           {project.category}
                         </span>
-                        <div className="flex gap-2">
+                        <div className="flex gap-1">
                           {project.liveUrl && (
                             <Link
                               href={project.liveUrl}
@@ -160,7 +166,7 @@ export default function WorkPage() {
                               <Button
                                 variant="ghost"
                                 size="icon-sm"
-                                className="opacity-0 transition-opacity group-hover:opacity-100"
+                                className="h-8 w-8 rounded-lg opacity-0 transition-opacity group-hover:opacity-100"
                               >
                                 <ExternalLink className="h-4 w-4" />
                               </Button>
@@ -175,7 +181,7 @@ export default function WorkPage() {
                               <Button
                                 variant="ghost"
                                 size="icon-sm"
-                                className="opacity-0 transition-opacity group-hover:opacity-100"
+                                className="h-8 w-8 rounded-lg opacity-0 transition-opacity group-hover:opacity-100"
                               >
                                 <Github className="h-4 w-4" />
                               </Button>
@@ -183,7 +189,7 @@ export default function WorkPage() {
                           )}
                         </div>
                       </div>
-                      <h3 className="mb-2 text-xl font-semibold">
+                      <h3 className="mb-2 text-lg font-semibold tracking-tight">
                         {project.title}
                       </h3>
                       <p className="text-sm leading-relaxed text-muted-foreground">
@@ -192,11 +198,11 @@ export default function WorkPage() {
                     </div>
 
                     {/* Tags */}
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-1.5">
                       {project.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="rounded-md bg-secondary px-2.5 py-1 text-xs font-medium text-secondary-foreground"
+                          className="rounded-md border border-border bg-background px-2 py-0.5 text-xs font-medium text-muted-foreground"
                         >
                           {tag}
                         </span>
@@ -214,15 +220,18 @@ export default function WorkPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="mt-16 text-center"
+            className="mt-20 text-center"
           >
             <p className="mb-6 text-lg text-muted-foreground">
               Interested in working together?
             </p>
             <Link href="/#contact">
-              <Button size="lg">
+              <Button
+                size="lg"
+                className="h-12 rounded-full px-8 font-semibold group"
+              >
                 Start Your Project
-                <ArrowRight className="ml-2 h-4 w-4" />
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
           </motion.div>

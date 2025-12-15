@@ -1,23 +1,19 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { Navigation } from "./components/layout/navigation";
 import { Footer } from "./components/layout/footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
-  title: "WebAxiom | Professional Freelance Web Developer",
+  title: "WebAxiom | Professional Web Development",
   description:
-    "Transforming ideas into fast, secure, and fully-functional websites. I build custom websites from the ground up - Frontend, Backend, Everything.",
+    "Building modern, fast, and secure websites for businesses that want to stand out. Full-stack development with Next.js, React, and cutting-edge technologies.",
   keywords: [
     "freelance web developer",
     "web development",
@@ -29,9 +25,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "WebAxiom" }],
   openGraph: {
-    title: "WebAxiom | Professional Freelance Web Developer",
+    title: "WebAxiom | Professional Web Development",
     description:
-      "Transforming ideas into fast, secure, and fully-functional websites.",
+      "Building modern, fast, and secure websites for businesses that want to stand out.",
     type: "website",
   },
 };
@@ -42,13 +38,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.variable} font-sans antialiased selection:bg-primary/10`}
       >
-        <div className="flex min-h-screen flex-col">
+        <div className="relative flex min-h-screen flex-col">
           <Navigation />
-          <main className="flex-1 flex flex-col">{children}</main>
+          <main className="flex-1">{children}</main>
           <Footer />
         </div>
       </body>

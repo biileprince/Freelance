@@ -1,6 +1,8 @@
 import { HeroSection } from "./components/sections/hero-section";
 import { ServicesSection } from "./components/sections/services-section";
 import { TechStackMarquee } from "./components/sections/tech-stack-marquee";
+import { TestimonialsSection } from "./components/sections/testimonials-section";
+import { FAQSection } from "./components/sections/faq-section";
 import { ContactSection } from "./components/sections/contact-section";
 import {
   generateOrganizationSchema,
@@ -26,6 +28,8 @@ export default function Home() {
       <HeroSection />
       <ServicesSection />
       <TechStackMarquee />
+      <TestimonialsSection />
+      <FAQSection />
       <ContactSection />
     </>
   );
