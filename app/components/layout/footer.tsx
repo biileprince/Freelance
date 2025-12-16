@@ -1,5 +1,12 @@
 import Link from "next/link";
-import { Github, Linkedin, Twitter } from "lucide-react";
+import {
+  Github,
+  Linkedin,
+  Twitter,
+  Mail,
+  Phone,
+  MessageCircle,
+} from "lucide-react";
 
 const footerLinks = {
   services: [
@@ -39,26 +46,29 @@ export function Footer() {
             {/* Social Icons */}
             <div className="flex gap-2 sm:gap-3">
               <Link
-                href="https://github.com"
+                href="https://github.com/biileprince"
                 className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-lg border border-border text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="GitHub"
               >
                 <Github className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               </Link>
               <Link
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/prince-biile-75343b244"
                 className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-lg border border-border text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="LinkedIn"
               >
                 <Linkedin className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               </Link>
               <Link
-                href="https://twitter.com"
+                href="https://x.com/BiilePrince"
                 className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-lg border border-border text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Twitter/X"
               >
                 <Twitter className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               </Link>
@@ -103,20 +113,44 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* CTA - Full width on smallest, 1 col on mobile grid */}
+          {/* Contact Info - Full width on smallest, 1 col on mobile grid */}
           <div className="col-span-2 sm:col-span-1">
             <h4 className="text-xs sm:text-sm font-semibold mb-3 sm:mb-4">
-              Ready to start?
-            </h4>
-            <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">
-              Let&apos;s discuss your next project.
-            </p>
-            <Link
-              href="/contact"
-              className="inline-flex h-9 sm:h-10 items-center justify-center rounded-full bg-foreground px-4 sm:px-6 text-xs sm:text-sm font-medium text-background transition-opacity hover:opacity-90"
-            >
               Get in Touch
-            </Link>
+            </h4>
+            <ul className="space-y-2 sm:space-y-3">
+              <li>
+                <a
+                  href="mailto:biileprinceyennuyar5@gmail.com"
+                  className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors group"
+                >
+                  <Mail className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                  <span className="break-all">
+                    biileprinceyennuyar5@gmail.com
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="tel:+233555902675"
+                  className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <Phone className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                  <span>0555 902 675</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://wa.me/233555902675"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <MessageCircle className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                  <span>WhatsApp</span>
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 

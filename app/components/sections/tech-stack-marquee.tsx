@@ -89,7 +89,7 @@ export function TechStackMarquee() {
       {/* Section Header */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-8 sm:mb-12">
         <p className="text-center text-xs sm:text-sm font-medium uppercase tracking-wider text-muted-foreground">
-          Technologies I work with
+          Technologies We Use
         </p>
       </div>
 

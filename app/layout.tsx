@@ -4,11 +4,7 @@ import "./globals.css";
 import { Navigation } from "./components/layout/navigation";
 import { Footer } from "./components/layout/footer";
 
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter",
-});
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "WebAxiom | Professional Web Development",
@@ -40,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body
-        className={`${inter.variable} font-sans antialiased selection:bg-primary/10`}
+        className={`${inter.className} antialiased selection:bg-primary/10`}
       >
         <div className="relative flex min-h-screen flex-col">
           <Navigation />

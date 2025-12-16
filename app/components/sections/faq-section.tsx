@@ -14,42 +14,42 @@ const faqs: FAQItem[] = [
   {
     question: "How long does it take to build a website?",
     answer:
-      "It depends on the complexity of your project. A simple landing page can be done in 1-2 weeks, while a full e-commerce store or custom web application typically takes 4-8 weeks. I'll give you a clear timeline after understanding your requirements.",
+      "It depends on the complexity of your project. A simple landing page can be done in 1-2 weeks, while a full e-commerce store or custom web application typically takes 4-8 weeks. We'll give you a clear timeline after understanding your requirements.",
   },
   {
     question: "How much does a website cost?",
     answer:
-      "Every project is unique, so pricing depends on your specific needs and requirements. After our initial discussion, I'll provide you with a detailed quote that outlines exactly what you'll get and what it will cost. I offer flexible payment plans to make your project more manageable.",
+      "Every project is unique, so pricing depends on your specific needs and requirements. After our initial discussion, we'll provide you with a detailed quote that outlines exactly what you'll get and what it will cost. We offer flexible payment plans to make your project more manageable.",
   },
   {
     question: "Do I need to know anything technical?",
     answer:
-      "Not at all! I handle all the technical aspects. You just need to share your vision, content, and feedback. I'll guide you through the entire process and explain everything in plain language, no tech jargon.",
+      "Not at all! We handle all the technical aspects. You just need to share your vision, content, and feedback. We'll guide you through the entire process and explain everything in plain language, no tech jargon.",
   },
   {
-    question: "Will my website work on mobile phones?",
+    question: "Will the website work on mobile phones?",
     answer:
-      "Absolutely! Every website I build is fully responsive and optimized for all devices: phones, tablets, and desktops. In fact, I design mobile-first to ensure the best experience for your visitors, no matter how they access your site.",
+      "Absolutely! Every website we build is fully responsive and optimized for all devices: phones, tablets, and desktops. In fact, we design mobile-first to ensure the best experience for your visitors, no matter how they access your site.",
   },
   {
     question: "Can I update the website myself after it's built?",
     answer:
-      "Yes! I can set up an easy-to-use content management system that lets you update text, images, and products without any coding knowledge. I'll also provide training and documentation so you feel confident making changes.",
+      "Yes! We can set up an easy-to-use content management system that lets you update text, images, and products without any coding knowledge. We'll also provide training and documentation so you feel confident making changes.",
   },
   {
-    question: "What happens if something breaks on my website?",
+    question: "What happens if something breaks on the website?",
     answer:
       "I offer ongoing maintenance and support packages to keep your website secure and running smoothly. If something breaks, I'm just an email away. For urgent issues, I typically respond within 24 hours.",
   },
   {
     question: "Do you help with website hosting and domain?",
     answer:
-      "Yes, I can help you choose the best hosting solution for your needs and assist with domain registration. I recommend reliable providers that offer great performance and security at reasonable prices.",
+      "Yes, we can help you choose the best hosting solution for your needs and assist with domain registration. We recommend reliable providers that offer great performance and security at reasonable prices.",
   },
   {
-    question: "Will my website show up on Google?",
+    question: "Will the website show up on Google?",
     answer:
-      "I build all websites with SEO best practices in mind: proper structure, fast loading speeds, mobile optimization, and clean code. For businesses wanting more visibility, I also offer additional SEO services to help you rank higher in search results.",
+      "We build all websites with SEO best practices in mind: proper structure, fast loading speeds, mobile optimization, and clean code. For businesses wanting more visibility, we also offer additional SEO services to help you rank higher in search results.",
   },
 ];
 

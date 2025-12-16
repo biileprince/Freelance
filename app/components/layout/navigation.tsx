@@ -132,8 +132,8 @@ export function Navigation() {
       <header
         className={`fixed top-0 z-50 w-full transition-all duration-300 ${
           scrolled
-            ? "border-b border-border/50 bg-background/80 backdrop-blur-xl"
-            : "border-b border-transparent bg-transparent"
+            ? "border-b border-border/50 bg-background/95 backdrop-blur-xl supports-[backdrop-filter]:bg-background/80"
+            : "border-b border-transparent bg-background/95 backdrop-blur-xl supports-[backdrop-filter]:bg-background/80"
         }`}
       >
         <nav className="mx-auto flex h-14 sm:h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -153,14 +153,12 @@ export function Navigation() {
           {/* Desktop Navigation */}
           <div className="hidden items-center gap-1 lg:flex">
             {/* Services Dropdown */}
-            <div 
+            <div
               className="relative"
               onMouseEnter={() => handleMouseEnter("services")}
               onMouseLeave={handleMouseLeave}
             >
-              <button
-                className="flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-              >
+              <button className="flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground">
                 Services
                 <ChevronDown
                   className={`h-4 w-4 transition-transform duration-200 ${
@@ -175,7 +173,12 @@ export function Navigation() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
                     transition={{ duration: 0.2, ease: "easeOut" }}
-                    className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-105 rounded-xl border border-border bg-background/95 backdrop-blur-xl p-4 shadow-xl"
+                    className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-105 rounded-xl border border-border/50 shadow-2xl z-[999] supports-[backdrop-filter]:bg-background/80"
+                    style={{
+                      background: "hsl(var(--background) / 0.95)",
+                      backdropFilter: "blur(40px) saturate(180%)",
+                      WebkitBackdropFilter: "blur(40px) saturate(180%)",
+                    }}
                     onMouseEnter={cancelClose}
                     onMouseLeave={handleMouseLeave}
                   >
@@ -220,14 +223,12 @@ export function Navigation() {
             </div>
 
             {/* Company Dropdown */}
-            <div 
+            <div
               className="relative"
               onMouseEnter={() => handleMouseEnter("company")}
               onMouseLeave={handleMouseLeave}
             >
-              <button
-                className="flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-              >
+              <button className="flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground">
                 Company
                 <ChevronDown
                   className={`h-4 w-4 transition-transform duration-200 ${
@@ -242,7 +243,12 @@ export function Navigation() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
                     transition={{ duration: 0.2, ease: "easeOut" }}
-                    className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-70 rounded-xl border border-border bg-background/95 backdrop-blur-xl p-2 shadow-xl"
+                    className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-70 rounded-xl border border-border/50 p-2 shadow-2xl z-[999] supports-[backdrop-filter]:bg-background/80"
+                    style={{
+                      background: "hsl(var(--background) / 0.95)",
+                      backdropFilter: "blur(40px) saturate(180%)",
+                      WebkitBackdropFilter: "blur(40px) saturate(180%)",
+                    }}
                     onMouseEnter={cancelClose}
                     onMouseLeave={handleMouseLeave}
                   >

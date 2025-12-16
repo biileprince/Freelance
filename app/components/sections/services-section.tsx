@@ -75,7 +75,7 @@ const services: Service[] = [
     title: "Custom Web Apps",
     tagline: "Tailored solutions for your needs",
     description:
-      "Need something specific? I build custom tools like booking systems, client portals, dashboards, and internal business applications.",
+      "Need something specific? We build custom tools like booking systems, client portals, dashboards, and internal business applications.",
     features: ["Booking systems", "Client portals", "Admin dashboards"],
     icon: Database,
   },
@@ -83,7 +83,7 @@ const services: Service[] = [
     title: "Website Makeovers",
     tagline: "Upgrade your outdated website",
     description:
-      "Is your current website slow or looking dated? I'll redesign it with modern looks and faster performance while keeping your existing content.",
+      "Is your current website slow or looking dated? We'll redesign it with modern looks and faster performance while keeping your existing content.",
     features: ["Modern design", "Faster speed", "Better security"],
     icon: Sparkles,
   },
@@ -114,13 +114,13 @@ export function ServicesSection() {
           >
             <div className="mb-4 sm:mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1.5 text-xs font-medium uppercase tracking-wider text-muted-foreground">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-              What I Can Build For You
+              What We Can Build For You
             </div>
             <h2 className="mb-4 sm:mb-6 text-3xl sm:text-4xl font-bold tracking-tight md:text-5xl">
               Websites for every need
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground md:text-xl leading-relaxed px-2">
-              From simple landing pages to fully-featured online stores, I
+              From simple landing pages to fully-featured online stores, we
               create websites that help businesses like yours succeed online. No
               tech jargon, just results.
             </p>

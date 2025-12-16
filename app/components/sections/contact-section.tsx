@@ -78,8 +78,8 @@ export function ContactSection() {
               <span className="text-muted-foreground">great together</span>
             </h2>
             <p className="mb-6 sm:mb-8 text-base sm:text-lg text-muted-foreground leading-relaxed">
-              Have a project in mind? I&apos;d love to hear about it. Send me a
-              message and I&apos;ll get back to you within 24 hours.
+              Have a project in mind? We&apos;d love to hear about it. Send us a
+              message and we&apos;ll get back to you within 24 hours.
             </p>
 
             {/* Contact Info Cards */}
@@ -90,9 +90,12 @@ export function ContactSection() {
                 </div>
                 <div>
                   <p className="text-xs sm:text-sm font-medium">Email</p>
-                  <p className="text-xs sm:text-sm text-muted-foreground">
-                    hello@webaxiom.com
-                  </p>
+                  <a
+                    href="mailto:biileprinceyennuyar5@gmail.com"
+                    className="text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    biileprinceyennuyar5@gmail.com
+                  </a>
                 </div>
               </div>
               <div className="flex items-center gap-3 sm:gap-4 rounded-xl border border-border bg-background p-3 sm:p-4">

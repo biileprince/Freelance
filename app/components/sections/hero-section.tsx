@@ -46,7 +46,7 @@ export function HeroSection() {
             <span className="text-muted-foreground/80 block text-xl sm:text-2xl md:text-3xl font-semibold mb-2 sm:mb-4">
               Looking for a website?
             </span>
-            I build{" "}
+            We build{" "}
             <span className="relative inline-block">
               <span className="text-emerald-500">stunning websites</span>
             </span>
@@ -64,7 +64,7 @@ export function HeroSection() {
             className="mb-6 sm:mb-8 text-base sm:text-lg text-muted-foreground md:text-xl max-w-2xl mx-auto leading-relaxed px-2"
           >
             Whether you need an online store, business website, or custom web
-            app, I design and develop professional websites that attract
+            app, we design and develop professional websites that attract
             customers and help your business succeed.
           </motion.p>
 
@@ -112,7 +112,7 @@ export function HeroSection() {
                 className="h-11 sm:h-12 w-full sm:w-auto rounded-full px-6 sm:px-8 text-sm sm:text-base font-semibold border-border hover:bg-accent"
               >
                 <Sparkles className="mr-2 h-4 w-4" />
-                View My Work
+                View Our Work
               </Button>
             </Link>
           </motion.div>
