@@ -37,6 +37,7 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body
         className={`${inter.className} antialiased selection:bg-primary/10`}
+        suppressHydrationWarning
       >
         <div className="relative flex min-h-screen flex-col">
           <Navigation />
