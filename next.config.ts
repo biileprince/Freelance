@@ -17,22 +17,41 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // Add Referrer-Policy header for FedCM support in development
-  // This fixes the "ERR_FAILED" error with Google One Tap
+  // Add headers for both development and production
   async headers() {
-    return process.env.NODE_ENV !== "production"
-      ? [
+    return [
+      {
+        source: "/:path*",
+        headers: [
           {
-            source: "/:path*",
-            headers: [
-              {
-                key: "Referrer-Policy",
-                value: "no-referrer-when-downgrade",
-              },
-            ],
+            key: "Referrer-Policy",
+            value: "no-referrer-when-downgrade",
           },
-        ]
-      : [];
+        ],
+      },
+      // CORS headers for Better Auth API endpoints
+      {
+        source: "/api/auth/:path*",
+        headers: [
+          {
+            key: "Access-Control-Allow-Origin",
+            value: process.env.NEXT_PUBLIC_BETTER_AUTH_URL || "*",
+          },
+          {
+            key: "Access-Control-Allow-Methods",
+            value: "GET, POST, PUT, DELETE, OPTIONS",
+          },
+          {
+            key: "Access-Control-Allow-Headers",
+            value: "Content-Type, Authorization",
+          },
+          {
+            key: "Access-Control-Allow-Credentials",
+            value: "true",
+          },
+        ],
+      },
+    ];
   },
 };
 
