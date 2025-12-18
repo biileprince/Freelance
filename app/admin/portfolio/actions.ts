@@ -15,9 +15,7 @@ export async function getPortfolioProjects(options?: {
     published?: boolean;
     featured?: boolean;
     category?: string;
-    OR?:
-      | { title: { contains: string; mode: "insensitive" } }[]
-      | { description: { contains: string; mode: "insensitive" } }[];
+    description?: { contains: string; mode: "insensitive" };
   } = {};
 
   if (options?.published !== undefined) {

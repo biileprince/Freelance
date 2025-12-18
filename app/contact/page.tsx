@@ -177,21 +177,38 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                <div>
-                  <label
-                    htmlFor="subject"
-                    className="block text-xs sm:text-sm font-medium mb-2"
-                  >
-                    Subject
-                  </label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    placeholder="What's this about?"
-                    className="w-full h-10 sm:h-11 rounded-lg border border-border bg-background px-3 sm:px-4 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20 transition-all"
-                    required
-                  />
+                <div className="grid gap-4 sm:gap-6 sm:grid-cols-2">
+                  <div>
+                    <label
+                      htmlFor="phone"
+                      className="block text-xs sm:text-sm font-medium mb-2"
+                    >
+                      Phone (Optional)
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      placeholder="+1 (555) 123-4567"
+                      className="w-full h-10 sm:h-11 rounded-lg border border-border bg-background px-3 sm:px-4 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20 transition-all"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="subject"
+                      className="block text-xs sm:text-sm font-medium mb-2"
+                    >
+                      Subject
+                    </label>
+                    <input
+                      type="text"
+                      id="subject"
+                      name="subject"
+                      placeholder="What's this about?"
+                      className="w-full h-10 sm:h-11 rounded-lg border border-border bg-background px-3 sm:px-4 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20 transition-all"
+                      required
+                    />
+                  </div>
                 </div>
 
                 <div>
