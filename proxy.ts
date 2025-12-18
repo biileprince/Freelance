@@ -35,7 +35,7 @@ function parseUserAgent(userAgent: string) {
   return { os, browser, device };
 }
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const response = NextResponse.next();
 
   // Skip tracking for API routes, static files, and internal Next.js routes

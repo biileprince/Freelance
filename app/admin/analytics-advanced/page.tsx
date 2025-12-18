@@ -156,8 +156,8 @@ export default function AdvancedAnalyticsPage() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card className="p-6">
           <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-500/10">
-              <Eye className="h-6 w-6 text-blue-500" />
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-muted">
+              <Eye className="h-6 w-6 text-foreground" />
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Total Page Views</p>
@@ -170,8 +170,8 @@ export default function AdvancedAnalyticsPage() {
 
         <Card className="p-6">
           <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-emerald-500/10">
-              <Users className="h-6 w-6 text-emerald-500" />
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-muted">
+              <Users className="h-6 w-6 text-foreground" />
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Unique Visitors</p>
@@ -184,8 +184,8 @@ export default function AdvancedAnalyticsPage() {
 
         <Card className="p-6">
           <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-purple-500/10">
-              <MousePointerClick className="h-6 w-6 text-purple-500" />
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-muted">
+              <MousePointerClick className="h-6 w-6 text-foreground" />
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Sessions</p>
@@ -198,8 +198,8 @@ export default function AdvancedAnalyticsPage() {
 
         <Card className="p-6">
           <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-orange-500/10">
-              <Clock className="h-6 w-6 text-orange-500" />
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-muted">
+              <Clock className="h-6 w-6 text-foreground" />
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Avg Session</p>
@@ -215,8 +215,8 @@ export default function AdvancedAnalyticsPage() {
       <div className="grid gap-4 md:grid-cols-2">
         <Card className="p-6">
           <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-indigo-500/10">
-              <LogIn className="h-6 w-6 text-indigo-500" />
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-muted">
+              <LogIn className="h-6 w-6 text-foreground" />
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Total Logins</p>
@@ -229,8 +229,8 @@ export default function AdvancedAnalyticsPage() {
 
         <Card className="p-6">
           <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-pink-500/10">
-              <UserPlus className="h-6 w-6 text-pink-500" />
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-muted">
+              <UserPlus className="h-6 w-6 text-foreground" />
             </div>
             <div>
               <p className="text-sm text-muted-foreground">New Signups</p>
@@ -260,7 +260,7 @@ export default function AdvancedAnalyticsPage() {
               <div className="flex-1">
                 <div className="h-8 w-full bg-muted rounded-lg overflow-hidden">
                   <div
-                    className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all"
+                    className="h-full bg-foreground transition-all"
                     style={{ width: `${(pv.count / maxPageViews) * 100}%` }}
                   />
                 </div>
