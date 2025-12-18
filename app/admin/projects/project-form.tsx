@@ -1,9 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
 import { Textarea } from "@/app/components/ui/textarea";
+import { ImageUpload } from "@/app/components/ui/image-upload";
 import Link from "next/link";
 import { createProject, updateProject } from "./actions";
 import { useFormStatus } from "react-dom";
@@ -52,8 +54,14 @@ function SubmitButton({ isEditing }: { isEditing: boolean }) {
 
 export function ProjectForm({ users, project }: ProjectFormProps) {
   const isEditing = !!project;
+  const [imageUrl, setImageUrl] = useState(project?.imageUrl || "");
 
   const handleSubmit = async (formData: FormData) => {
+    // Add imageUrl to formData
+    if (imageUrl) {
+      formData.set("imageUrl", imageUrl);
+    }
+    
     if (isEditing) {
       await updateProject(project.id, formData);
     } else {
@@ -234,13 +242,13 @@ export function ProjectForm({ users, project }: ProjectFormProps) {
             </div>
 
             <div>
-              <Label htmlFor="imageUrl">Cover Image URL</Label>
-              <Input
-                id="imageUrl"
-                name="imageUrl"
-                type="url"
-                defaultValue={project?.imageUrl || ""}
-                placeholder="https://example.com/image.jpg"
+              <Label htmlFor="imageUrl">Cover Image</Label>
+              <ImageUpload
+                value={imageUrl}
+                onChange={(url) => setImageUrl(url)}
+                onRemove={() => setImageUrl("")}
+                folder="projects"
+                description="Project cover image"
               />
             </div>
           </div>

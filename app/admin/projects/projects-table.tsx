@@ -73,7 +73,7 @@ export function ProjectsTable({
   return (
     <>
       {/* Filters */}
-      <div className="flex flex-col sm:flex-row gap-4 mb-6">
+      <div className="flex flex-col gap-4 mb-6">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <input
@@ -84,13 +84,13 @@ export function ProjectsTable({
             className="w-full rounded-lg border border-border bg-background pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
           />
         </div>
-        <div className="flex gap-2 overflow-x-auto">
+        <div className="flex gap-2 overflow-x-auto pb-2 -mx-1 px-1 scrollbar-hide">
           {["all", "Discovery", "Design", "Development", "Live"].map(
             (status) => (
               <button
                 key={status}
                 onClick={() => setFilter(status)}
-                className={`whitespace-nowrap rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                className={`whitespace-nowrap rounded-lg px-3 sm:px-4 py-2 text-sm font-medium transition-colors flex-shrink-0 ${
                   filter === status
                     ? "bg-primary text-primary-foreground"
                     : "bg-muted hover:bg-accent"
@@ -106,25 +106,25 @@ export function ProjectsTable({
       {/* Table */}
       <div className="rounded-xl border border-border bg-background overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <table className="w-full min-w-[600px]">
             <thead className="border-b border-border bg-muted/50">
               <tr>
-                <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                <th className="px-3 sm:px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
                   Project
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider hidden sm:table-cell">
+                <th className="px-3 sm:px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider hidden sm:table-cell">
                   Client
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                <th className="px-3 sm:px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
                   Status
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider hidden md:table-cell">
+                <th className="px-3 sm:px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider hidden md:table-cell">
                   Progress
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider hidden lg:table-cell">
+                <th className="px-3 sm:px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider hidden lg:table-cell">
                   Budget
                 </th>
-                <th className="px-4 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                <th className="px-3 sm:px-4 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
@@ -136,15 +136,17 @@ export function ProjectsTable({
                     key={project.id}
                     className="hover:bg-muted/50 transition-colors"
                   >
-                    <td className="px-4 py-4">
+                    <td className="px-3 sm:px-4 py-3 sm:py-4">
                       <div className="min-w-0">
-                        <p className="font-medium truncate">{project.name}</p>
-                        <p className="text-sm text-muted-foreground truncate">
+                        <p className="font-medium truncate text-sm">
+                          {project.name}
+                        </p>
+                        <p className="text-xs sm:text-sm text-muted-foreground truncate">
                           {project.category || "No category"}
                         </p>
                       </div>
                     </td>
-                    <td className="px-4 py-4 hidden sm:table-cell">
+                    <td className="px-3 sm:px-4 py-3 sm:py-4 hidden sm:table-cell">
                       <div className="min-w-0">
                         <p className="text-sm font-medium truncate">
                           {project.user.name || "No name"}
@@ -154,56 +156,56 @@ export function ProjectsTable({
                         </p>
                       </div>
                     </td>
-                    <td className="px-4 py-4">
+                    <td className="px-3 sm:px-4 py-3 sm:py-4">
                       <span
-                        className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${getStatusBadge(
+                        className={`inline-flex items-center rounded-full px-2 sm:px-2.5 py-0.5 text-xs font-medium ${getStatusBadge(
                           project.status
                         )}`}
                       >
                         {project.status}
                       </span>
                     </td>
-                    <td className="px-4 py-4 hidden md:table-cell">
+                    <td className="px-3 sm:px-4 py-3 sm:py-4 hidden md:table-cell">
                       <div className="flex items-center gap-2">
-                        <div className="h-2 w-20 rounded-full bg-muted overflow-hidden">
+                        <div className="h-2 w-16 sm:w-20 rounded-full bg-muted overflow-hidden">
                           <div
                             className="h-full bg-primary rounded-full"
                             style={{ width: `${project.progress}%` }}
                           />
                         </div>
-                        <span className="text-sm text-muted-foreground">
+                        <span className="text-xs sm:text-sm text-muted-foreground">
                           {project.progress}%
                         </span>
                       </div>
                     </td>
-                    <td className="px-4 py-4 hidden lg:table-cell">
+                    <td className="px-3 sm:px-4 py-3 sm:py-4 hidden lg:table-cell">
                       <p className="text-sm">
                         {project.budget
                           ? `$${project.budget.toLocaleString()}`
                           : "—"}
                       </p>
                     </td>
-                    <td className="px-4 py-4">
+                    <td className="px-3 sm:px-4 py-3 sm:py-4">
                       <div className="flex items-center justify-end gap-1">
                         {project.liveUrl && (
                           <a
                             href={project.liveUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="p-2 rounded-lg hover:bg-accent transition-colors"
+                            className="p-1.5 sm:p-2 rounded-lg hover:bg-accent transition-colors"
                           >
                             <ExternalLink className="h-4 w-4" />
                           </a>
                         )}
                         <Link
                           href={`/admin/projects/${project.id}`}
-                          className="p-2 rounded-lg hover:bg-accent transition-colors"
+                          className="p-1.5 sm:p-2 rounded-lg hover:bg-accent transition-colors"
                         >
                           <Eye className="h-4 w-4" />
                         </Link>
                         <Link
                           href={`/admin/projects/${project.id}/edit`}
-                          className="p-2 rounded-lg hover:bg-accent transition-colors"
+                          className="p-1.5 sm:p-2 rounded-lg hover:bg-accent transition-colors"
                         >
                           <Edit className="h-4 w-4" />
                         </Link>
@@ -211,7 +213,7 @@ export function ProjectsTable({
                           variant="ghost"
                           size="icon"
                           onClick={() => handleDelete(project.id)}
-                          className="text-destructive hover:text-destructive h-9 w-9"
+                          className="text-destructive hover:text-destructive h-8 w-8"
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>

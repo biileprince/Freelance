@@ -72,6 +72,14 @@ const services: Service[] = [
     icon: Smartphone,
   },
   {
+    title: "Mobile App Development",
+    tagline: "Native apps for iOS & Android",
+    description:
+      "Build cross-platform mobile applications using React Native that work seamlessly on both iOS and Android devices, reaching millions of users.",
+    features: ["React Native", "Cross-platform", "App Store ready"],
+    icon: Smartphone,
+  },
+  {
     title: "Custom Web Apps",
     tagline: "Tailored solutions for your needs",
     description:
@@ -116,12 +124,12 @@ export function ServicesSection() {
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
               What We Can Build For You
             </div>
-            <h2 className="mb-4 sm:mb-6 text-3xl sm:text-4xl font-bold tracking-tight md:text-5xl">
-              Websites for every need
+            <h2 className="mb-4 sm:mb-6 text-3xl sm:text-4xl font-bold tracking-tight md:text-5xl text-emerald-600 dark:text-emerald-500">
+              Websites & Apps for every need
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground md:text-xl leading-relaxed px-2">
-              From simple landing pages to fully-featured online stores, we
-              create websites that help businesses like yours succeed online. No
+              From simple landing pages to fully-featured online stores and mobile apps, we
+              can develop any website or mobile application that helps your business succeed online. No
               tech jargon, just results.
             </p>
           </motion.div>

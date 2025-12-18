@@ -128,7 +128,7 @@ export function FAQSection() {
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
             FAQ
           </div>
-          <h2 className="mb-4 sm:mb-6 text-3xl sm:text-4xl font-bold tracking-tight md:text-5xl">
+          <h2 className="mb-4 sm:mb-6 text-3xl sm:text-4xl font-bold tracking-tight md:text-5xl text-emerald-600 dark:text-emerald-500">
             Common questions
           </h2>
           <p className="text-base sm:text-lg text-muted-foreground md:text-xl max-w-2xl mx-auto">

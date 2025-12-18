@@ -41,27 +41,27 @@ const servicesItems = [
     href: "/#services",
   },
   {
+    icon: Smartphone,
+    title: "Mobile Apps",
+    description: "iOS & Android with React Native",
+    href: "/#services",
+  },
+  {
+    icon: Database,
+    title: "Web Apps",
+    description: "Custom web applications",
+    href: "/#services",
+  },
+  {
     icon: GraduationCap,
     title: "Organizations",
     description: "Club & association sites",
     href: "/#services",
   },
   {
-    icon: Database,
-    title: "Web Apps",
-    description: "Custom applications",
-    href: "/#services",
-  },
-  {
-    icon: Smartphone,
-    title: "Mobile-Friendly",
-    description: "Responsive PWA apps",
-    href: "/#services",
-  },
-  {
     icon: Sparkles,
-    title: "Redesigns",
-    description: "Modernize old websites",
+    title: "& Much More",
+    description: "Any website or app you need",
     href: "/#services",
   },
 ];
@@ -418,7 +418,7 @@ export function Navigation() {
                 <Link href="/contact">
                   <Button
                     size="sm"
-                    className="group rounded-full px-5 font-medium shadow-none"
+                    className="group rounded-full px-5 font-medium shadow-none bg-emerald-600 hover:bg-emerald-700 text-white"
                   >
                     Get Started
                     <ArrowRight className="ml-1.5 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />

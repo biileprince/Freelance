@@ -1,5 +1,6 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
+import { oneTap } from "better-auth/plugins";
 import prisma from "./prisma";
 
 export const auth = betterAuth({
@@ -16,6 +17,9 @@ export const auth = betterAuth({
       enabled: !!process.env.GOOGLE_CLIENT_ID,
     },
   },
+  plugins: [
+    oneTap(), // Enable Google One Tap plugin
+  ],
   secret: process.env.BETTER_AUTH_SECRET || "secret-key-change-in-production",
   baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
 });

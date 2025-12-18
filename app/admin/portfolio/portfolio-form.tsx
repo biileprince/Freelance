@@ -7,6 +7,8 @@ import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
 import { Textarea } from "@/app/components/ui/textarea";
 import { RichTextEditor } from "@/app/components/ui/rich-text-editor";
+import { ImageUpload } from "@/app/components/ui/image-upload";
+import { MultiImageUpload } from "@/app/components/ui/multi-image-upload";
 import { createPortfolioProject, updatePortfolioProject } from "./actions";
 
 interface PortfolioFormProps {
@@ -40,13 +42,26 @@ function generateSlug(title: string): string {
 export function PortfolioForm({ project, categories }: PortfolioFormProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+
+  // Parse gallery images from JSON string to array
+  const parseGalleryImages = (images: string | null | undefined): string[] => {
+    if (!images) return [];
+    try {
+      const parsed = JSON.parse(images);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      // Try splitting by newlines if not JSON
+      return images.split("\n").filter((url) => url.trim());
+    }
+  };
+
   const [formData, setFormData] = useState({
     title: project?.title || "",
     slug: project?.slug || "",
     description: project?.description || "",
     content: project?.content || "",
     coverImage: project?.coverImage || "",
-    images: project?.images || "",
+    images: parseGalleryImages(project?.images),
     category: project?.category || "",
     technologies: project?.technologies || "",
     client: project?.client || "",
@@ -78,7 +93,10 @@ export function PortfolioForm({ project, categories }: PortfolioFormProps) {
         description: formData.description || undefined,
         content: formData.content || undefined,
         coverImage: formData.coverImage || undefined,
-        images: formData.images || undefined,
+        images:
+          formData.images.length > 0
+            ? JSON.stringify(formData.images)
+            : undefined,
         category: formData.category || undefined,
         technologies: formData.technologies || undefined,
         client: formData.client || undefined,
@@ -318,48 +336,39 @@ export function PortfolioForm({ project, categories }: PortfolioFormProps) {
           {/* Cover Image */}
           <div className="bg-background rounded-lg border border-border p-6 space-y-4">
             <h3 className="font-medium text-foreground">Cover Image</h3>
-            <div>
-              <Input
-                value={formData.coverImage}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    coverImage: e.target.value,
-                  }))
-                }
-                placeholder="https://example.com/image.jpg"
-              />
-              <p className="text-xs text-muted-foreground mt-1">
-                Main project thumbnail
-              </p>
-            </div>
-            {formData.coverImage && (
-              <div className="mt-2">
-                <img
-                  src={formData.coverImage}
-                  alt="Cover preview"
-                  className="w-full h-32 object-cover rounded-lg border border-border"
-                />
-              </div>
-            )}
+            <ImageUpload
+              value={formData.coverImage}
+              onChange={(url) =>
+                setFormData((prev) => ({ ...prev, coverImage: url }))
+              }
+              onRemove={() =>
+                setFormData((prev) => ({ ...prev, coverImage: "" }))
+              }
+              folder="portfolio"
+              disabled={loading}
+              description="Main project thumbnail"
+            />
           </div>
 
           {/* Gallery Images */}
           <div className="bg-background rounded-lg border border-border p-6 space-y-4">
             <h3 className="font-medium text-foreground">Gallery Images</h3>
-            <div>
-              <Textarea
-                value={formData.images}
-                onChange={(e) =>
-                  setFormData((prev) => ({ ...prev, images: e.target.value }))
-                }
-                placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.jpg"
-                rows={4}
-              />
-              <p className="text-xs text-muted-foreground mt-1">
-                One image URL per line (JSON array format also supported)
-              </p>
-            </div>
+            <MultiImageUpload
+              value={formData.images}
+              onChange={(urls) =>
+                setFormData((prev) => ({ ...prev, images: urls }))
+              }
+              onRemove={(url) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  images: prev.images.filter((img) => img !== url),
+                }))
+              }
+              folder="portfolio/gallery"
+              disabled={loading}
+              maxImages={10}
+              description="Project screenshots and images"
+            />
           </div>
 
           {/* Category */}

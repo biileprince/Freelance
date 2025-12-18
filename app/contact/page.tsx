@@ -21,7 +21,7 @@ export default function ContactPage() {
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
             Get in Touch
           </div>
-          <h1 className="mb-4 sm:mb-6 text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
+          <h1 className="mb-4 sm:mb-6 text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-emerald-600 dark:text-emerald-500">
             Let&apos;s work together
           </h1>
           <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">

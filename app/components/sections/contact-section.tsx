@@ -74,7 +74,7 @@ export function ContactSection() {
               <MessageSquare className="h-3 w-3" />
               Get in touch
             </div>
-            <h2 className="mb-4 sm:mb-6 text-3xl sm:text-4xl font-bold tracking-tight md:text-5xl">
+            <h2 className="mb-4 sm:mb-6 text-3xl sm:text-4xl font-bold tracking-tight md:text-5xl text-emerald-600 dark:text-emerald-500">
               Let&apos;s build something{" "}
               <span className="text-muted-foreground">great together</span>
             </h2>

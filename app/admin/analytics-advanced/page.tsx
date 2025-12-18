@@ -122,25 +122,25 @@ export default function AdvancedAnalyticsPage() {
   const maxPageViews = Math.max(...pageViews.map((pv) => pv.count), 1);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight">
             Advanced Analytics
           </h1>
-          <p className="text-muted-foreground">
+          <p className="text-sm sm:text-base text-muted-foreground">
             Comprehensive insights into user behavior and website performance
           </p>
         </div>
 
         {/* Time Range Selector */}
-        <div className="flex gap-2">
+        <div className="flex gap-1.5 sm:gap-2 overflow-x-auto pb-2 -mx-1 px-1 scrollbar-hide">
           {(["today", "week", "month", "all"] as const).map((range) => (
             <button
               key={range}
               onClick={() => setTimeRange(range)}
-              className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+              className={`whitespace-nowrap rounded-lg px-3 sm:px-4 py-2 text-sm font-medium transition-colors flex-shrink-0 ${
                 timeRange === range
                   ? "bg-primary text-primary-foreground"
                   : "bg-muted hover:bg-muted/80"
@@ -153,8 +153,8 @@ export default function AdvancedAnalyticsPage() {
       </div>
 
       {/* Key Metrics */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card className="p-6">
+      <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+        <Card className="p-4 sm:p-6">
           <div className="flex items-center gap-4">
             <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-muted">
               <Eye className="h-6 w-6 text-foreground" />
@@ -212,8 +212,8 @@ export default function AdvancedAnalyticsPage() {
       </div>
 
       {/* Auth Metrics */}
-      <div className="grid gap-4 md:grid-cols-2">
-        <Card className="p-6">
+      <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2">
+        <Card className="p-4 sm:p-6">
           <div className="flex items-center gap-4">
             <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-muted">
               <LogIn className="h-6 w-6 text-foreground" />
@@ -243,8 +243,8 @@ export default function AdvancedAnalyticsPage() {
       </div>
 
       {/* Page Views Chart */}
-      <Card className="p-6">
-        <div className="mb-6 flex items-center gap-2">
+      <Card className="p-4 sm:p-6">
+        <div className="mb-4 sm:mb-6 flex items-center gap-2">
           <TrendingUp className="h-5 w-5 text-muted-foreground" />
           <h2 className="text-lg font-semibold">Page Views Over Time</h2>
         </div>
@@ -273,23 +273,25 @@ export default function AdvancedAnalyticsPage() {
         </div>
       </Card>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-4 sm:gap-6 grid-cols-1 lg:grid-cols-2">
         {/* Top Pages */}
-        <Card className="p-6">
-          <h2 className="mb-4 text-lg font-semibold">Top Pages</h2>
+        <Card className="p-4 sm:p-6">
+          <h2 className="mb-3 sm:mb-4 text-base sm:text-lg font-semibold">
+            Top Pages
+          </h2>
           <div className="space-y-3">
             {stats.topPages.slice(0, 10).map((page, index) => (
               <div
                 key={page.path}
-                className="flex items-center justify-between"
+                className="flex items-center justify-between gap-3"
               >
-                <div className="flex items-center gap-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-muted text-sm font-medium">
+                <div className="flex items-center gap-3 min-w-0 flex-1">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-muted text-sm font-medium">
                     {index + 1}
                   </div>
-                  <code className="text-sm">{page.path || "/"}</code>
+                  <code className="text-sm truncate">{page.path || "/"}</code>
                 </div>
-                <div className="text-sm font-medium text-muted-foreground">
+                <div className="text-sm font-medium text-muted-foreground whitespace-nowrap">
                   {page.views.toLocaleString()} views
                 </div>
               </div>
@@ -327,9 +329,9 @@ export default function AdvancedAnalyticsPage() {
       </div>
 
       {/* Device & OS Stats */}
-      <div className="grid gap-6 lg:grid-cols-3">
+      <div className="grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {/* OS Distribution */}
-        <Card className="p-6">
+        <Card className="p-4 sm:p-6">
           <div className="mb-4 flex items-center gap-2">
             <Monitor className="h-5 w-5 text-muted-foreground" />
             <h2 className="text-lg font-semibold">Operating Systems</h2>

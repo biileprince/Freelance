@@ -75,22 +75,22 @@ export function BlogPostsTable({ posts }: { posts: BlogPost[] }) {
   return (
     <div className="bg-background rounded-lg border border-border overflow-hidden">
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[800px]">
+        <table className="w-full min-w-[600px]">
           <thead className="bg-muted/50">
             <tr>
               <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 Title
               </th>
-              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
+              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider hidden md:table-cell">
                 Category
               </th>
               <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 Status
               </th>
-              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
+              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider hidden sm:table-cell">
                 Views
               </th>
-              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
+              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider hidden lg:table-cell">
                 Created
               </th>
               <th className="px-3 sm:px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider">
@@ -101,7 +101,7 @@ export function BlogPostsTable({ posts }: { posts: BlogPost[] }) {
           <tbody className="divide-y divide-border">
             {posts.map((post) => (
               <tr key={post.id} className="hover:bg-muted/30 transition-colors">
-                <td className="px-6 py-4">
+                <td className="px-3 sm:px-6 py-4">
                   <div>
                     <Link
                       href={`/admin/blog/${post.id}`}
@@ -121,7 +121,7 @@ export function BlogPostsTable({ posts }: { posts: BlogPost[] }) {
                     )}
                   </div>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
+                <td className="px-3 sm:px-6 py-4 whitespace-nowrap hidden md:table-cell">
                   {post.category ? (
                     <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-muted-foreground">
                       {post.category.name}
@@ -130,9 +130,9 @@ export function BlogPostsTable({ posts }: { posts: BlogPost[] }) {
                     <span className="text-sm text-muted-foreground">—</span>
                   )}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
+                <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
                   <span
-                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                    className={`inline-flex items-center px-2 sm:px-2.5 py-0.5 rounded-full text-xs font-medium ${
                       post.published
                         ? "bg-muted text-foreground"
                         : "bg-muted/50 text-muted-foreground"
@@ -141,23 +141,31 @@ export function BlogPostsTable({ posts }: { posts: BlogPost[] }) {
                     {post.published ? "Published" : "Draft"}
                   </span>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground">
+                <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-muted-foreground hidden sm:table-cell">
                   {post.views.toLocaleString()}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground">
+                <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-muted-foreground hidden lg:table-cell">
                   {formatDistanceToNow(new Date(post.createdAt), {
                     addSuffix: true,
                   })}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-right text-sm">
-                  <div className="flex items-center justify-end gap-2">
+                <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-right text-sm">
+                  <div className="flex items-center justify-end gap-1 sm:gap-2">
                     <Link href={`/blog/${post.slug}`} target="_blank">
-                      <Button variant="ghost" size="sm">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-8 px-2 sm:px-3"
+                      >
                         View
                       </Button>
                     </Link>
                     <Link href={`/admin/blog/${post.id}/edit`}>
-                      <Button variant="ghost" size="sm">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-8 px-2 sm:px-3"
+                      >
                         Edit
                       </Button>
                     </Link>
@@ -166,7 +174,7 @@ export function BlogPostsTable({ posts }: { posts: BlogPost[] }) {
                       size="sm"
                       onClick={() => handleDelete(post.id)}
                       disabled={deleting === post.id}
-                      className="text-destructive hover:text-destructive"
+                      className="text-destructive hover:text-destructive h-8 px-2 sm:px-3"
                     >
                       {deleting === post.id ? "..." : "Delete"}
                     </Button>

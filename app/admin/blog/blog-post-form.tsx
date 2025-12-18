@@ -7,6 +7,7 @@ import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
 import { Textarea } from "@/app/components/ui/textarea";
 import { RichTextEditor } from "@/app/components/ui/rich-text-editor";
+import { ImageUpload } from "@/app/components/ui/image-upload";
 import { createBlogPost, updateBlogPost } from "./actions";
 
 interface BlogCategory {
@@ -218,30 +219,18 @@ export function BlogPostForm({ post, categories, tags }: BlogPostFormProps) {
           {/* Cover Image */}
           <div className="bg-background rounded-lg border border-border p-6 space-y-4">
             <h3 className="font-medium text-foreground">Cover Image</h3>
-            <div>
-              <Input
-                value={formData.coverImage}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    coverImage: e.target.value,
-                  }))
-                }
-                placeholder="https://example.com/image.jpg"
-              />
-              <p className="text-xs text-muted-foreground mt-1">
-                Enter an image URL for the cover
-              </p>
-            </div>
-            {formData.coverImage && (
-              <div className="mt-2">
-                <img
-                  src={formData.coverImage}
-                  alt="Cover preview"
-                  className="w-full h-32 object-cover rounded-lg border border-border"
-                />
-              </div>
-            )}
+            <ImageUpload
+              value={formData.coverImage}
+              onChange={(url) =>
+                setFormData((prev) => ({ ...prev, coverImage: url }))
+              }
+              onRemove={() =>
+                setFormData((prev) => ({ ...prev, coverImage: "" }))
+              }
+              folder="blog"
+              disabled={loading}
+              description="Featured image for the blog post"
+            />
           </div>
 
           {/* Category */}

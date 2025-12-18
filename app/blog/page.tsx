@@ -102,7 +102,7 @@ export default async function BlogPage({
       {/* Hero Section */}
       <section className="py-12 sm:py-20 border-b border-border">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-3 sm:mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-emerald-600 dark:text-emerald-500 mb-3 sm:mb-4">
             Blog
           </h1>
           <p className="text-base sm:text-xl text-muted-foreground max-w-2xl">

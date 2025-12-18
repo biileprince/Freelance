@@ -70,22 +70,22 @@ export function PortfolioTable({ projects }: { projects: PortfolioProject[] }) {
   return (
     <div className="bg-background rounded-lg border border-border overflow-hidden">
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[800px]">
+        <table className="w-full min-w-[600px]">
           <thead className="bg-muted/50">
             <tr>
               <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 Project
               </th>
-              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
+              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider hidden md:table-cell">
                 Category
               </th>
-              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
+              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider hidden sm:table-cell">
                 Client
               </th>
               <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 Status
               </th>
-              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
+              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider hidden lg:table-cell">
                 Created
               </th>
               <th className="px-3 sm:px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider">
@@ -100,18 +100,18 @@ export function PortfolioTable({ projects }: { projects: PortfolioProject[] }) {
                 className="hover:bg-muted/30 transition-colors"
               >
                 <td className="px-3 sm:px-6 py-4">
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 sm:gap-3">
                     {project.coverImage && (
                       <img
                         src={project.coverImage}
                         alt={project.title}
-                        className="w-12 h-12 rounded-lg object-cover border border-border"
+                        className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg object-cover border border-border flex-shrink-0"
                       />
                     )}
-                    <div>
+                    <div className="min-w-0">
                       <Link
                         href={`/admin/portfolio/${project.id}`}
-                        className="text-sm font-medium text-foreground hover:underline"
+                        className="text-sm font-medium text-foreground hover:underline block truncate"
                       >
                         {project.title}
                       </Link>
@@ -128,7 +128,7 @@ export function PortfolioTable({ projects }: { projects: PortfolioProject[] }) {
                     </div>
                   </div>
                 </td>
-                <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                <td className="px-3 sm:px-6 py-4 whitespace-nowrap hidden md:table-cell">
                   {project.category ? (
                     <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-muted-foreground">
                       {project.category}
@@ -137,12 +137,12 @@ export function PortfolioTable({ projects }: { projects: PortfolioProject[] }) {
                     <span className="text-sm text-muted-foreground">—</span>
                   )}
                 </td>
-                <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-muted-foreground">
+                <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-muted-foreground hidden sm:table-cell">
                   {project.client || "—"}
                 </td>
                 <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
                   <span
-                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                    className={`inline-flex items-center px-2 sm:px-2.5 py-0.5 rounded-full text-xs font-medium ${
                       project.published
                         ? "bg-muted text-foreground"
                         : "bg-muted/50 text-muted-foreground"
@@ -151,31 +151,43 @@ export function PortfolioTable({ projects }: { projects: PortfolioProject[] }) {
                     {project.published ? "Published" : "Draft"}
                   </span>
                 </td>
-                <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-muted-foreground">
+                <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-muted-foreground hidden lg:table-cell">
                   {formatDistanceToNow(new Date(project.createdAt), {
                     addSuffix: true,
                   })}
                 </td>
                 <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-right text-sm">
-                  <div className="flex items-center justify-end gap-2">
+                  <div className="flex items-center justify-end gap-1 sm:gap-2">
                     {project.liveUrl && (
                       <a
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <Button variant="ghost" size="sm">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-8 px-2 sm:px-3"
+                        >
                           Live
                         </Button>
                       </a>
                     )}
                     <Link href={`/work/${project.slug}`} target="_blank">
-                      <Button variant="ghost" size="sm">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-8 px-2 sm:px-3"
+                      >
                         View
                       </Button>
                     </Link>
                     <Link href={`/admin/portfolio/${project.id}/edit`}>
-                      <Button variant="ghost" size="sm">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-8 px-2 sm:px-3"
+                      >
                         Edit
                       </Button>
                     </Link>
@@ -184,7 +196,7 @@ export function PortfolioTable({ projects }: { projects: PortfolioProject[] }) {
                       size="sm"
                       onClick={() => handleDelete(project.id)}
                       disabled={deleting === project.id}
-                      className="text-destructive hover:text-destructive"
+                      className="text-destructive hover:text-destructive h-8 px-2 sm:px-3"
                     >
                       {deleting === project.id ? "..." : "Delete"}
                     </Button>
