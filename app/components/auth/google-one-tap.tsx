@@ -8,6 +8,9 @@ import { useRouter } from "next/navigation";
 // Global flag to prevent multiple concurrent One Tap requests
 let isOneTapPending = false;
 
+// LocalStorage key for tracking dismissals
+const ONE_TAP_DISMISSED_KEY = "google-one-tap-dismissed";
+
 export function GoogleOneTap() {
   const hasInitialized = useRef(false);
   const { data: session, isPending } = useSession();
@@ -16,6 +19,12 @@ export function GoogleOneTap() {
   useEffect(() => {
     // Don't show One Tap if user is already logged in or still loading
     if (isPending || session?.user) return;
+
+    // Check if user previously dismissed One Tap (never show again)
+    if (typeof window !== "undefined" && localStorage.getItem(ONE_TAP_DISMISSED_KEY)) {
+      console.log("Google One Tap: User previously dismissed, not showing again");
+      return;
+    }
 
     // Prevent multiple concurrent requests
     if (hasInitialized.current || isOneTapPending) return;
@@ -77,13 +86,30 @@ export function GoogleOneTap() {
           onPromptNotification: (notification) => {
             console.warn("One Tap prompt dismissed or skipped:", notification);
 
-            // Reset flags when prompt lifecycle ends
-            if (
-              notification.isNotDisplayed() ||
-              notification.isSkippedMoment() ||
-              notification.isDismissedMoment()
-            ) {
-              console.log("One Tap prompt lifecycle ended");
+            // Safely check if notification has the expected methods
+            const isNotDisplayed =
+              notification && typeof notification.isNotDisplayed === "function"
+                ? notification.isNotDisplayed()
+                : false;
+            const isSkipped =
+              notification && typeof notification.isSkippedMoment === "function"
+                ? notification.isSkippedMoment()
+                : false;
+            const isDismissed =
+              notification && typeof notification.isDismissedMoment === "function"
+                ? notification.isDismissedMoment()
+                : false;
+
+            // If user dismissed or skipped, save to localStorage (never show again)
+            if (isNotDisplayed || isSkipped || isDismissed) {
+              console.log("User closed Google One Tap - will not show again");
+              
+              // Save dismissal state to localStorage
+              if (typeof window !== "undefined") {
+                localStorage.setItem(ONE_TAP_DISMISSED_KEY, "true");
+              }
+              
+              // Reset flags
               hasInitialized.current = false;
               isOneTapPending = false;
             }

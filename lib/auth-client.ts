@@ -9,10 +9,10 @@ export const authClient = createAuthClient({
       autoSelect: true, // Auto-select account if user is already signed in to Google
       cancelOnTapOutside: true, // Close popup when clicking outside
       context: "signin", // Context: "signin", "signup", or "use"
-      // Exponential backoff configuration for prompt retries
+      // Disable exponential backoff - don't retry if user dismisses
       promptOptions: {
-        baseDelay: 3000, // Start with 3 second delay (recommended by Google)
-        maxAttempts: 5, // Try up to 5 times before giving up
+        baseDelay: 0, // No delay for retries
+        maxAttempts: 1, // Only show once, no retries
       },
     }),
   ],
