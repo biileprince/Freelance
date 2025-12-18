@@ -16,21 +16,7 @@ export async function POST(request: NextRequest) {
       isNewSession,
     } = body;
 
-    // Track page view
-    await prisma.pageView.create({
-      data: {
-        path,
-        referrer,
-        ipAddress,
-        userAgent,
-        os,
-        browser,
-        device,
-        sessionId,
-      },
-    });
-
-    // Handle session tracking
+    // Handle session tracking (no more PageView model)
     if (isNewSession) {
       // Create new analytics session
       await prisma.analyticsSession.create({
@@ -43,14 +29,18 @@ export async function POST(request: NextRequest) {
           os,
           browser,
           device,
+          pageCount: 1,
         },
       });
     } else {
-      // Update existing session page count
+      // Update existing session page count and track last visited page
       await prisma.analyticsSession
         .update({
           where: { sessionId },
-          data: { pageCount: { increment: 1 } },
+          data: { 
+            pageCount: { increment: 1 },
+            endedAt: new Date(),
+          },
         })
         .catch(() => {
           // Session might not exist yet, create it
@@ -64,6 +54,7 @@ export async function POST(request: NextRequest) {
               os,
               browser,
               device,
+              pageCount: 1,
             },
           });
         });
@@ -71,9 +62,9 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Error tracking page view:", error);
+    console.error("Error tracking session:", error);
     return NextResponse.json(
-      { error: "Failed to track page view" },
+      { error: "Failed to track session" },
       { status: 500 }
     );
   }

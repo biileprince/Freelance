@@ -17,14 +17,6 @@
  * ```
  */
 
-interface TrackEventOptions {
-  action: string;
-  category?: string;
-  label?: string;
-  value?: Record<string, unknown>;
-  userId?: string;
-}
-
 /**
  * Track a custom user event
  *

@@ -1,242 +1,449 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { Card } from "@/app/components/ui/card";
-import { Button } from "@/app/components/ui/button";
-import { ExternalLink, Github, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { prisma } from "@/lib/prisma";
+import { Metadata } from "next";
 
-interface Project {
-  title: string;
-  description: string;
-  category: string;
-  image: string;
-  tags: string[];
-  liveUrl?: string;
-  githubUrl?: string;
-  featured?: boolean;
+export const metadata: Metadata = {
+  title: "Work | WebAxiom",
+  description:
+    "Explore our portfolio of web development projects. See case studies of successful websites and web applications we've built for our clients.",
+};
+
+async function getProjects(options?: {
+  category?: string;
+  technology?: string;
+}) {
+  interface WhereClause {
+    published: boolean;
+    category?: string;
+    technologies?: { contains: string; mode: "insensitive" };
+  }
+
+  const where: WhereClause = { published: true };
+
+  if (options?.category) {
+    where.category = options.category;
+  }
+  if (options?.technology) {
+    where.technologies = { contains: options.technology, mode: "insensitive" };
+  }
+
+  return prisma.portfolioProject.findMany({
+    where,
+    orderBy: [
+      { featured: "desc" },
+      { completedAt: "desc" },
+      { createdAt: "desc" },
+    ],
+  });
 }
 
-const projects: Project[] = [
-  {
-    title: "E-Commerce Platform",
-    description:
-      "Full-featured online store with product management, shopping cart, secure checkout, and admin dashboard. Built with Next.js, Stripe, and PostgreSQL.",
-    category: "E-Commerce",
-    image: "/projects/ecommerce-placeholder.jpg",
-    tags: ["Next.js", "TypeScript", "Stripe", "PostgreSQL", "Tailwind CSS"],
-    liveUrl: "https://example.com",
-    featured: true,
-  },
-  {
-    title: "Corporate Business Website",
-    description:
-      "Professional website for a consulting firm featuring service pages, team profiles, blog, and contact forms. Optimized for SEO and performance.",
-    category: "Corporate",
-    image: "/projects/corporate-placeholder.jpg",
-    tags: ["Next.js", "React", "CMS", "SEO"],
-    liveUrl: "https://example.com",
-    featured: true,
-  },
-  {
-    title: "Student Association Portal",
-    description:
-      "Community platform with event management, member directory, photo galleries, and news updates for a university student organization.",
-    category: "Community",
-    image: "/projects/student-placeholder.jpg",
-    tags: ["React", "Node.js", "MongoDB", "Authentication"],
-    liveUrl: "https://example.com",
-  },
-  {
-    title: "Content Management Blog",
-    description:
-      "Modern blogging platform with rich text editor, SEO optimization, social sharing, and comment system. Built with MDX for enhanced content.",
-    category: "Blog",
-    image: "/projects/blog-placeholder.jpg",
-    tags: ["Next.js", "MDX", "Prisma", "SEO"],
-    liveUrl: "https://example.com",
-    githubUrl: "https://github.com",
-  },
-  {
-    title: "Personal Portfolio Site",
-    description:
-      "Creative portfolio website showcasing work samples, case studies, and client testimonials with smooth animations and mobile-first design.",
-    category: "Portfolio",
-    image: "/projects/portfolio-placeholder.jpg",
-    tags: ["React", "Framer Motion", "Tailwind", "Responsive"],
-    liveUrl: "https://example.com",
-  },
-  {
-    title: "Booking & Reservation System",
-    description:
-      "Custom web application for appointment scheduling with calendar integration, automated reminders, and payment processing.",
-    category: "Web App",
-    image: "/projects/booking-placeholder.jpg",
-    tags: ["Next.js", "PostgreSQL", "Stripe", "Email"],
-    liveUrl: "https://example.com",
-  },
-];
+async function getCategories() {
+  const projects = await prisma.portfolioProject.findMany({
+    where: { published: true, category: { not: null } },
+    select: { category: true },
+    distinct: ["category"],
+  });
+  return projects.map((p) => p.category).filter(Boolean) as string[];
+}
 
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
+async function getTechnologies() {
+  const projects = await prisma.portfolioProject.findMany({
+    where: { published: true, technologies: { not: null } },
+    select: { technologies: true },
+  });
 
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0 },
-};
+  const techSet = new Set<string>();
+  projects.forEach((p) => {
+    if (p.technologies) {
+      p.technologies.split(",").forEach((t) => techSet.add(t.trim()));
+    }
+  });
 
-export default function WorkPage() {
+  return Array.from(techSet).sort();
+}
+
+export default async function WorkPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ category?: string; technology?: string }>;
+}) {
+  const params = await searchParams;
+
+  const [projects, categories, technologies] = await Promise.all([
+    getProjects({
+      category: params.category,
+      technology: params.technology,
+    }),
+    getCategories(),
+    getTechnologies(),
+  ]);
+
+  const activeCategory = params.category;
+  const activeTechnology = params.technology;
+  const featuredProjects = projects.filter((p) => p.featured);
+  const regularProjects = projects.filter((p) => !p.featured);
+
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <section className="relative bg-background pt-32 pb-20 lg:pt-40">
-        {/* Subtle grid background */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border)/0.3)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)/0.3)_1px,transparent_1px)] bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
-
-        <div className="container relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mx-auto max-w-3xl text-center"
-          >
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-background/50 backdrop-blur-sm px-3 py-1.5 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-              Portfolio
-            </div>
-            <h1 className="mb-6 text-5xl font-bold tracking-tight sm:text-6xl">
-              Recent Work
-            </h1>
-            <p className="text-lg text-muted-foreground md:text-xl leading-relaxed">
-              A selection of projects I&apos;ve built for clients across various
-              industries. Each project is crafted with attention to detail.
-            </p>
-          </motion.div>
+    <main className="min-h-screen bg-background">
+      {/* Hero Section */}
+      <section className="py-12 sm:py-20 border-b border-border">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-3 sm:mb-4">
+            Our Work
+          </h1>
+          <p className="text-base sm:text-xl text-muted-foreground max-w-2xl">
+            A selection of projects we&apos;ve built for clients across various
+            industries. Each project is crafted with attention to detail and
+            performance.
+          </p>
         </div>
       </section>
 
-      {/* Projects Grid */}
-      <section className="py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <motion.div
-            variants={container}
-            initial="hidden"
-            animate="show"
-            className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
-          >
-            {projects.map((project) => (
-              <motion.div
-                key={project.title}
-                variants={item}
-                className={
-                  project.featured ? "md:col-span-2 lg:col-span-2" : ""
-                }
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl py-6 sm:py-12">
+        {/* Filters */}
+        <div className="mb-6 sm:mb-8 space-y-3 sm:space-y-4">
+          {/* Category Filter */}
+          {categories.length > 0 && (
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-sm text-muted-foreground mr-2">
+                Category:
+              </span>
+              <Link
+                href="/work"
+                className={`px-3 py-1.5 rounded-full text-sm transition-colors ${
+                  !activeCategory
+                    ? "bg-foreground text-background"
+                    : "bg-muted text-muted-foreground hover:bg-muted/80"
+                }`}
               >
-                <Card className="group h-full overflow-hidden border-border transition-all hover:border-border/80 hover:shadow-lg">
-                  {/* Project Image */}
-                  <div className="relative aspect-video w-full overflow-hidden bg-muted">
-                    <div className="absolute inset-0 flex items-center justify-center bg-linear-to-br from-muted to-muted/50">
-                      <span className="text-sm font-medium text-muted-foreground">
-                        Project Image
-                      </span>
-                    </div>
-                  </div>
+                All
+              </Link>
+              {categories.map((category) => (
+                <Link
+                  key={category}
+                  href={`/work?category=${encodeURIComponent(category)}`}
+                  className={`px-3 py-1.5 rounded-full text-sm transition-colors ${
+                    activeCategory === category
+                      ? "bg-foreground text-background"
+                      : "bg-muted text-muted-foreground hover:bg-muted/80"
+                  }`}
+                >
+                  {category}
+                </Link>
+              ))}
+            </div>
+          )}
 
-                  {/* Project Info */}
-                  <div className="space-y-4 p-6">
-                    <div>
-                      <div className="mb-3 flex items-center justify-between">
-                        <span className="inline-flex items-center rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
-                          {project.category}
-                        </span>
-                        <div className="flex gap-1">
-                          {project.liveUrl && (
-                            <Link
-                              href={project.liveUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <Button
-                                variant="ghost"
-                                size="icon-sm"
-                                className="h-8 w-8 rounded-lg opacity-0 transition-opacity group-hover:opacity-100"
-                              >
-                                <ExternalLink className="h-4 w-4" />
-                              </Button>
-                            </Link>
+          {/* Technology Filter */}
+          {technologies.length > 0 && (
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-sm text-muted-foreground mr-2">
+                Technology:
+              </span>
+              <Link
+                href={
+                  activeCategory ? `/work?category=${activeCategory}` : "/work"
+                }
+                className={`px-3 py-1.5 rounded-full text-sm transition-colors ${
+                  !activeTechnology
+                    ? "bg-foreground text-background"
+                    : "bg-muted text-muted-foreground hover:bg-muted/80"
+                }`}
+              >
+                All
+              </Link>
+              {technologies.slice(0, 8).map((tech) => (
+                <Link
+                  key={tech}
+                  href={`/work?technology=${encodeURIComponent(tech)}${
+                    activeCategory ? `&category=${activeCategory}` : ""
+                  }`}
+                  className={`px-3 py-1.5 rounded-full text-sm transition-colors ${
+                    activeTechnology === tech
+                      ? "bg-foreground text-background"
+                      : "bg-muted text-muted-foreground hover:bg-muted/80"
+                  }`}
+                >
+                  {tech}
+                </Link>
+              ))}
+            </div>
+          )}
+
+          {/* Active Filters */}
+          {(activeCategory || activeTechnology) && (
+            <div className="flex items-center gap-2 pt-2">
+              <span className="text-sm text-muted-foreground">
+                Active filters:
+              </span>
+              {activeCategory && (
+                <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-muted text-xs text-foreground">
+                  {activeCategory}
+                  <Link
+                    href={
+                      activeTechnology
+                        ? `/work?technology=${activeTechnology}`
+                        : "/work"
+                    }
+                  >
+                    <svg
+                      className="w-3 h-3"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </Link>
+                </span>
+              )}
+              {activeTechnology && (
+                <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-muted text-xs text-foreground">
+                  {activeTechnology}
+                  <Link
+                    href={
+                      activeCategory
+                        ? `/work?category=${activeCategory}`
+                        : "/work"
+                    }
+                  >
+                    <svg
+                      className="w-3 h-3"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </Link>
+                </span>
+              )}
+              <Link
+                href="/work"
+                className="text-xs text-muted-foreground hover:text-foreground underline"
+              >
+                Clear all
+              </Link>
+            </div>
+          )}
+        </div>
+
+        {/* Projects */}
+        {projects.length === 0 ? (
+          <div className="text-center py-12">
+            <h3 className="text-lg font-medium text-foreground mb-2">
+              No projects found
+            </h3>
+            <p className="text-muted-foreground">
+              Try adjusting your filters or check back later.
+            </p>
+          </div>
+        ) : (
+          <div className="space-y-12">
+            {/* Featured Projects */}
+            {featuredProjects.length > 0 &&
+              !activeCategory &&
+              !activeTechnology && (
+                <div className="space-y-6">
+                  <h2 className="text-2xl font-bold text-foreground">
+                    Featured Projects
+                  </h2>
+                  <div className="grid grid-cols-1 gap-8">
+                    {featuredProjects.map((project) => (
+                      <Link
+                        key={project.id}
+                        href={`/work/${project.slug}`}
+                        className="block group"
+                      >
+                        <article className="grid grid-cols-1 lg:grid-cols-2 gap-6 rounded-xl border border-border overflow-hidden bg-background hover:border-foreground/20 transition-colors">
+                          {project.coverImage ? (
+                            <div className="aspect-video lg:aspect-auto lg:h-full overflow-hidden">
+                              <img
+                                src={project.coverImage}
+                                alt={project.title}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                              />
+                            </div>
+                          ) : (
+                            <div className="aspect-video lg:aspect-auto lg:h-full bg-muted flex items-center justify-center">
+                              <span className="text-muted-foreground">
+                                No image
+                              </span>
+                            </div>
                           )}
-                          {project.githubUrl && (
-                            <Link
-                              href={project.githubUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <Button
-                                variant="ghost"
-                                size="icon-sm"
-                                className="h-8 w-8 rounded-lg opacity-0 transition-opacity group-hover:opacity-100"
-                              >
-                                <Github className="h-4 w-4" />
-                              </Button>
-                            </Link>
+                          <div className="p-6 lg:py-8 flex flex-col justify-center">
+                            <div className="flex items-center gap-2 mb-3">
+                              {project.category && (
+                                <span className="px-2 py-1 rounded-full bg-muted text-xs font-medium text-muted-foreground">
+                                  {project.category}
+                                </span>
+                              )}
+                              <span className="px-2 py-1 rounded-full bg-muted text-xs font-medium text-muted-foreground">
+                                Featured
+                              </span>
+                            </div>
+                            <h3 className="text-2xl font-bold text-foreground group-hover:text-foreground/80 transition-colors mb-3">
+                              {project.title}
+                            </h3>
+                            {project.description && (
+                              <p className="text-muted-foreground mb-4 line-clamp-3">
+                                {project.description}
+                              </p>
+                            )}
+                            {project.technologies && (
+                              <div className="flex flex-wrap gap-2 mb-4">
+                                {project.technologies
+                                  .split(",")
+                                  .slice(0, 5)
+                                  .map((tech) => (
+                                    <span
+                                      key={tech}
+                                      className="px-2 py-0.5 rounded bg-muted/50 text-xs text-muted-foreground"
+                                    >
+                                      {tech.trim()}
+                                    </span>
+                                  ))}
+                              </div>
+                            )}
+                            <div className="flex items-center gap-4 mt-auto">
+                              <span className="inline-flex items-center gap-2 text-sm font-medium text-foreground group-hover:gap-3 transition-all">
+                                View Case Study
+                                <svg
+                                  className="w-4 h-4"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                                  />
+                                </svg>
+                              </span>
+                              {project.liveUrl && (
+                                <span className="inline-flex items-center gap-1 text-sm text-muted-foreground">
+                                  <svg
+                                    className="w-4 h-4"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      strokeWidth={2}
+                                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                    />
+                                  </svg>
+                                  Live
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </article>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+            {/* All Projects Grid */}
+            <div className="space-y-6">
+              {featuredProjects.length > 0 &&
+                !activeCategory &&
+                !activeTechnology && (
+                  <h2 className="text-2xl font-bold text-foreground">
+                    All Projects
+                  </h2>
+                )}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {(activeCategory || activeTechnology
+                  ? projects
+                  : regularProjects
+                ).map((project) => (
+                  <Link
+                    key={project.id}
+                    href={`/work/${project.slug}`}
+                    className="block group"
+                  >
+                    <article className="h-full rounded-xl border border-border overflow-hidden bg-background hover:border-foreground/20 transition-colors">
+                      {project.coverImage ? (
+                        <div className="aspect-video overflow-hidden">
+                          <img
+                            src={project.coverImage}
+                            alt={project.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                        </div>
+                      ) : (
+                        <div className="aspect-video bg-muted flex items-center justify-center">
+                          <span className="text-muted-foreground text-sm">
+                            No image
+                          </span>
+                        </div>
+                      )}
+                      <div className="p-5">
+                        <div className="flex items-center gap-2 mb-3">
+                          {project.category && (
+                            <span className="px-2 py-0.5 rounded-full bg-muted text-xs font-medium text-muted-foreground">
+                              {project.category}
+                            </span>
+                          )}
+                          {project.featured && (
+                            <span className="px-2 py-0.5 rounded-full bg-muted text-xs font-medium text-muted-foreground">
+                              Featured
+                            </span>
                           )}
                         </div>
+                        <h3 className="text-lg font-semibold text-foreground group-hover:text-foreground/80 transition-colors mb-2">
+                          {project.title}
+                        </h3>
+                        {project.description && (
+                          <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
+                            {project.description}
+                          </p>
+                        )}
+                        {project.technologies && (
+                          <div className="flex flex-wrap gap-1">
+                            {project.technologies
+                              .split(",")
+                              .slice(0, 3)
+                              .map((tech) => (
+                                <span
+                                  key={tech}
+                                  className="px-2 py-0.5 rounded bg-muted/50 text-xs text-muted-foreground"
+                                >
+                                  {tech.trim()}
+                                </span>
+                              ))}
+                            {project.technologies.split(",").length > 3 && (
+                              <span className="px-2 py-0.5 text-xs text-muted-foreground">
+                                +{project.technologies.split(",").length - 3}
+                              </span>
+                            )}
+                          </div>
+                        )}
                       </div>
-                      <h3 className="mb-2 text-lg font-semibold tracking-tight">
-                        {project.title}
-                      </h3>
-                      <p className="text-sm leading-relaxed text-muted-foreground">
-                        {project.description}
-                      </p>
-                    </div>
-
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-1.5">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded-md border border-border bg-background px-2 py-0.5 text-xs font-medium text-muted-foreground"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </Card>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          {/* CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="mt-20 text-center"
-          >
-            <p className="mb-6 text-lg text-muted-foreground">
-              Interested in working together?
-            </p>
-            <Link href="/#contact">
-              <Button
-                size="lg"
-                className="h-12 rounded-full px-8 font-semibold group"
-              >
-                Start Your Project
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </Link>
-          </motion.div>
-        </div>
-      </section>
-    </div>
+                    </article>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </main>
   );
 }

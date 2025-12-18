@@ -64,25 +64,9 @@ export async function trackPageView(data: {
   userId?: string;
   sessionId?: string;
 }) {
-  try {
-    const clientInfo = await getClientInfo();
-
-    await prisma.pageView.create({
-      data: {
-        path: data.path,
-        referrer: data.referrer,
-        userId: data.userId,
-        sessionId: data.sessionId,
-        ipAddress: clientInfo.ipAddress,
-        userAgent: clientInfo.userAgent,
-        os: clientInfo.os,
-        browser: clientInfo.browser,
-        device: clientInfo.device,
-      },
-    });
-  } catch (error) {
-    console.error("Error tracking page view:", error);
-  }
+  // PageView model removed - tracking is now handled via AnalyticsSession
+  // This function is kept for backward compatibility but does nothing
+  console.log("Page view tracking delegated to session tracking");
 }
 
 export async function trackUserActivity(data: {
@@ -179,9 +163,9 @@ export async function getAnalyticsStats(
 
   try {
     const [
-      totalPageViews,
-      uniqueVisitors,
       totalSessions,
+      uniqueVisitors,
+      totalPageViews,
       loginCount,
       signupCount,
       avgSessionDuration,
@@ -190,17 +174,18 @@ export async function getAnalyticsStats(
       browserByCount,
       deviceByCount,
     ] = await Promise.all([
-      // Total page views
-      prisma.pageView.count({
-        where: { createdAt: { gte: startDate } },
-      }),
-      // Unique visitors (unique IP addresses)
-      prisma.pageView.groupBy({
-        by: ["ipAddress"],
-        where: { createdAt: { gte: startDate } },
-      }),
       // Total sessions
       prisma.analyticsSession.count({
+        where: { startedAt: { gte: startDate } },
+      }),
+      // Unique visitors (unique IP addresses from sessions)
+      prisma.analyticsSession.groupBy({
+        by: ["ipAddress"],
+        where: { startedAt: { gte: startDate } },
+      }),
+      // Total page views (sum of all session page counts)
+      prisma.analyticsSession.aggregate({
+        _sum: { pageCount: true },
         where: { startedAt: { gte: startDate } },
       }),
       // Login count
@@ -225,45 +210,45 @@ export async function getAnalyticsStats(
           duration: { not: null },
         },
       }),
-      // Top pages
-      prisma.pageView.groupBy({
-        by: ["path"],
-        where: { createdAt: { gte: startDate } },
-        _count: { path: true },
-        orderBy: { _count: { path: "desc" } },
+      // Top pages (by landing page from sessions)
+      prisma.analyticsSession.groupBy({
+        by: ["landingPage"],
+        where: { startedAt: { gte: startDate } },
+        _count: { landingPage: true },
+        orderBy: { _count: { landingPage: "desc" } },
         take: 10,
       }),
-      // OS distribution
-      prisma.pageView.groupBy({
+      // OS distribution from sessions
+      prisma.analyticsSession.groupBy({
         by: ["os"],
-        where: { createdAt: { gte: startDate } },
+        where: { startedAt: { gte: startDate } },
         _count: { os: true },
         orderBy: { _count: { os: "desc" } },
       }),
-      // Browser distribution
-      prisma.pageView.groupBy({
+      // Browser distribution from sessions
+      prisma.analyticsSession.groupBy({
         by: ["browser"],
-        where: { createdAt: { gte: startDate } },
+        where: { startedAt: { gte: startDate } },
         _count: { browser: true },
         orderBy: { _count: { browser: "desc" } },
       }),
-      // Device distribution
-      prisma.pageView.groupBy({
+      // Device distribution from sessions
+      prisma.analyticsSession.groupBy({
         by: ["device"],
-        where: { createdAt: { gte: startDate } },
+        where: { startedAt: { gte: startDate } },
         _count: { device: true },
         orderBy: { _count: { device: "desc" } },
       }),
     ]);
 
     return {
-      totalPageViews,
+      totalPageViews: totalPageViews._sum.pageCount || 0,
       uniqueVisitors: uniqueVisitors.length,
       totalSessions,
       loginCount,
       signupCount,
       avgSessionDuration: avgSessionDuration._avg.duration || 0,
-      topPages: topPages.map((p) => ({ path: p.path, views: p._count.path })),
+      topPages: topPages.map((p) => ({ path: p.landingPage, views: p._count.landingPage })),
       osByCount: osByCount.map((o) => ({
         os: o.os || "Unknown",
         count: o._count.os,
@@ -294,28 +279,28 @@ export async function getAnalyticsStats(
   }
 }
 
-// Get page views over time for charts
+// Get sessions over time for charts
 export async function getPageViewsOverTime(days: number = 30) {
   const startDate = new Date();
   startDate.setDate(startDate.getDate() - days);
 
   try {
-    const pageViews = await prisma.pageView.findMany({
-      where: { createdAt: { gte: startDate } },
-      select: { createdAt: true },
-      orderBy: { createdAt: "asc" },
+    const sessions = await prisma.analyticsSession.findMany({
+      where: { startedAt: { gte: startDate } },
+      select: { startedAt: true, pageCount: true },
+      orderBy: { startedAt: "asc" },
     });
 
-    // Group by date
-    const grouped = pageViews.reduce((acc, pv) => {
-      const date = pv.createdAt.toISOString().split("T")[0];
-      acc[date] = (acc[date] || 0) + 1;
+    // Group by date and sum page counts
+    const grouped = sessions.reduce((acc, session) => {
+      const date = session.startedAt.toISOString().split("T")[0];
+      acc[date] = (acc[date] || 0) + (session.pageCount || 1);
       return acc;
     }, {} as Record<string, number>);
 
     return Object.entries(grouped).map(([date, count]) => ({ date, count }));
   } catch (error) {
-    console.error("Error fetching page views over time:", error);
+    console.error("Error fetching sessions over time:", error);
     return [];
   }
 }

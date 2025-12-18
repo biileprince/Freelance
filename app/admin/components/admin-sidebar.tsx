@@ -13,6 +13,8 @@ import {
   Home,
   Menu,
   X,
+  PenSquare,
+  Briefcase,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 
@@ -41,6 +43,26 @@ const sidebarLinks = [
     title: "Invoices",
     href: "/admin/invoices",
     icon: FileText,
+  },
+  {
+    title: "Blog",
+    href: "/admin/blog",
+    icon: PenSquare,
+    submenu: [
+      {
+        title: "All Posts",
+        href: "/admin/blog",
+      },
+      {
+        title: "Categories & Tags",
+        href: "/admin/blog/categories",
+      },
+    ],
+  },
+  {
+    title: "Portfolio",
+    href: "/admin/portfolio",
+    icon: Briefcase,
   },
   {
     title: "Analytics",

@@ -23,6 +23,7 @@ import {
   LogOut,
   LayoutDashboard,
   User,
+  PenSquare,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -301,6 +302,12 @@ export function Navigation() {
               Work
             </Link>
             <Link
+              href="/blog"
+              className="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+            >
+              Blog
+            </Link>
+            <Link
               href="/contact"
               className="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
             >
@@ -492,6 +499,28 @@ export function Navigation() {
                         </Link>
                       );
                     })}
+                  </div>
+                </div>
+
+                {/* Quick Links */}
+                <div className="mb-4 pt-4 border-t border-border/50">
+                  <div className="grid grid-cols-2 gap-1">
+                    <Link
+                      href="/blog"
+                      className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm transition-colors hover:bg-accent"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <PenSquare className="h-4 w-4 text-muted-foreground" />
+                      <span className="font-medium">Blog</span>
+                    </Link>
+                    <Link
+                      href="/contact"
+                      className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm transition-colors hover:bg-accent"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <Mail className="h-4 w-4 text-muted-foreground" />
+                      <span className="font-medium">Contact</span>
+                    </Link>
                   </div>
                 </div>
 

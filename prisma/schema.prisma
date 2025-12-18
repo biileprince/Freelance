@@ -130,29 +130,76 @@ model Contact {
   @@index([createdAt])
 }
 
-// Analytics Models
-model PageView {
+// Blog Models
+model BlogPost {
   id          String   @id @default(cuid())
-  path        String
-  referrer    String?
-  ipAddress   String?
-  userAgent   String?
-  os          String?
-  browser     String?
-  device      String?
-  country     String?
-  city        String?
-  userId      String?
-  sessionId   String?
-  duration    Int?     // Time spent on page in seconds
+  title       String
+  slug        String   @unique
+  excerpt     String?
+  content     String   // Rich text/HTML content
+  coverImage  String?
+  published   Boolean  @default(false)
+  featured    Boolean  @default(false)
+  authorId    String?
+  categoryId  String?
+  category    BlogCategory? @relation(fields: [categoryId], references: [id])
+  tags        BlogTag[]
+  views       Int      @default(0)
   createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  publishedAt DateTime?
   
-  @@index([path])
-  @@index([userId])
-  @@index([sessionId])
+  @@index([slug])
+  @@index([published])
+  @@index([categoryId])
   @@index([createdAt])
 }
 
+model BlogCategory {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  slug        String   @unique
+  description String?
+  posts       BlogPost[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model BlogTag {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  slug        String   @unique
+  posts       BlogPost[]
+  createdAt   DateTime @default(now())
+}
+
+// Portfolio/Work Models
+model PortfolioProject {
+  id           String   @id @default(cuid())
+  title        String
+  slug         String   @unique
+  description  String?
+  content      String?  // Rich text for case study
+  coverImage   String?
+  images       String?  // JSON array of image URLs
+  category     String?  // E-Commerce, Corporate, Web App, etc.
+  technologies String?  // Comma-separated list
+  client       String?
+  liveUrl      String?
+  githubUrl    String?
+  featured     Boolean  @default(false)
+  published    Boolean  @default(true)
+  completedAt  DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  @@index([slug])
+  @@index([category])
+  @@index([published])
+  @@index([featured])
+}
+
+// Analytics Models (simplified - removed PageView)
 model UserActivity {
   id          String   @id @default(cuid())
   userId      String?
