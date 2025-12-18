@@ -14,8 +14,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import { useState } from "react";
-import { Button } from "@/app/components/ui/button";
+import { useState, useEffect } from "react";
 
 const sidebarLinks = [
   {
@@ -47,6 +46,16 @@ const sidebarLinks = [
     title: "Analytics",
     href: "/admin/analytics",
     icon: BarChart3,
+    submenu: [
+      {
+        title: "Overview",
+        href: "/admin/analytics",
+      },
+      {
+        title: "Advanced Analytics",
+        href: "/admin/analytics-advanced",
+      },
+    ],
   },
   {
     title: "Settings",
@@ -59,31 +68,53 @@ export function AdminSidebar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
+  // Close sidebar when route changes on mobile
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   return (
     <>
-      {/* Mobile Menu Button */}
-      <Button
-        variant="ghost"
-        size="icon"
-        className="fixed top-4 left-4 z-50 lg:hidden"
+      {/* Mobile Menu Button - Positioned to not conflict with admin header */}
+      <button
+        className="fixed top-4 right-4 z-50 flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-background/95 shadow-sm backdrop-blur-xl lg:hidden"
         onClick={() => setIsOpen(!isOpen)}
+        aria-label="Toggle sidebar"
       >
         {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-      </Button>
+      </button>
 
       {/* Overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          className="fixed inset-0 z-40 bg-background/80 backdrop-blur-sm lg:hidden"
           onClick={() => setIsOpen(false)}
+          aria-hidden="true"
         />
       )}
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 z-40 h-screen w-64 transform bg-background border-r border-border transition-transform duration-200 ease-in-out lg:translate-x-0 ${
+        className={`fixed top-0 left-0 z-40 h-screen w-64 transform border-r border-border bg-background/95 backdrop-blur-xl transition-transform duration-300 ease-in-out lg:translate-x-0 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
+        style={{
+          background: "hsl(var(--background) / 0.95)",
+          backdropFilter: "blur(20px) saturate(180%)",
+          WebkitBackdropFilter: "blur(20px) saturate(180%)",
+        }}
       >
         <div className="flex h-full flex-col">
           {/* Logo */}
@@ -91,14 +122,16 @@ export function AdminSidebar() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-foreground text-background">
               <span className="text-sm font-bold">W</span>
             </div>
-            <div>
+            <div className="flex items-center">
               <span className="text-lg font-bold">WebAxiom</span>
-              <span className="ml-2 text-xs text-muted-foreground">Admin</span>
+              <span className="ml-2 rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+                Admin
+              </span>
             </div>
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 space-y-1 px-3 py-4 overflow-y-auto">
+          <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4">
             {sidebarLinks.map((link) => {
               const Icon = link.icon;
               const isActive =
@@ -109,14 +142,13 @@ export function AdminSidebar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  onClick={() => setIsOpen(false)}
-                  className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                  className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200 ${
                     isActive
-                      ? "bg-primary text-primary-foreground"
+                      ? "bg-primary text-primary-foreground shadow-sm"
                       : "text-muted-foreground hover:bg-accent hover:text-foreground"
                   }`}
                 >
-                  <Icon className="h-5 w-5" />
+                  <Icon className="h-5 w-5 shrink-0" />
                   {link.title}
                 </Link>
               );
@@ -129,7 +161,7 @@ export function AdminSidebar() {
               href="/"
               className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
             >
-              <Home className="h-5 w-5" />
+              <Home className="h-5 w-5 shrink-0" />
               Back to Site
             </Link>
           </div>

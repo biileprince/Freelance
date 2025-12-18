@@ -1,18 +1,44 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
 import Link from "next/link";
 import { Loader2, ArrowLeft } from "lucide-react";
-import { signIn } from "@/lib/auth-client";
+import { signIn, useSession } from "@/lib/auth-client";
 
-export default function LoginPage() {
+function LoginContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const { data: session } = useSession();
+
+  const redirectTo = searchParams.get("redirect") || "/dashboard";
+
+  // Check if already logged in
+  useEffect(() => {
+    if (session?.user) {
+      // Check if user is admin and redirect accordingly
+      checkAdminAndRedirect();
+    }
+  }, [session]);
+
+  const checkAdminAndRedirect = async () => {
+    try {
+      const res = await fetch("/api/auth/check-admin");
+      const data = await res.json();
+      if (data.isAdmin) {
+        router.push("/admin");
+      } else {
+        router.push(redirectTo);
+      }
+    } catch {
+      router.push(redirectTo);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,8 +60,24 @@ export default function LoginPage() {
         return;
       }
 
-      router.push("/dashboard");
-      router.refresh();
+      // Track login event
+      try {
+        await fetch("/api/analytics/track", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            action: "login",
+            category: "auth",
+            label: "email_login",
+            userId: result.data?.user?.id,
+          }),
+        });
+      } catch (err) {
+        console.error("Error tracking login:", err);
+      }
+
+      // Check if admin and redirect
+      await checkAdminAndRedirect();
     } catch (err) {
       setError("An error occurred. Please try again.");
       console.error("Login error:", err);
@@ -187,5 +229,19 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center bg-background">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </div>
+      }
+    >
+      <LoginContent />
+    </Suspense>
   );
 }

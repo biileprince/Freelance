@@ -49,6 +49,22 @@ export default function RegisterPage() {
         return;
       }
 
+      // Track signup event
+      try {
+        await fetch("/api/analytics/track", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            action: "signup",
+            category: "auth",
+            label: "email_signup",
+            userId: result.data?.user?.id,
+          }),
+        });
+      } catch (err) {
+        console.error("Error tracking signup:", err);
+      }
+
       router.push("/dashboard");
       router.refresh();
     } catch (err) {

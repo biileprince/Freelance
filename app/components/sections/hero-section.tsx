@@ -101,7 +101,7 @@ export function HeroSection() {
                 size="lg"
                 className="group h-11 sm:h-12 w-full sm:w-auto rounded-full px-6 sm:px-8 text-sm sm:text-base font-semibold shadow-none"
               >
-                Get a Free Quote
+                Tell Us Your Project
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>

@@ -4,6 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { Button } from "@/app/components/ui/button";
 import { ThemeToggle } from "@/app/components/theme-toggle";
+import { useSession, signOut } from "@/lib/auth-client";
 import {
   Menu,
   X,
@@ -12,15 +13,16 @@ import {
   ShoppingCart,
   Building2,
   GraduationCap,
-  PenTool,
   Smartphone,
   Database,
   Sparkles,
-  Wrench,
   Code2,
   Users,
   Mail,
   FileQuestion,
+  LogOut,
+  LayoutDashboard,
+  User,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -97,6 +99,20 @@ export function Navigation() {
     null
   );
   const closeTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
+  const { data: session, isPending } = useSession();
+  const [isAdmin, setIsAdmin] = React.useState(false);
+
+  // Check if user is admin
+  React.useEffect(() => {
+    if (session?.user) {
+      fetch("/api/auth/check-admin")
+        .then((res) => res.json())
+        .then((data) => setIsAdmin(data.isAdmin))
+        .catch(() => setIsAdmin(false));
+    } else {
+      setIsAdmin(false);
+    }
+  }, [session]);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -295,24 +311,114 @@ export function Navigation() {
           {/* Desktop CTA */}
           <div className="hidden items-center gap-2 lg:flex">
             <ThemeToggle />
-            <Link href="/dashboard">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-muted-foreground hover:text-foreground"
-              >
-                Log in
-              </Button>
-            </Link>
-            <Link href="/contact">
-              <Button
-                size="sm"
-                className="group rounded-full px-5 font-medium shadow-none"
-              >
-                Get Started
-                <ArrowRight className="ml-1.5 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-              </Button>
-            </Link>
+            {isPending ? (
+              <div className="h-9 w-9 animate-pulse rounded-full bg-muted" />
+            ) : session?.user ? (
+              <>
+                {/* User Dropdown */}
+                <div
+                  className="relative"
+                  onMouseEnter={() => handleMouseEnter("user")}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  <button className="flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground">
+                    {session.user.image ? (
+                      <img
+                        src={session.user.image}
+                        alt={session.user.name || "User"}
+                        className="h-7 w-7 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                        <span className="text-xs font-medium">
+                          {session.user.name?.charAt(0) ||
+                            session.user.email?.charAt(0).toUpperCase()}
+                        </span>
+                      </div>
+                    )}
+                    <span className="max-w-[100px] truncate">
+                      {session.user.name || session.user.email?.split("@")[0]}
+                    </span>
+                    <ChevronDown
+                      className={`h-4 w-4 transition-transform duration-200 ${
+                        activeDropdown === "user" ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                  <AnimatePresence>
+                    {activeDropdown === "user" && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        className="absolute right-0 top-full mt-2 w-56 rounded-xl border border-border/50 p-2 shadow-2xl"
+                        style={{
+                          background: "hsl(var(--background) / 0.95)",
+                          backdropFilter: "blur(40px) saturate(180%)",
+                          WebkitBackdropFilter: "blur(40px) saturate(180%)",
+                        }}
+                        onMouseEnter={cancelClose}
+                        onMouseLeave={handleMouseLeave}
+                      >
+                        <div className="mb-2 border-b border-border pb-2 px-3 py-2">
+                          <p className="text-sm font-medium">
+                            {session.user.name || "User"}
+                          </p>
+                          <p className="text-xs text-muted-foreground truncate">
+                            {session.user.email}
+                          </p>
+                        </div>
+                        <Link
+                          href={isAdmin ? "/admin" : "/dashboard"}
+                          className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors hover:bg-accent"
+                          onClick={() => setActiveDropdown(null)}
+                        >
+                          {isAdmin ? (
+                            <LayoutDashboard className="h-4 w-4 text-muted-foreground" />
+                          ) : (
+                            <User className="h-4 w-4 text-muted-foreground" />
+                          )}
+                          {isAdmin ? "Admin Panel" : "Dashboard"}
+                        </Link>
+                        <button
+                          onClick={async () => {
+                            setActiveDropdown(null);
+                            await signOut();
+                            window.location.href = "/";
+                          }}
+                          className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-destructive transition-colors hover:bg-destructive/10"
+                        >
+                          <LogOut className="h-4 w-4" />
+                          Sign out
+                        </button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </>
+            ) : (
+              <>
+                <Link href="/login">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-muted-foreground hover:text-foreground"
+                  >
+                    Log in
+                  </Button>
+                </Link>
+                <Link href="/contact">
+                  <Button
+                    size="sm"
+                    className="group rounded-full px-5 font-medium shadow-none"
+                  >
+                    Get Started
+                    <ArrowRight className="ml-1.5 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -391,20 +497,75 @@ export function Navigation() {
 
                 {/* CTA Buttons */}
                 <div className="flex flex-col gap-2 border-t border-border/50 pt-4">
-                  <Link href="/dashboard" onClick={() => setIsOpen(false)}>
-                    <Button
-                      variant="outline"
-                      className="w-full justify-center rounded-full h-10"
-                    >
-                      Log in
-                    </Button>
-                  </Link>
-                  <Link href="/contact" onClick={() => setIsOpen(false)}>
-                    <Button className="w-full justify-center rounded-full h-10">
-                      Get Started
-                      <ArrowRight className="ml-1.5 h-4 w-4" />
-                    </Button>
-                  </Link>
+                  {session?.user ? (
+                    <>
+                      <div className="flex items-center gap-3 px-3 py-2 mb-2">
+                        {session.user.image ? (
+                          <img
+                            src={session.user.image}
+                            alt={session.user.name || "User"}
+                            className="h-10 w-10 rounded-full object-cover"
+                          />
+                        ) : (
+                          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                            <span className="text-sm font-medium">
+                              {session.user.name?.charAt(0) ||
+                                session.user.email?.charAt(0).toUpperCase()}
+                            </span>
+                          </div>
+                        )}
+                        <div>
+                          <p className="text-sm font-medium">
+                            {session.user.name || "User"}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            {session.user.email}
+                          </p>
+                        </div>
+                      </div>
+                      <Link
+                        href={isAdmin ? "/admin" : "/dashboard"}
+                        onClick={() => setIsOpen(false)}
+                      >
+                        <Button
+                          variant="outline"
+                          className="w-full justify-center rounded-full h-10"
+                        >
+                          <LayoutDashboard className="mr-2 h-4 w-4" />
+                          {isAdmin ? "Admin Panel" : "Dashboard"}
+                        </Button>
+                      </Link>
+                      <Button
+                        variant="ghost"
+                        className="w-full justify-center rounded-full h-10 text-destructive hover:text-destructive hover:bg-destructive/10"
+                        onClick={async () => {
+                          setIsOpen(false);
+                          await signOut();
+                          window.location.href = "/";
+                        }}
+                      >
+                        <LogOut className="mr-2 h-4 w-4" />
+                        Sign out
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <Link href="/login" onClick={() => setIsOpen(false)}>
+                        <Button
+                          variant="outline"
+                          className="w-full justify-center rounded-full h-10"
+                        >
+                          Log in
+                        </Button>
+                      </Link>
+                      <Link href="/contact" onClick={() => setIsOpen(false)}>
+                        <Button className="w-full justify-center rounded-full h-10">
+                          Get Started
+                          <ArrowRight className="ml-1.5 h-4 w-4" />
+                        </Button>
+                      </Link>
+                    </>
+                  )}
                 </div>
               </div>
             </motion.div>

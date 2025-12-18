@@ -9,6 +9,7 @@ type Contact = {
   id: string;
   name: string;
   email: string;
+  phone: string | null;
   projectType: string;
   budget: string | null;
   message: string;
@@ -215,11 +216,16 @@ export function ContactsTable({
       {/* Message Detail Modal */}
       {selectedContact && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm p-4"
           onClick={() => setSelectedContact(null)}
         >
           <div
-            className="w-full max-w-2xl rounded-xl bg-background border border-border shadow-2xl"
+            className="w-full max-w-2xl rounded-xl border-2 border-border/50 shadow-2xl"
+            style={{
+              background: "hsl(var(--background) / 0.98)",
+              backdropFilter: "blur(20px) saturate(180%)",
+              WebkitBackdropFilter: "blur(20px) saturate(180%)",
+            }}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
@@ -257,6 +263,14 @@ export function ContactsTable({
                   </p>
                   <p className="font-medium">{selectedContact.projectType}</p>
                 </div>
+                {selectedContact.phone && (
+                  <div>
+                    <p className="text-xs text-muted-foreground uppercase tracking-wider">
+                      Phone
+                    </p>
+                    <p className="font-medium">{selectedContact.phone}</p>
+                  </div>
+                )}
                 <div>
                   <p className="text-xs text-muted-foreground uppercase tracking-wider">
                     Budget
@@ -291,8 +305,8 @@ export function ContactsTable({
                 <p className="text-xs text-muted-foreground uppercase tracking-wider mb-2">
                   Message
                 </p>
-                <div className="rounded-lg bg-muted/50 p-4">
-                  <p className="text-sm whitespace-pre-wrap">
+                <div className="rounded-lg border border-border/50 bg-muted/30 p-4">
+                  <p className="text-sm whitespace-pre-wrap leading-relaxed">
                     {selectedContact.message}
                   </p>
                 </div>

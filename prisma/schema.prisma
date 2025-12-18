@@ -117,6 +117,7 @@ model Contact {
   id          String   @id @default(cuid())
   name        String
   email       String
+  phone       String?
   projectType String
   budget      String?
   message     String
@@ -127,4 +128,70 @@ model Contact {
   @@index([email])
   @@index([status])
   @@index([createdAt])
+}
+
+// Analytics Models
+model PageView {
+  id          String   @id @default(cuid())
+  path        String
+  referrer    String?
+  ipAddress   String?
+  userAgent   String?
+  os          String?
+  browser     String?
+  device      String?
+  country     String?
+  city        String?
+  userId      String?
+  sessionId   String?
+  duration    Int?     // Time spent on page in seconds
+  createdAt   DateTime @default(now())
+  
+  @@index([path])
+  @@index([userId])
+  @@index([sessionId])
+  @@index([createdAt])
+}
+
+model UserActivity {
+  id          String   @id @default(cuid())
+  userId      String?
+  sessionId   String?
+  action      String   // login, signup, logout, form_submit, click, etc.
+  category    String?  // auth, navigation, interaction, conversion
+  label       String?  // Additional context
+  value       String?  // JSON data for the action
+  ipAddress   String?
+  userAgent   String?
+  os          String?
+  browser     String?
+  createdAt   DateTime @default(now())
+  
+  @@index([userId])
+  @@index([sessionId])
+  @@index([action])
+  @@index([category])
+  @@index([createdAt])
+}
+
+model AnalyticsSession {
+  id          String   @id @default(cuid())
+  sessionId   String   @unique
+  userId      String?
+  ipAddress   String?
+  userAgent   String?
+  os          String?
+  browser     String?
+  device      String?
+  country     String?
+  city        String?
+  landingPage String?
+  referrer    String?
+  startedAt   DateTime @default(now())
+  endedAt     DateTime?
+  duration    Int?     // Session duration in seconds
+  pageCount   Int      @default(0)
+  
+  @@index([userId])
+  @@index([startedAt])
 }

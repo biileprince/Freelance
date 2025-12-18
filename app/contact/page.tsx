@@ -49,10 +49,10 @@ export default function ContactPage() {
                       Email
                     </p>
                     <a
-                      href="mailto:hello@webaxiom.com"
+                      href="mailto:biileprinceyennuyar5@gmail.com"
                       className="text-sm sm:text-base font-medium hover:text-foreground/80 transition-colors"
                     >
-                      hello@webaxiom.com
+                      biileprinceyennuyar5@gmail.com
                     </a>
                   </div>
                 </div>
@@ -66,10 +66,10 @@ export default function ContactPage() {
                       Phone
                     </p>
                     <a
-                      href="tel:+1234567890"
+                      href="tel:+233555902675"
                       className="text-sm sm:text-base font-medium hover:text-foreground/80 transition-colors"
                     >
-                      +1 (234) 567-890
+                      0555 902 675
                     </a>
                   </div>
                 </div>

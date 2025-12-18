@@ -16,6 +16,7 @@ export async function submitContactForm(data: ContactFormData) {
       data: {
         name: validatedData.name,
         email: validatedData.email,
+        phone: validatedData.phone || null,
         projectType: validatedData.projectType,
         budget: validatedData.budget || null,
         message: validatedData.message,
@@ -59,6 +60,16 @@ export async function submitContactForm(data: ContactFormData) {
                   <div class="label">📧 Email</div>
                   <div class="value">${validatedData.email}</div>
                 </div>
+                ${
+                  validatedData.phone
+                    ? `
+                <div class="field">
+                  <div class="label">📞 Phone</div>
+                  <div class="value">${validatedData.phone}</div>
+                </div>
+                `
+                    : ""
+                }
                 <div class="field">
                   <div class="label">💼 Project Type</div>
                   <div class="value">${validatedData.projectType}</div>

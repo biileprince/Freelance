@@ -4,6 +4,18 @@ import { ContactsTable } from "./contacts-table";
 export default async function ContactsPage() {
   const contacts = await prisma.contact.findMany({
     orderBy: { createdAt: "desc" },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      phone: true,
+      projectType: true,
+      budget: true,
+      message: true,
+      status: true,
+      createdAt: true,
+      updatedAt: true,
+    },
   });
 
   const stats = {
