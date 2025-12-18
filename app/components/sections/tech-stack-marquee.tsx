@@ -28,7 +28,12 @@ const technologies = [
     darkColor: "#FFFFFF",
   },
   { name: "React", icon: SiReact, color: "#61DAFB", darkColor: "#61DAFB" },
-  { name: "React Native", icon: SiReact, color: "#61DAFB", darkColor: "#61DAFB" },
+  {
+    name: "React Native",
+    icon: SiReact,
+    color: "#61DAFB",
+    darkColor: "#61DAFB",
+  },
   {
     name: "TypeScript",
     icon: SiTypescript,
@@ -57,7 +62,13 @@ const technologies = [
   { name: "Prisma", icon: SiPrisma, color: "#2D3748", darkColor: "#FFFFFF" },
   { name: "MongoDB", icon: SiMongodb, color: "#47A248", darkColor: "#47A248" },
   { name: "PHP", icon: SiPhp, color: "#777BB4", darkColor: "#777BB4" },
-  { name: "VPS Hosting", icon: Server, color: "#6366F1", darkColor: "#818CF8", isLucide: true },
+  {
+    name: "VPS Hosting",
+    icon: Server,
+    color: "#6366F1",
+    darkColor: "#818CF8",
+    isLucide: true,
+  },
   { name: "Stripe", icon: SiStripe, color: "#635BFF", darkColor: "#635BFF" },
   { name: "Vercel", icon: SiVercel, color: "#000000", darkColor: "#FFFFFF" },
   { name: "Git", icon: SiGit, color: "#F05032", darkColor: "#F05032" },

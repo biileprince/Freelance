@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Navigation } from "./components/layout/navigation";
 import { Footer } from "./components/layout/footer";
+import { GoogleOneTap } from "./components/auth/google-one-tap";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -44,6 +45,7 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
         </div>
+        <GoogleOneTap />
       </body>
     </html>
   );

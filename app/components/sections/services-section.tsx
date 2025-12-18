@@ -128,9 +128,9 @@ export function ServicesSection() {
               Websites & Apps for every need
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground md:text-xl leading-relaxed px-2">
-              From simple landing pages to fully-featured online stores and mobile apps, we
-              can develop any website or mobile application that helps your business succeed online. No
-              tech jargon, just results.
+              From simple landing pages to fully-featured online stores and
+              mobile apps, we can develop any website or mobile application that
+              helps your business succeed online. No tech jargon, just results.
             </p>
           </motion.div>
         </div>

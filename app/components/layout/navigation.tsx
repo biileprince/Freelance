@@ -24,6 +24,8 @@ import {
   LayoutDashboard,
   User,
   PenSquare,
+  Briefcase,
+  FileText,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -99,6 +101,8 @@ export function Navigation() {
   const [activeDropdown, setActiveDropdown] = React.useState<string | null>(
     null
   );
+  const [servicesOpen, setServicesOpen] = React.useState(false);
+  const [companyOpen, setCompanyOpen] = React.useState(true);
   const closeTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
   const { data: session, isPending } = useSession();
   const [isAdmin, setIsAdmin] = React.useState(false);
@@ -114,6 +118,18 @@ export function Navigation() {
       setIsAdmin(false);
     }
   }, [session]);
+
+  // Prevent body scroll when mobile menu is open
+  React.useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -313,6 +329,24 @@ export function Navigation() {
             >
               Contact
             </Link>
+
+            {/* Client Links - Only show when logged in and not admin */}
+            {session?.user && !isAdmin && (
+              <>
+                <Link
+                  href="/dashboard/projects"
+                  className="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                >
+                  My Projects
+                </Link>
+                <Link
+                  href="/dashboard/invoices"
+                  className="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                >
+                  Invoices
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Desktop CTA */}
@@ -445,90 +479,61 @@ export function Navigation() {
           </div>
         </nav>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - Sidebar */}
         <AnimatePresence>
           {isOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.2 }}
-              className="overflow-hidden border-b border-border/50 bg-background/95 backdrop-blur-xl lg:hidden"
-            >
-              <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6">
-                {/* Services Section */}
-                <div className="mb-4">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2 px-3">
-                    Services
-                  </p>
-                  <div className="grid grid-cols-2 gap-1">
-                    {servicesItems.slice(0, 4).map((item) => {
-                      const Icon = item.icon;
-                      return (
-                        <Link
-                          key={item.title}
-                          href={item.href}
-                          className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm transition-colors hover:bg-accent"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          <Icon className="h-4 w-4 text-muted-foreground" />
-                          <span className="font-medium">{item.title}</span>
-                        </Link>
-                      );
-                    })}
-                  </div>
-                </div>
+            <>
+              {/* Backdrop */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="fixed inset-0 z-40 bg-black/50 dark:bg-black/70 backdrop-blur-md lg:hidden"
+                onClick={() => setIsOpen(false)}
+                style={{ height: "100vh", width: "100vw" }}
+              />
 
-                {/* Company Section */}
-                <div className="mb-4 pt-4 border-t border-border/50">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2 px-3">
-                    Company
-                  </p>
-                  <div className="grid grid-cols-2 gap-1">
-                    {companyItems.map((item) => {
-                      const Icon = item.icon;
-                      return (
-                        <Link
-                          key={item.title}
-                          href={item.href}
-                          className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm transition-colors hover:bg-accent"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          <Icon className="h-4 w-4 text-muted-foreground" />
-                          <span className="font-medium">{item.title}</span>
-                        </Link>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* Quick Links */}
-                <div className="mb-4 pt-4 border-t border-border/50">
-                  <div className="grid grid-cols-2 gap-1">
+              {/* Sidebar */}
+              <motion.div
+                initial={{ x: "100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "100%" }}
+                transition={{ type: "spring", damping: 30, stiffness: 300 }}
+                className="fixed right-0 top-0 z-50 w-80 h-screen bg-background/95 backdrop-blur-xl border-l border-border shadow-2xl lg:hidden overflow-y-auto"
+                style={{
+                  height: "100vh",
+                  background: "hsl(var(--background) / 0.95)",
+                  backdropFilter: "blur(20px) saturate(180%)",
+                  WebkitBackdropFilter: "blur(20px) saturate(180%)",
+                }}
+              >
+                <div className="flex flex-col h-full">
+                  {/* Sidebar Header */}
+                  <div className="flex items-center justify-between p-4 border-b border-border">
                     <Link
-                      href="/blog"
-                      className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm transition-colors hover:bg-accent"
+                      href="/"
+                      className="flex items-center gap-2"
                       onClick={() => setIsOpen(false)}
                     >
-                      <PenSquare className="h-4 w-4 text-muted-foreground" />
-                      <span className="font-medium">Blog</span>
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-foreground text-background">
+                        <span className="text-sm font-bold">W</span>
+                      </div>
+                      <span className="text-lg font-bold">WebAxiom</span>
                     </Link>
-                    <Link
-                      href="/contact"
-                      className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm transition-colors hover:bg-accent"
+                    <button
                       onClick={() => setIsOpen(false)}
+                      className="rounded-lg p-2 hover:bg-accent"
+                      aria-label="Close menu"
                     >
-                      <Mail className="h-4 w-4 text-muted-foreground" />
-                      <span className="font-medium">Contact</span>
-                    </Link>
+                      <X className="h-5 w-5" />
+                    </button>
                   </div>
-                </div>
 
-                {/* CTA Buttons */}
-                <div className="flex flex-col gap-2 border-t border-border/50 pt-4">
-                  {session?.user ? (
-                    <>
-                      <div className="flex items-center gap-3 px-3 py-2 mb-2">
+                  <div className="p-4 space-y-6">
+                    {/* User Info */}
+                    {session?.user && (
+                      <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
                         {session.user.image ? (
                           <img
                             src={session.user.image}
@@ -543,61 +548,225 @@ export function Navigation() {
                             </span>
                           </div>
                         )}
-                        <div>
-                          <p className="text-sm font-medium">
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium truncate">
                             {session.user.name || "User"}
                           </p>
-                          <p className="text-xs text-muted-foreground">
+                          <p className="text-xs text-muted-foreground truncate">
                             {session.user.email}
                           </p>
                         </div>
                       </div>
-                      <Link
-                        href={isAdmin ? "/admin" : "/dashboard"}
-                        onClick={() => setIsOpen(false)}
+                    )}
+
+                    {/* Services Section */}
+                    <div>
+                      <button
+                        onClick={() => setServicesOpen(!servicesOpen)}
+                        className="w-full flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3 px-2 hover:text-foreground transition-colors"
                       >
-                        <Button
-                          variant="outline"
-                          className="w-full justify-center rounded-full h-10"
-                        >
-                          <LayoutDashboard className="mr-2 h-4 w-4" />
-                          {isAdmin ? "Admin Panel" : "Dashboard"}
-                        </Button>
-                      </Link>
-                      <Button
-                        variant="ghost"
-                        className="w-full justify-center rounded-full h-10 text-destructive hover:text-destructive hover:bg-destructive/10"
-                        onClick={async () => {
-                          setIsOpen(false);
-                          await signOut();
-                          window.location.href = "/";
-                        }}
+                        <span>Services</span>
+                        <ChevronDown
+                          className={`h-4 w-4 transition-transform duration-200 ${
+                            servicesOpen ? "rotate-180" : ""
+                          }`}
+                        />
+                      </button>
+                      <AnimatePresence>
+                        {servicesOpen && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="overflow-hidden"
+                          >
+                            <div className="space-y-1">
+                              {servicesItems.map((item) => {
+                                const Icon = item.icon;
+                                return (
+                                  <Link
+                                    key={item.title}
+                                    href={item.href}
+                                    className="flex items-start gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-accent group"
+                                    onClick={() => setIsOpen(false)}
+                                  >
+                                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-border bg-muted/50 group-hover:bg-muted">
+                                      <Icon className="h-4 w-4 text-muted-foreground" />
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                      <p className="text-sm font-medium">
+                                        {item.title}
+                                      </p>
+                                      <p className="text-xs text-muted-foreground truncate">
+                                        {item.description}
+                                      </p>
+                                    </div>
+                                  </Link>
+                                );
+                              })}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+
+                    {/* Company Section */}
+                    <div className="pt-3 border-t border-border">
+                      <button
+                        onClick={() => setCompanyOpen(!companyOpen)}
+                        className="w-full flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3 px-2 hover:text-foreground transition-colors"
                       >
-                        <LogOut className="mr-2 h-4 w-4" />
-                        Sign out
-                      </Button>
-                    </>
-                  ) : (
-                    <>
-                      <Link href="/login" onClick={() => setIsOpen(false)}>
-                        <Button
-                          variant="outline"
-                          className="w-full justify-center rounded-full h-10"
+                        <span>Company</span>
+                        <ChevronDown
+                          className={`h-4 w-4 transition-transform duration-200 ${
+                            companyOpen ? "rotate-180" : ""
+                          }`}
+                        />
+                      </button>
+                      <AnimatePresence>
+                        {companyOpen && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="overflow-hidden"
+                          >
+                            <div className="space-y-1">
+                              {companyItems.map((item) => {
+                                const Icon = item.icon;
+                                return (
+                                  <Link
+                                    key={item.title}
+                                    href={item.href}
+                                    className="flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-accent"
+                                    onClick={() => setIsOpen(false)}
+                                  >
+                                    <Icon className="h-4 w-4 text-muted-foreground" />
+                                    <span className="text-sm font-medium">
+                                      {item.title}
+                                    </span>
+                                  </Link>
+                                );
+                              })}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+
+                    {/* Quick Links */}
+                    <div className="pt-3 border-t border-border">
+                      <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3 px-2">
+                        Quick Links
+                      </p>
+                      <div className="space-y-1">
+                        <Link
+                          href="/blog"
+                          className="flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-accent"
+                          onClick={() => setIsOpen(false)}
                         >
-                          Log in
-                        </Button>
-                      </Link>
-                      <Link href="/contact" onClick={() => setIsOpen(false)}>
-                        <Button className="w-full justify-center rounded-full h-10">
-                          Get Started
-                          <ArrowRight className="ml-1.5 h-4 w-4" />
-                        </Button>
-                      </Link>
-                    </>
-                  )}
+                          <PenSquare className="h-4 w-4 text-muted-foreground" />
+                          <span className="text-sm font-medium">Blog</span>
+                        </Link>
+                        <Link
+                          href="/contact"
+                          className="flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-accent"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          <Mail className="h-4 w-4 text-muted-foreground" />
+                          <span className="text-sm font-medium">Contact</span>
+                        </Link>
+                      </div>
+                    </div>
+
+                    {/* Client Links - Only for logged in non-admin users */}
+                    {session?.user && !isAdmin && (
+                      <div className="pt-3 border-t border-border">
+                        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3 px-2">
+                          My Account
+                        </p>
+                        <div className="space-y-1">
+                          <Link
+                            href="/dashboard/projects"
+                            className="flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-accent"
+                            onClick={() => setIsOpen(false)}
+                          >
+                            <Briefcase className="h-4 w-4 text-muted-foreground" />
+                            <span className="text-sm font-medium">
+                              My Projects
+                            </span>
+                          </Link>
+                          <Link
+                            href="/dashboard/invoices"
+                            className="flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-accent"
+                            onClick={() => setIsOpen(false)}
+                          >
+                            <FileText className="h-4 w-4 text-muted-foreground" />
+                            <span className="text-sm font-medium">
+                              Invoices
+                            </span>
+                          </Link>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* CTA Buttons */}
+                    <div className="flex flex-col gap-2 pt-3 border-t border-border">
+                      {session?.user ? (
+                        <>
+                          <Link
+                            href={isAdmin ? "/admin" : "/dashboard"}
+                            onClick={() => setIsOpen(false)}
+                          >
+                            <Button
+                              variant="outline"
+                              className="w-full justify-center rounded-full h-11"
+                            >
+                              <LayoutDashboard className="mr-2 h-4 w-4" />
+                              {isAdmin ? "Admin Panel" : "Dashboard"}
+                            </Button>
+                          </Link>
+                          <Button
+                            variant="ghost"
+                            className="w-full justify-center rounded-full h-11 text-destructive hover:text-destructive hover:bg-destructive/10"
+                            onClick={async () => {
+                              setIsOpen(false);
+                              await signOut();
+                              window.location.href = "/";
+                            }}
+                          >
+                            <LogOut className="mr-2 h-4 w-4" />
+                            Sign out
+                          </Button>
+                        </>
+                      ) : (
+                        <>
+                          <Link href="/login" onClick={() => setIsOpen(false)}>
+                            <Button
+                              variant="outline"
+                              className="w-full justify-center rounded-full h-11"
+                            >
+                              Log in
+                            </Button>
+                          </Link>
+                          <Link
+                            href="/contact"
+                            onClick={() => setIsOpen(false)}
+                          >
+                            <Button className="w-full justify-center rounded-full h-11 bg-emerald-600 hover:bg-emerald-700 text-white">
+                              Get Started
+                              <ArrowRight className="ml-1.5 h-4 w-4" />
+                            </Button>
+                          </Link>
+                        </>
+                      )}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </>
           )}
         </AnimatePresence>
       </header>

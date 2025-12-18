@@ -2,6 +2,7 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { prisma } from "@/lib/prisma";
 import { Metadata } from "next";
+import { GoogleOneTap } from "../components/auth/google-one-tap";
 
 export const metadata: Metadata = {
   title: "Blog | WebAxiom",
@@ -98,296 +99,311 @@ export default async function BlogPage({
   const searchQuery = params.search;
 
   return (
-    <main className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="py-12 sm:py-20 border-b border-border">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-emerald-600 dark:text-emerald-500 mb-3 sm:mb-4">
-            Blog
-          </h1>
-          <p className="text-base sm:text-xl text-muted-foreground max-w-2xl">
-            Insights, tutorials, and updates on web development, design, and
-            technology.
-          </p>
-        </div>
-      </section>
+    <>
+      {/* Google One Tap for non-authenticated users */}
+      <GoogleOneTap />
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl py-6 sm:py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-3 space-y-8">
-            {/* Search Form */}
-            <form action="/blog" method="GET" className="relative">
-              <input
-                type="text"
-                name="search"
-                placeholder="Search articles..."
-                defaultValue={searchQuery}
-                className="w-full px-4 py-3 pl-12 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-              />
-              <svg
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+      <main className="min-h-screen bg-background">
+        {/* Hero Section */}
+        <section className="py-12 sm:py-20 border-b border-border">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-emerald-600 dark:text-emerald-500 mb-3 sm:mb-4">
+              Blog
+            </h1>
+            <p className="text-base sm:text-xl text-muted-foreground max-w-2xl">
+              Insights, tutorials, and updates on web development, design, and
+              technology.
+            </p>
+          </div>
+        </section>
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl py-6 sm:py-12">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-8">
+            {/* Main Content */}
+            <div className="lg:col-span-3 space-y-8">
+              {/* Search Form */}
+              <form action="/blog" method="GET" className="relative">
+                <input
+                  type="text"
+                  name="search"
+                  placeholder="Search articles..."
+                  defaultValue={searchQuery}
+                  className="w-full px-4 py-3 pl-12 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
                 />
-              </svg>
-            </form>
-
-            {/* Active Filters */}
-            {(activeCategory || activeTag || searchQuery) && (
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-sm text-muted-foreground">Filters:</span>
-                {activeCategory && (
-                  <Link
-                    href="/blog"
-                    className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-muted text-sm text-foreground hover:bg-muted/80"
-                  >
-                    Category: {activeCategory}
-                    <svg
-                      className="w-3 h-3"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                  </Link>
-                )}
-                {activeTag && (
-                  <Link
-                    href="/blog"
-                    className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-muted text-sm text-foreground hover:bg-muted/80"
-                  >
-                    Tag: {activeTag}
-                    <svg
-                      className="w-3 h-3"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                  </Link>
-                )}
-                {searchQuery && (
-                  <Link
-                    href="/blog"
-                    className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-muted text-sm text-foreground hover:bg-muted/80"
-                  >
-                    Search: {searchQuery}
-                    <svg
-                      className="w-3 h-3"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                  </Link>
-                )}
-                <Link
-                  href="/blog"
-                  className="text-sm text-muted-foreground hover:text-foreground underline"
+                <svg
+                  className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
                 >
-                  Clear all
-                </Link>
-              </div>
-            )}
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+              </form>
 
-            {/* Featured Post */}
-            {featuredPost && !activeCategory && !activeTag && !searchQuery && (
-              <Link href={`/blog/${featuredPost.slug}`} className="block group">
-                <article className="rounded-xl border border-border overflow-hidden bg-background hover:border-foreground/20 transition-colors">
-                  {featuredPost.coverImage && (
-                    <div className="aspect-2/1 overflow-hidden">
-                      <img
-                        src={featuredPost.coverImage}
-                        alt={featuredPost.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                  )}
-                  <div className="p-6">
-                    <div className="flex items-center gap-2 mb-3">
-                      <span className="px-2 py-1 rounded-full bg-muted text-xs font-medium text-muted-foreground">
-                        Featured
-                      </span>
-                      {featuredPost.category && (
-                        <span className="px-2 py-1 rounded-full bg-muted text-xs font-medium text-muted-foreground">
-                          {featuredPost.category.name}
-                        </span>
-                      )}
-                    </div>
-                    <h2 className="text-2xl font-bold text-foreground group-hover:text-foreground/80 transition-colors mb-2">
-                      {featuredPost.title}
-                    </h2>
-                    {featuredPost.excerpt && (
-                      <p className="text-muted-foreground line-clamp-2 mb-4">
-                        {featuredPost.excerpt}
-                      </p>
-                    )}
-                    {featuredPost.publishedAt && (
-                      <time className="text-sm text-muted-foreground">
-                        {format(
-                          new Date(featuredPost.publishedAt),
-                          "MMMM d, yyyy"
-                        )}
-                      </time>
-                    )}
-                  </div>
-                </article>
-              </Link>
-            )}
-
-            {/* Posts Grid */}
-            {posts.length === 0 ? (
-              <div className="text-center py-12">
-                <h3 className="text-lg font-medium text-foreground mb-2">
-                  No posts found
-                </h3>
-                <p className="text-muted-foreground">
-                  {searchQuery
-                    ? `No posts matching "${searchQuery}"`
-                    : "Check back later for new content."}
-                </p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {posts
-                  .filter(
-                    (post) =>
-                      !featuredPost ||
-                      post.id !== featuredPost.id ||
-                      activeCategory ||
-                      activeTag ||
-                      searchQuery
-                  )
-                  .map((post) => (
+              {/* Active Filters */}
+              {(activeCategory || activeTag || searchQuery) && (
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-sm text-muted-foreground">
+                    Filters:
+                  </span>
+                  {activeCategory && (
                     <Link
-                      key={post.id}
-                      href={`/blog/${post.slug}`}
-                      className="block group"
+                      href="/blog"
+                      className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-muted text-sm text-foreground hover:bg-muted/80"
                     >
-                      <article className="h-full rounded-xl border border-border overflow-hidden bg-background hover:border-foreground/20 transition-colors">
-                        {post.coverImage && (
-                          <div className="aspect-video overflow-hidden">
-                            <img
-                              src={post.coverImage}
-                              alt={post.title}
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                            />
-                          </div>
-                        )}
-                        <div className="p-5">
-                          {post.category && (
-                            <span className="inline-block px-2 py-1 rounded-full bg-muted text-xs font-medium text-muted-foreground mb-3">
-                              {post.category.name}
+                      Category: {activeCategory}
+                      <svg
+                        className="w-3 h-3"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </Link>
+                  )}
+                  {activeTag && (
+                    <Link
+                      href="/blog"
+                      className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-muted text-sm text-foreground hover:bg-muted/80"
+                    >
+                      Tag: {activeTag}
+                      <svg
+                        className="w-3 h-3"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </Link>
+                  )}
+                  {searchQuery && (
+                    <Link
+                      href="/blog"
+                      className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-muted text-sm text-foreground hover:bg-muted/80"
+                    >
+                      Search: {searchQuery}
+                      <svg
+                        className="w-3 h-3"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </Link>
+                  )}
+                  <Link
+                    href="/blog"
+                    className="text-sm text-muted-foreground hover:text-foreground underline"
+                  >
+                    Clear all
+                  </Link>
+                </div>
+              )}
+
+              {/* Featured Post */}
+              {featuredPost &&
+                !activeCategory &&
+                !activeTag &&
+                !searchQuery && (
+                  <Link
+                    href={`/blog/${featuredPost.slug}`}
+                    className="block group"
+                  >
+                    <article className="rounded-xl border border-border overflow-hidden bg-background hover:border-foreground/20 transition-colors">
+                      {featuredPost.coverImage && (
+                        <div className="aspect-2/1 overflow-hidden">
+                          <img
+                            src={featuredPost.coverImage}
+                            alt={featuredPost.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                        </div>
+                      )}
+                      <div className="p-6">
+                        <div className="flex items-center gap-2 mb-3">
+                          <span className="px-2 py-1 rounded-full bg-muted text-xs font-medium text-muted-foreground">
+                            Featured
+                          </span>
+                          {featuredPost.category && (
+                            <span className="px-2 py-1 rounded-full bg-muted text-xs font-medium text-muted-foreground">
+                              {featuredPost.category.name}
                             </span>
                           )}
-                          <h3 className="text-lg font-semibold text-foreground group-hover:text-foreground/80 transition-colors mb-2 line-clamp-2">
-                            {post.title}
-                          </h3>
-                          {post.excerpt && (
-                            <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
-                              {post.excerpt}
-                            </p>
-                          )}
-                          {post.publishedAt && (
-                            <time className="text-xs text-muted-foreground">
-                              {format(
-                                new Date(post.publishedAt),
-                                "MMM d, yyyy"
-                              )}
-                            </time>
-                          )}
                         </div>
-                      </article>
-                    </Link>
-                  ))}
-              </div>
-            )}
-          </div>
+                        <h2 className="text-2xl font-bold text-foreground group-hover:text-foreground/80 transition-colors mb-2">
+                          {featuredPost.title}
+                        </h2>
+                        {featuredPost.excerpt && (
+                          <p className="text-muted-foreground line-clamp-2 mb-4">
+                            {featuredPost.excerpt}
+                          </p>
+                        )}
+                        {featuredPost.publishedAt && (
+                          <time className="text-sm text-muted-foreground">
+                            {format(
+                              new Date(featuredPost.publishedAt),
+                              "MMMM d, yyyy"
+                            )}
+                          </time>
+                        )}
+                      </div>
+                    </article>
+                  </Link>
+                )}
 
-          {/* Sidebar */}
-          <aside className="space-y-8">
-            {/* Categories */}
-            <div className="rounded-xl border border-border bg-background p-6">
-              <h3 className="font-semibold text-foreground mb-4">Categories</h3>
-              {categories.length === 0 ? (
-                <p className="text-sm text-muted-foreground">
-                  No categories yet
-                </p>
+              {/* Posts Grid */}
+              {posts.length === 0 ? (
+                <div className="text-center py-12">
+                  <h3 className="text-lg font-medium text-foreground mb-2">
+                    No posts found
+                  </h3>
+                  <p className="text-muted-foreground">
+                    {searchQuery
+                      ? `No posts matching "${searchQuery}"`
+                      : "Check back later for new content."}
+                  </p>
+                </div>
               ) : (
-                <ul className="space-y-2">
-                  {categories.map((category) => (
-                    <li key={category.id}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {posts
+                    .filter(
+                      (post) =>
+                        !featuredPost ||
+                        post.id !== featuredPost.id ||
+                        activeCategory ||
+                        activeTag ||
+                        searchQuery
+                    )
+                    .map((post) => (
                       <Link
-                        href={`/blog?category=${category.slug}`}
-                        className={`flex items-center justify-between text-sm transition-colors ${
-                          activeCategory === category.slug
-                            ? "text-foreground font-medium"
-                            : "text-muted-foreground hover:text-foreground"
-                        }`}
+                        key={post.id}
+                        href={`/blog/${post.slug}`}
+                        className="block group"
                       >
-                        <span>{category.name}</span>
-                        <span className="text-xs">
-                          ({category._count.posts})
-                        </span>
+                        <article className="h-full rounded-xl border border-border overflow-hidden bg-background hover:border-foreground/20 transition-colors">
+                          {post.coverImage && (
+                            <div className="aspect-video overflow-hidden">
+                              <img
+                                src={post.coverImage}
+                                alt={post.title}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                              />
+                            </div>
+                          )}
+                          <div className="p-5">
+                            {post.category && (
+                              <span className="inline-block px-2 py-1 rounded-full bg-muted text-xs font-medium text-muted-foreground mb-3">
+                                {post.category.name}
+                              </span>
+                            )}
+                            <h3 className="text-lg font-semibold text-foreground group-hover:text-foreground/80 transition-colors mb-2 line-clamp-2">
+                              {post.title}
+                            </h3>
+                            {post.excerpt && (
+                              <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
+                                {post.excerpt}
+                              </p>
+                            )}
+                            {post.publishedAt && (
+                              <time className="text-xs text-muted-foreground">
+                                {format(
+                                  new Date(post.publishedAt),
+                                  "MMM d, yyyy"
+                                )}
+                              </time>
+                            )}
+                          </div>
+                        </article>
                       </Link>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-
-            {/* Tags */}
-            <div className="rounded-xl border border-border bg-background p-6">
-              <h3 className="font-semibold text-foreground mb-4">Tags</h3>
-              {tags.length === 0 ? (
-                <p className="text-sm text-muted-foreground">No tags yet</p>
-              ) : (
-                <div className="flex flex-wrap gap-2">
-                  {tags.map((tag) => (
-                    <Link
-                      key={tag.id}
-                      href={`/blog?tag=${tag.slug}`}
-                      className={`inline-flex items-center px-3 py-1 rounded-full text-xs transition-colors ${
-                        activeTag === tag.slug
-                          ? "bg-foreground text-background"
-                          : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"
-                      }`}
-                    >
-                      {tag.name}
-                    </Link>
-                  ))}
+                    ))}
                 </div>
               )}
             </div>
-          </aside>
+
+            {/* Sidebar */}
+            <aside className="space-y-8">
+              {/* Categories */}
+              <div className="rounded-xl border border-border bg-background p-6">
+                <h3 className="font-semibold text-foreground mb-4">
+                  Categories
+                </h3>
+                {categories.length === 0 ? (
+                  <p className="text-sm text-muted-foreground">
+                    No categories yet
+                  </p>
+                ) : (
+                  <ul className="space-y-2">
+                    {categories.map((category) => (
+                      <li key={category.id}>
+                        <Link
+                          href={`/blog?category=${category.slug}`}
+                          className={`flex items-center justify-between text-sm transition-colors ${
+                            activeCategory === category.slug
+                              ? "text-foreground font-medium"
+                              : "text-muted-foreground hover:text-foreground"
+                          }`}
+                        >
+                          <span>{category.name}</span>
+                          <span className="text-xs">
+                            ({category._count.posts})
+                          </span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+
+              {/* Tags */}
+              <div className="rounded-xl border border-border bg-background p-6">
+                <h3 className="font-semibold text-foreground mb-4">Tags</h3>
+                {tags.length === 0 ? (
+                  <p className="text-sm text-muted-foreground">No tags yet</p>
+                ) : (
+                  <div className="flex flex-wrap gap-2">
+                    {tags.map((tag) => (
+                      <Link
+                        key={tag.id}
+                        href={`/blog?tag=${tag.slug}`}
+                        className={`inline-flex items-center px-3 py-1 rounded-full text-xs transition-colors ${
+                          activeTag === tag.slug
+                            ? "bg-foreground text-background"
+                            : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"
+                        }`}
+                      >
+                        {tag.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </aside>
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }
