@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Upload, X, Loader2 } from "lucide-react";
 import { Button } from "./button";
 
@@ -184,10 +185,11 @@ export function MultiImageUpload({
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
           {value.map((url, index) => (
             <div key={url} className="relative group aspect-square">
-              <img
+              <Image
                 src={url}
                 alt={`Upload ${index + 1}`}
-                className="w-full h-full object-cover rounded-lg border border-border"
+                fill
+                className="object-cover rounded-lg border border-border"
               />
               <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                 <Button

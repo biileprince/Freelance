@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 import { Metadata } from "next";
 import { GoogleOneTap } from "../components/auth/google-one-tap";
@@ -275,9 +276,11 @@ export default async function WorkPage({
                           <article className="grid grid-cols-1 lg:grid-cols-2 gap-6 rounded-xl border border-border overflow-hidden bg-background hover:border-foreground/20 transition-colors">
                             {project.coverImage ? (
                               <div className="aspect-video lg:aspect-auto lg:h-full overflow-hidden">
-                                <img
+                                <Image
                                   src={project.coverImage}
                                   alt={project.title}
+                                  width={600}
+                                  height={338}
                                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                                 />
                               </div>
@@ -388,9 +391,11 @@ export default async function WorkPage({
                       <article className="h-full rounded-xl border border-border overflow-hidden bg-background hover:border-foreground/20 transition-colors">
                         {project.coverImage ? (
                           <div className="aspect-video overflow-hidden">
-                            <img
+                            <Image
                               src={project.coverImage}
                               alt={project.title}
+                              width={400}
+                              height={225}
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                             />
                           </div>

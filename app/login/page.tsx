@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect, useCallback, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
@@ -18,15 +18,7 @@ function LoginContent() {
 
   const redirectTo = searchParams.get("redirect") || "/dashboard";
 
-  // Check if already logged in
-  useEffect(() => {
-    if (session?.user) {
-      // Check if user is admin and redirect accordingly
-      checkAdminAndRedirect();
-    }
-  }, [session]);
-
-  const checkAdminAndRedirect = async () => {
+  const checkAdminAndRedirect = useCallback(async () => {
     try {
       const res = await fetch("/api/auth/check-admin");
       const data = await res.json();
@@ -38,7 +30,14 @@ function LoginContent() {
     } catch {
       router.push(redirectTo);
     }
-  };
+  }, [router, redirectTo]);
+
+  // Check if already logged in
+  useEffect(() => {
+    if (session?.user) {
+      checkAdminAndRedirect();
+    }
+  }, [session, checkAdminAndRedirect]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

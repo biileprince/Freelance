@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/app/components/ui/button";
 import { ThemeToggle } from "@/app/components/theme-toggle";
 import { useSession, signOut } from "@/lib/auth-client";
@@ -364,9 +365,11 @@ export function Navigation() {
                 >
                   <button className="flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground">
                     {session.user.image ? (
-                      <img
+                      <Image
                         src={session.user.image}
                         alt={session.user.name || "User"}
+                        width={28}
+                        height={28}
                         className="h-7 w-7 rounded-full object-cover"
                       />
                     ) : (
@@ -535,9 +538,11 @@ export function Navigation() {
                     {session?.user && (
                       <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
                         {session.user.image ? (
-                          <img
+                          <Image
                             src={session.user.image}
                             alt={session.user.name || "User"}
+                            width={40}
+                            height={40}
                             className="h-10 w-10 rounded-full object-cover"
                           />
                         ) : (

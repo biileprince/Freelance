@@ -260,7 +260,7 @@ export async function GET(
     <tbody>
       ${lineItems
         .map(
-          (item: any) => `
+          (item: { description: string; quantity: number; rate: number; amount: number }) => `
         <tr>
           <td>
             <div class="item-description">${item.description}</div>

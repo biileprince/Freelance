@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { format } from "date-fns";
 import { prisma } from "@/lib/prisma";
 import { Metadata } from "next";
@@ -235,9 +236,11 @@ export default async function BlogPage({
                     <article className="rounded-xl border border-border overflow-hidden bg-background hover:border-foreground/20 transition-colors">
                       {featuredPost.coverImage && (
                         <div className="aspect-2/1 overflow-hidden">
-                          <img
+                          <Image
                             src={featuredPost.coverImage}
                             alt={featuredPost.title}
+                            width={800}
+                            height={400}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                           />
                         </div>
@@ -306,9 +309,11 @@ export default async function BlogPage({
                         <article className="h-full rounded-xl border border-border overflow-hidden bg-background hover:border-foreground/20 transition-colors">
                           {post.coverImage && (
                             <div className="aspect-video overflow-hidden">
-                              <img
+                              <Image
                                 src={post.coverImage}
                                 alt={post.title}
+                                width={400}
+                                height={225}
                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                               />
                             </div>

@@ -12,7 +12,7 @@ export async function submitContactForm(data: ContactFormData) {
     const validatedData = contactFormSchema.parse(data);
 
     // Save to database
-    const contact = await prisma.contact.create({
+    await prisma.contact.create({
       data: {
         name: validatedData.name,
         email: validatedData.email,

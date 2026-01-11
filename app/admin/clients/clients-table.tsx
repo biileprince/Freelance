@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Eye, Mail, Search, FolderKanban } from "lucide-react";
 
 type Client = {
@@ -88,9 +89,11 @@ export function ClientsTable({ clients: initialClients }: ClientsTableProps) {
                     <td className="px-4 py-4">
                       <div className="flex items-center gap-3">
                         {client.image ? (
-                          <img
+                          <Image
                             src={client.image}
                             alt={client.name || "Client"}
+                            width={40}
+                            height={40}
                             className="h-10 w-10 rounded-full object-cover"
                           />
                         ) : (

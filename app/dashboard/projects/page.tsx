@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/app/components/ui/button";
 import {
   Briefcase,
@@ -131,9 +132,11 @@ export default async function ProjectsPage() {
                     <div className="flex-1">
                       {project.imageUrl && (
                         <div className="mb-3 sm:mb-4 aspect-video rounded-lg overflow-hidden bg-muted">
-                          <img
+                          <Image
                             src={project.imageUrl}
                             alt={project.name}
+                            width={600}
+                            height={338}
                             className="w-full h-full object-cover"
                           />
                         </div>
@@ -210,9 +213,11 @@ export default async function ProjectsPage() {
                     <div className="flex-1">
                       {project.imageUrl && (
                         <div className="mb-3 sm:mb-4 aspect-video rounded-lg overflow-hidden bg-muted">
-                          <img
+                          <Image
                             src={project.imageUrl}
                             alt={project.name}
+                            width={600}
+                            height={338}
                             className="w-full h-full object-cover"
                           />
                         </div>

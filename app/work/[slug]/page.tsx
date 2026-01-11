@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { format } from "date-fns";
 import { Metadata } from "next";
@@ -215,9 +216,11 @@ export default async function ProjectPage({ params }: Props) {
       {project.coverImage && (
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl py-8">
           <div className="rounded-xl overflow-hidden border border-border">
-            <img
+            <Image
               src={project.coverImage}
               alt={project.title}
+              width={1200}
+              height={675}
               className="w-full aspect-video object-cover"
             />
           </div>
@@ -378,9 +381,11 @@ export default async function ProjectPage({ params }: Props) {
                   key={i}
                   className="rounded-xl overflow-hidden border border-border"
                 >
-                  <img
+                  <Image
                     src={url}
                     alt={`${project.title} screenshot ${i + 1}`}
+                    width={600}
+                    height={338}
                     className="w-full aspect-video object-cover"
                   />
                 </div>
@@ -407,9 +412,11 @@ export default async function ProjectPage({ params }: Props) {
                   <article className="h-full rounded-xl border border-border overflow-hidden bg-background hover:border-foreground/20 transition-colors">
                     {relatedProject.coverImage ? (
                       <div className="aspect-video overflow-hidden">
-                        <img
+                        <Image
                           src={relatedProject.coverImage}
                           alt={relatedProject.title}
+                          width={400}
+                          height={225}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                       </div>

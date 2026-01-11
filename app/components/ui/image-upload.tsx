@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useRef } from "react";
+import Image from "next/image";
 import { Upload, X, Loader2, Image as ImageIcon } from "lucide-react";
 import { Button } from "./button";
-import { uploadToCloudinary, deleteFromCloudinary } from "@/lib/cloudinary";
+import { uploadToCloudinary } from "@/lib/cloudinary";
 
 interface ImageUploadProps {
   value?: string;
@@ -98,10 +99,11 @@ export function ImageUpload({
       {value ? (
         <div className="relative group">
           <div className="relative w-full h-64 rounded-lg overflow-hidden border border-border bg-muted">
-            <img
+            <Image
               src={value}
               alt="Upload preview"
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
             />
             <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
               <Button

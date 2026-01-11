@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/app/components/ui/button";
 import {
   ArrowLeft,
@@ -68,9 +69,11 @@ export default async function ProjectDetailPage({
           {/* Project Cover Image */}
           {project.imageUrl && (
             <div className="mb-4 sm:mb-6 aspect-video rounded-lg overflow-hidden bg-muted">
-              <img
+              <Image
                 src={project.imageUrl}
                 alt={project.name}
+                width={1200}
+                height={675}
                 className="w-full h-full object-cover"
               />
             </div>

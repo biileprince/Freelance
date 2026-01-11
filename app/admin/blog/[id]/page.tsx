@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { formatDistanceToNow, format } from "date-fns";
 import { getBlogPost } from "../actions";
@@ -65,9 +66,11 @@ export default async function AdminBlogPostPage({
         <div className="lg:col-span-2 space-y-6">
           {post.coverImage && (
             <div className="bg-background rounded-lg border border-border overflow-hidden">
-              <img
+              <Image
                 src={post.coverImage}
                 alt={post.title}
+                width={800}
+                height={256}
                 className="w-full h-64 object-cover"
               />
             </div>

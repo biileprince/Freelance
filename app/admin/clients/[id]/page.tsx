@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import prisma from "@/lib/prisma";
 import {
   ArrowLeft,
@@ -79,9 +80,11 @@ export default async function ClientPage({ params }: ClientPageProps) {
           </Link>
           <div className="flex items-center gap-4">
             {client.image ? (
-              <img
+              <Image
                 src={client.image}
                 alt={client.name || "Client"}
+                width={64}
+                height={64}
                 className="h-16 w-16 rounded-full object-cover border-2 border-border"
               />
             ) : (

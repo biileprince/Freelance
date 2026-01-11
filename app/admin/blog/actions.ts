@@ -3,6 +3,37 @@
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { v2 as cloudinary } from "cloudinary";
+
+// Configure Cloudinary (server-side only)
+cloudinary.config({
+  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+// Helper function to extract public_id from Cloudinary URL
+function extractPublicId(url: string): string | null {
+  try {
+    const match = url.match(/\/v\d+\/(.+)\.(jpg|jpeg|png|gif|webp|svg)$/i);
+    return match ? match[1] : null;
+  } catch {
+    return null;
+  }
+}
+
+// Helper function to delete image from Cloudinary
+async function deleteCloudinaryImage(url: string | null | undefined) {
+  if (!url) return;
+  const publicId = extractPublicId(url);
+  if (publicId) {
+    try {
+      await cloudinary.uploader.destroy(publicId);
+    } catch (error) {
+      console.error("Error deleting image from Cloudinary:", error);
+    }
+  }
+}
 
 // Blog Post Actions
 export async function getBlogPosts(options?: {
@@ -121,6 +152,11 @@ export async function updateBlogPost(
     ...postData,
   };
 
+  // Delete old cover image if a new one is provided
+  if (data.coverImage && existingPost?.coverImage && data.coverImage !== existingPost.coverImage) {
+    await deleteCloudinaryImage(existingPost.coverImage);
+  }
+
   if (data.published && !existingPost?.publishedAt) {
     updateData.publishedAt = new Date();
   } else if (data.published === false) {
@@ -146,7 +182,19 @@ export async function updateBlogPost(
 }
 
 export async function deleteBlogPost(id: string) {
+  // Get the post to access its cover image before deleting
+  const post = await prisma.blogPost.findUnique({
+    where: { id },
+  });
+
+  // Delete from database first
   await prisma.blogPost.delete({ where: { id } });
+
+  // Then delete cover image from Cloudinary
+  if (post?.coverImage) {
+    await deleteCloudinaryImage(post.coverImage);
+  }
+
   revalidatePath("/admin/blog");
   revalidatePath("/blog");
 }

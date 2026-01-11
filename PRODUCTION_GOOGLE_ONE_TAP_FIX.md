@@ -3,6 +3,7 @@
 ## 🔴 CORS Error Fix - "Error retrieving a token"
 
 If you're seeing this error in production:
+
 ```
 Error retrieving a token.
 The fetch of the id assertion endpoint resulted in a network error: ERR_FAILED
@@ -16,6 +17,7 @@ This means your **production domain is not configured** in Google Cloud Console.
 ### 1. Get Your Production Domain
 
 First, identify your production domain:
+
 - Example: `https://yourdomain.com`
 - Example: `https://www.yourdomain.com`
 - Example: `https://yourapp.vercel.app`
@@ -25,25 +27,30 @@ First, identify your production domain:
 Go to [Google Cloud Console Credentials](https://console.cloud.google.com/apis/credentials)
 
 #### A. Select Your OAuth 2.0 Client ID
+
 1. Click on your OAuth 2.0 Client ID
 2. You should see the configuration page
 
 #### B. Add Authorized JavaScript Origins
+
 In the **Authorized JavaScript origins** section, add:
 
 **For your production domain:**
+
 ```
 https://yourdomain.com
 https://www.yourdomain.com
 ```
 
 **IMPORTANT:**
+
 - ✅ Use `https://` (required for production)
 - ✅ No trailing slash
 - ❌ Don't use `http://` in production
 - ❌ Don't include paths like `/api/auth`
 
 #### C. Add Authorized Redirect URIs
+
 In the **Authorized redirect URIs** section, add:
 
 ```
@@ -52,11 +59,13 @@ https://www.yourdomain.com/api/auth/callback/google
 ```
 
 **IMPORTANT:**
+
 - ✅ Must include the full path `/api/auth/callback/google`
 - ✅ Must use `https://` in production
 - ✅ Must match your BETTER_AUTH_URL exactly
 
 #### D. Save Changes
+
 Click **Save** at the bottom of the page.
 
 ### 3. Update Environment Variables
@@ -80,6 +89,7 @@ NEXT_PUBLIC_GOOGLE_CLIENT_ID=your-client-id.apps.googleusercontent.com
 ```
 
 **Critical Points:**
+
 - ❌ **NEVER** use `http://localhost:3000` in production
 - ✅ Use your actual production domain
 - ✅ Must use `https://` (SSL required)
@@ -88,19 +98,23 @@ NEXT_PUBLIC_GOOGLE_CLIENT_ID=your-client-id.apps.googleusercontent.com
 ### 4. Verify Your Deployment Platform
 
 #### For Vercel:
+
 1. Go to your project settings
 2. Navigate to **Environment Variables**
 3. Add/Update the variables above
 4. **Redeploy** your application
 
 #### For Railway:
+
 1. Go to your project
 2. Click on **Variables**
 3. Add/Update the variables
 4. Railway will auto-redeploy
 
 #### For Other Platforms:
+
 Make sure to:
+
 1. Set environment variables in your platform's dashboard
 2. Trigger a new deployment
 3. Verify variables are loaded (check build logs)
@@ -110,6 +124,7 @@ Make sure to:
 After making changes, verify:
 
 ### ✅ Google Cloud Console
+
 - [ ] Production domain added to **Authorized JavaScript origins**
 - [ ] Production callback URL added to **Authorized redirect URIs**
 - [ ] No `http://` URLs in production (only `https://`)
@@ -117,6 +132,7 @@ After making changes, verify:
 - [ ] Changes saved successfully
 
 ### ✅ Environment Variables
+
 - [ ] `BETTER_AUTH_URL` set to production domain (https://)
 - [ ] `NEXT_PUBLIC_BETTER_AUTH_URL` set to production domain
 - [ ] `GOOGLE_CLIENT_ID` matches Google Cloud Console
@@ -125,6 +141,7 @@ After making changes, verify:
 - [ ] `NEXT_PUBLIC_GOOGLE_CLIENT_ID` matches Google Cloud Console
 
 ### ✅ Application
+
 - [ ] Application redeployed after environment variable changes
 - [ ] Using HTTPS (not HTTP)
 - [ ] Browser console shows correct baseURL (not localhost)
@@ -138,6 +155,7 @@ After making changes, verify:
 5. **Wait 3-5 seconds** for One Tap popup
 
 ### Expected Result:
+
 ```
 ┌─────────────────────────────────────┐
 │   [Profile Picture]                 │
@@ -151,13 +169,15 @@ After making changes, verify:
 ### If Still Getting Errors:
 
 **Check Browser Console:**
+
 ```javascript
 // Should show your production domain, NOT localhost
-console.log(process.env.NEXT_PUBLIC_BETTER_AUTH_URL)
+console.log(process.env.NEXT_PUBLIC_BETTER_AUTH_URL);
 // Should show: https://yourdomain.com
 ```
 
 **Check Network Tab:**
+
 1. Open DevTools > Network
 2. Look for requests to `accounts.google.com`
 3. Check for CORS errors in the console
@@ -165,41 +185,49 @@ console.log(process.env.NEXT_PUBLIC_BETTER_AUTH_URL)
 ## 🚨 Common Mistakes
 
 ### ❌ Wrong: Using localhost in production
+
 ```env
 BETTER_AUTH_URL=http://localhost:3000  # WRONG!
 ```
 
 ### ✅ Correct: Using production domain
+
 ```env
 BETTER_AUTH_URL=https://yourdomain.com  # CORRECT!
 ```
 
 ### ❌ Wrong: Missing https://
+
 ```env
 BETTER_AUTH_URL=yourdomain.com  # WRONG!
 ```
 
 ### ✅ Correct: Including https://
+
 ```env
 BETTER_AUTH_URL=https://yourdomain.com  # CORRECT!
 ```
 
 ### ❌ Wrong: Trailing slash in JavaScript origins
+
 ```
 https://yourdomain.com/  # WRONG!
 ```
 
 ### ✅ Correct: No trailing slash
+
 ```
 https://yourdomain.com  # CORRECT!
 ```
 
 ### ❌ Wrong: Missing callback path
+
 ```
 https://yourdomain.com  # WRONG for redirect URI!
 ```
 
 ### ✅ Correct: Full callback path
+
 ```
 https://yourdomain.com/api/auth/callback/google  # CORRECT!
 ```
@@ -207,6 +235,7 @@ https://yourdomain.com/api/auth/callback/google  # CORRECT!
 ## 🔧 Quick Fix Commands
 
 ### Check what environment variables are set:
+
 ```bash
 # In your deployment platform's console/logs
 echo $BETTER_AUTH_URL
@@ -214,6 +243,7 @@ echo $NEXT_PUBLIC_BETTER_AUTH_URL
 ```
 
 ### Force rebuild:
+
 ```bash
 # Trigger a new deployment to ensure env vars are loaded
 git commit --allow-empty -m "Force rebuild for env vars"
@@ -225,18 +255,22 @@ git push
 If you're still getting errors, check these in browser console:
 
 ### 1. Check Current baseURL
+
 ```javascript
-console.log('Current baseURL:', process.env.NEXT_PUBLIC_BETTER_AUTH_URL);
+console.log("Current baseURL:", process.env.NEXT_PUBLIC_BETTER_AUTH_URL);
 // Should output: https://yourdomain.com (NOT localhost)
 ```
 
 ### 2. Check Network Requests
+
 1. Open DevTools > Network
 2. Look for requests to `accounts.google.com`
 3. Check response headers for CORS issues
 
 ### 3. Check Error Messages
+
 The component now provides detailed error messages:
+
 ```
 🔧 PRODUCTION SETUP CHECKLIST:
 1. Add your production domain to Google Cloud Console > Authorized JavaScript origins
@@ -251,6 +285,7 @@ The component now provides detailed error messages:
 ## 🎯 Success Criteria
 
 You know it's working when:
+
 1. ✅ No CORS errors in browser console
 2. ✅ One Tap popup appears automatically
 3. ✅ Email is displayed in the popup

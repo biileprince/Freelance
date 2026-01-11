@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getBlogPosts, getBlogCategories } from "./actions";
+import { getBlogPosts } from "./actions";
 import { BlogPostsTable } from "./blog-posts-table";
 import { Button } from "@/app/components/ui/button";
 

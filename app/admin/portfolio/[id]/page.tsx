@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { format } from "date-fns";
 import { getPortfolioProject } from "../actions";
@@ -76,9 +77,11 @@ export default async function AdminPortfolioProjectPage({
         <div className="lg:col-span-2 space-y-6">
           {project.coverImage && (
             <div className="bg-background rounded-lg border border-border overflow-hidden">
-              <img
+              <Image
                 src={project.coverImage}
                 alt={project.title}
+                width={800}
+                height={256}
                 className="w-full h-64 object-cover"
               />
             </div>
@@ -113,10 +116,12 @@ export default async function AdminPortfolioProjectPage({
               </h2>
               <div className="grid grid-cols-2 gap-4">
                 {images.map((url, i) => (
-                  <img
+                  <Image
                     key={i}
                     src={url}
                     alt={`${project.title} screenshot ${i + 1}`}
+                    width={400}
+                    height={225}
                     className="rounded-lg border border-border object-cover aspect-video"
                   />
                 ))}

@@ -58,12 +58,7 @@ export async function getClientInfo() {
   };
 }
 
-export async function trackPageView(data: {
-  path: string;
-  referrer?: string;
-  userId?: string;
-  sessionId?: string;
-}) {
+export async function trackPageView() {
   // PageView model removed - tracking is now handled via AnalyticsSession
   // This function is kept for backward compatibility but does nothing
   console.log("Page view tracking delegated to session tracking");

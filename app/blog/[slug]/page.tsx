@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { format } from "date-fns";
 import { Metadata } from "next";
@@ -162,9 +163,11 @@ export default async function BlogPostPage({ params }: Props) {
       {post.coverImage && (
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl -mt-px">
           <div className="aspect-2/1 rounded-xl overflow-hidden border border-border">
-            <img
+            <Image
               src={post.coverImage}
               alt={post.title}
+              width={1200}
+              height={600}
               className="w-full h-full object-cover"
             />
           </div>
@@ -231,9 +234,11 @@ export default async function BlogPostPage({ params }: Props) {
                   <article className="h-full rounded-xl border border-border overflow-hidden bg-background hover:border-foreground/20 transition-colors">
                     {relatedPost.coverImage && (
                       <div className="aspect-video overflow-hidden">
-                        <img
+                        <Image
                           src={relatedPost.coverImage}
                           alt={relatedPost.title}
+                          width={400}
+                          height={225}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                       </div>

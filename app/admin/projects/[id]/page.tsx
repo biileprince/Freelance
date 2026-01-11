@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import prisma from "@/lib/prisma";
 import {
   ArrowLeft,
@@ -256,9 +257,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 className="flex items-center gap-3 rounded-lg p-3 -mx-3 hover:bg-accent transition-colors"
               >
                 {project.user.image ? (
-                  <img
+                  <Image
                     src={project.user.image}
                     alt={project.user.name || "Client"}
+                    width={48}
+                    height={48}
                     className="h-12 w-12 rounded-full object-cover"
                   />
                 ) : (

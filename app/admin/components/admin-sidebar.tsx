@@ -92,7 +92,9 @@ export function AdminSidebar() {
 
   // Close sidebar when route changes on mobile
   useEffect(() => {
-    setIsOpen(false);
+    // Use startTransition to avoid cascading renders
+    const timer = setTimeout(() => setIsOpen(false), 0);
+    return () => clearTimeout(timer);
   }, [pathname]);
 
   // Prevent body scroll when mobile menu is open

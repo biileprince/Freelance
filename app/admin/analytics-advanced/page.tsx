@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Card } from "@/app/components/ui/card";
 import {
   Users,
@@ -53,11 +53,7 @@ export default function AdvancedAnalyticsPage() {
   const [recentActivity, setRecentActivity] = useState<RecentActivity[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchData();
-  }, [timeRange]);
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setLoading(true);
     try {
       const [statsRes, pageViewsRes, activityRes] = await Promise.all([
@@ -80,7 +76,11 @@ export default function AdvancedAnalyticsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [timeRange]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   const formatDuration = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);

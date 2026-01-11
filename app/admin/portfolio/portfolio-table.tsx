@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { formatDistanceToNow } from "date-fns";
 import { deletePortfolioProject } from "./actions";
 import { Button } from "@/app/components/ui/button";
@@ -102,9 +103,11 @@ export function PortfolioTable({ projects }: { projects: PortfolioProject[] }) {
                 <td className="px-3 sm:px-6 py-4">
                   <div className="flex items-center gap-2 sm:gap-3">
                     {project.coverImage && (
-                      <img
+                      <Image
                         src={project.coverImage}
                         alt={project.title}
+                        width={48}
+                        height={48}
                         className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg object-cover border border-border flex-shrink-0"
                       />
                     )}

@@ -21,8 +21,13 @@ export function GoogleOneTap() {
     if (isPending || session?.user) return;
 
     // Check if user previously dismissed One Tap (never show again)
-    if (typeof window !== "undefined" && localStorage.getItem(ONE_TAP_DISMISSED_KEY)) {
-      console.log("Google One Tap: User previously dismissed, not showing again");
+    if (
+      typeof window !== "undefined" &&
+      localStorage.getItem(ONE_TAP_DISMISSED_KEY)
+    ) {
+      console.log(
+        "Google One Tap: User previously dismissed, not showing again"
+      );
       return;
     }
 
@@ -64,19 +69,21 @@ export function GoogleOneTap() {
             },
             onError: (context) => {
               console.error("Google One Tap sign-in failed:", context.error);
-              
+
               // Check for CORS errors
-              if (context.error?.message?.includes("CORS") || 
-                  context.error?.message?.includes("ERR_FAILED")) {
+              if (
+                context.error?.message?.includes("CORS") ||
+                context.error?.message?.includes("ERR_FAILED")
+              ) {
                 console.error(
                   "CORS Error - Check your production domain is added to Google Cloud Console:\n" +
-                  "1. Go to https://console.cloud.google.com/apis/credentials\n" +
-                  "2. Add your production domain to 'Authorized JavaScript origins'\n" +
-                  "3. Add your callback URL to 'Authorized redirect URIs'\n" +
-                  "4. Make sure BETTER_AUTH_URL environment variable is set to your production domain"
+                    "1. Go to https://console.cloud.google.com/apis/credentials\n" +
+                    "2. Add your production domain to 'Authorized JavaScript origins'\n" +
+                    "3. Add your callback URL to 'Authorized redirect URIs'\n" +
+                    "4. Make sure BETTER_AUTH_URL environment variable is set to your production domain"
                 );
               }
-              
+
               // Reset flags so user can try again
               hasInitialized.current = false;
               isOneTapPending = false;
@@ -96,19 +103,20 @@ export function GoogleOneTap() {
                 ? notification.isSkippedMoment()
                 : false;
             const isDismissed =
-              notification && typeof notification.isDismissedMoment === "function"
+              notification &&
+              typeof notification.isDismissedMoment === "function"
                 ? notification.isDismissedMoment()
                 : false;
 
             // If user dismissed or skipped, save to localStorage (never show again)
             if (isNotDisplayed || isSkipped || isDismissed) {
               console.log("User closed Google One Tap - will not show again");
-              
+
               // Save dismissal state to localStorage
               if (typeof window !== "undefined") {
                 localStorage.setItem(ONE_TAP_DISMISSED_KEY, "true");
               }
-              
+
               // Reset flags
               hasInitialized.current = false;
               isOneTapPending = false;
@@ -117,24 +125,27 @@ export function GoogleOneTap() {
         });
       } catch (error) {
         console.error("Failed to initialize Google One Tap:", error);
-        
+
         // Provide helpful debugging info for production errors
         if (error instanceof Error) {
-          if (error.message.includes("IdentityCredentialError") || 
-              error.message.includes("CORS") ||
-              error.message.includes("ERR_FAILED")) {
+          if (
+            error.message.includes("IdentityCredentialError") ||
+            error.message.includes("CORS") ||
+            error.message.includes("ERR_FAILED")
+          ) {
             console.error(
               "\n🔧 PRODUCTION SETUP CHECKLIST:\n" +
-              "1. Add your production domain to Google Cloud Console > Authorized JavaScript origins\n" +
-              "2. Add callback URL to Authorized redirect URIs\n" +
-              "3. Set BETTER_AUTH_URL and NEXT_PUBLIC_BETTER_AUTH_URL to your production domain\n" +
-              "4. Ensure GOOGLE_CLIENT_ID matches the one in Google Cloud Console\n" +
-              "5. Verify your domain is using HTTPS (required for One Tap)\n" +
-              "\n📍 Current baseURL: " + (process.env.NEXT_PUBLIC_BETTER_AUTH_URL || "Not set")
+                "1. Add your production domain to Google Cloud Console > Authorized JavaScript origins\n" +
+                "2. Add callback URL to Authorized redirect URIs\n" +
+                "3. Set BETTER_AUTH_URL and NEXT_PUBLIC_BETTER_AUTH_URL to your production domain\n" +
+                "4. Ensure GOOGLE_CLIENT_ID matches the one in Google Cloud Console\n" +
+                "5. Verify your domain is using HTTPS (required for One Tap)\n" +
+                "\n📍 Current baseURL: " +
+                (process.env.NEXT_PUBLIC_BETTER_AUTH_URL || "Not set")
             );
           }
         }
-        
+
         // Reset flags on error
         hasInitialized.current = false;
         isOneTapPending = false;
