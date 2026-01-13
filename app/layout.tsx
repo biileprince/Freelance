@@ -1,30 +1,145 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Navigation } from "./components/layout/navigation";
 import { Footer } from "./components/layout/footer";
+import { getAllKeywords } from "@/lib/schema-org";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "WebAxiom | Professional Web Development",
-  description:
-    "Building modern, fast, and secure websites for businesses that want to stand out. Full-stack development with Next.js, React, and cutting-edge technologies.",
-  keywords: [
-    "freelance web developer",
-    "web development",
-    "next.js developer",
-    "full stack developer",
-    "custom websites",
-    "e-commerce",
-    "corporate websites",
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://webaxiom.com";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
   ],
-  authors: [{ name: "WebAxiom" }],
+};
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default:
+      "WebAxiom | Freelance Web Developer & App Developer in Ghana | Build Your Website",
+    template: "%s | WebAxiom - Professional Web Development",
+  },
+  description:
+    "Need a website or mobile app? WebAxiom is a professional freelance web developer and app developer in Ghana. We build stunning, fast, SEO-optimized websites, e-commerce stores, and mobile apps for businesses worldwide. Get a free quote today!",
+  keywords: getAllKeywords(),
+  authors: [{ name: "WebAxiom", url: SITE_URL }, { name: "WebAxiom Ghana" }],
+  creator: "WebAxiom",
+  publisher: "WebAxiom",
+  formatDetection: {
+    email: true,
+    address: true,
+    telephone: true,
+  },
+  category: "technology",
+  classification: "Web Development Services",
+  referrer: "origin-when-cross-origin",
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   openGraph: {
-    title: "WebAxiom | Professional Web Development",
-    description:
-      "Building modern, fast, and secure websites for businesses that want to stand out.",
     type: "website",
+    locale: "en_US",
+    alternateLocale: ["en_GB"],
+    url: SITE_URL,
+    siteName: "WebAxiom",
+    title:
+      "WebAxiom | Freelance Web Developer & App Developer in Ghana | Build Your Website",
+    description:
+      "Need a website or mobile app? Professional freelance web developer in Ghana. We build stunning websites, e-commerce stores, and mobile apps for businesses worldwide. Fast, SEO-optimized, and affordable.",
+    images: [
+      {
+        url: `${SITE_URL}/og-image.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "WebAxiom - Professional Freelance Web Developer and App Developer in Ghana",
+        type: "image/jpeg",
+      },
+      {
+        url: `${SITE_URL}/og-image-square.jpg`,
+        width: 600,
+        height: 600,
+        alt: "WebAxiom Logo",
+        type: "image/jpeg",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@webaxiom",
+    creator: "@webaxiom",
+    title: "WebAxiom | Freelance Web Developer & App Developer in Ghana",
+    description:
+      "Need a website or mobile app? Professional freelance web developer in Ghana. Build stunning websites, e-commerce stores, and mobile apps. Fast & affordable!",
+    images: [`${SITE_URL}/twitter-image.jpg`],
+  },
+  alternates: {
+    canonical: SITE_URL,
+    languages: {
+      "en-US": SITE_URL,
+      "en-GB": `${SITE_URL}/en-gb`,
+    },
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+    other: [
+      {
+        rel: "mask-icon",
+        url: "/safari-pinned-tab.svg",
+        color: "#10b981",
+      },
+    ],
+  },
+  manifest: "/site.webmanifest",
+  verification: {
+    google: "your-google-verification-code", // Add your Google Search Console verification
+    yandex: "your-yandex-verification-code",
+    other: {
+      "msvalidate.01": "your-bing-verification-code",
+    },
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "WebAxiom",
+  },
+  applicationName: "WebAxiom",
+  other: {
+    "geo.region": "GH-AA",
+    "geo.placename": "Accra, Ghana",
+    "geo.position": "5.6037;-0.187",
+    ICBM: "5.6037, -0.187",
+    "revisit-after": "7 days",
+    rating: "general",
+    "dc.title": "WebAxiom - Freelance Web Developer and App Developer in Ghana",
+    "dc.creator": "WebAxiom",
+    "dc.subject": "Web Development, Mobile App Development, E-Commerce",
+    "dc.description":
+      "Professional freelance web developer and app developer in Ghana",
+    "dc.language": "en",
   },
 };
 

@@ -2,16 +2,76 @@ import { Metadata } from "next";
 import { Mail, Phone, MapPin, Clock, Send, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { GoogleOneTap } from "../components/auth/google-one-tap";
+import {
+  generateLocalBusinessSchema,
+  generateBreadcrumbSchema,
+} from "@/lib/schema-org";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://webaxiom.com";
 
 export const metadata: Metadata = {
-  title: "Contact | WebAxiom",
+  title:
+    "Contact WebAxiom | Get a Free Quote for Your Website or App | Ghana Web Developer",
   description:
-    "Get in touch with WebAxiom for your web development needs. Let's discuss your project and bring your vision to life.",
+    "Ready to build your website or mobile app? Contact WebAxiom for a free consultation and quote. We're a professional freelance web developer in Ghana serving clients worldwide. Fast response, affordable prices, quality work!",
+  keywords: [
+    "contact web developer",
+    "get website quote",
+    "hire web developer ghana",
+    "website development quote",
+    "app development quote",
+    "freelance developer contact",
+    "web developer accra contact",
+    "website price ghana",
+    "free consultation web design",
+  ],
+  alternates: {
+    canonical: `${SITE_URL}/contact`,
+  },
+  openGraph: {
+    title: "Contact WebAxiom | Get a Free Quote for Your Website or App",
+    description:
+      "Ready to build your website or mobile app? Contact WebAxiom for a free consultation. Professional freelance web developer in Ghana.",
+    url: `${SITE_URL}/contact`,
+    type: "website",
+    images: [
+      {
+        url: `${SITE_URL}/contact-og.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "Contact WebAxiom - Get Your Free Website Quote",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact WebAxiom | Get a Free Quote",
+    description:
+      "Ready to build your website or app? Contact WebAxiom for a free consultation!",
+  },
 };
 
 export default function ContactPage() {
+  const localBusinessSchema = generateLocalBusinessSchema();
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: SITE_URL },
+    { name: "Contact", url: `${SITE_URL}/contact` },
+  ]);
+
   return (
     <>
+      {/* JSON-LD Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(localBusinessSchema),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       {/* Google One Tap for non-authenticated users */}
       <GoogleOneTap />
 

@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
@@ -14,6 +15,18 @@ import {
 } from "lucide-react";
 import { format } from "date-fns";
 import { headers } from "next/headers";
+
+export const metadata: Metadata = {
+  title: "Dashboard",
+  robots: {
+    index: false,
+    follow: false,
+    noarchive: true,
+    nosnippet: true,
+    noimageindex: true,
+    nocache: true,
+  },
+};
 
 async function getDashboardData(userId: string) {
   const [projects, invoices] = await Promise.all([
@@ -336,16 +349,16 @@ export default async function DashboardPage() {
                 </div>
               </Button>
             </Link>
-            <Link href="/contact">
+            <Link href="/#contact">
               <Button
                 variant="outline"
                 className="w-full justify-start h-auto py-3"
               >
                 <ArrowRight className="mr-2 h-4 w-4" />
                 <div className="text-left">
-                  <div className="font-medium">Contact Support</div>
+                  <div className="font-medium">Request New Project</div>
                   <div className="text-xs text-muted-foreground">
-                    Get help anytime
+                    Contact us for a quote
                   </div>
                 </div>
               </Button>

@@ -243,7 +243,10 @@ export async function getAnalyticsStats(
       loginCount,
       signupCount,
       avgSessionDuration: avgSessionDuration._avg.duration || 0,
-      topPages: topPages.map((p) => ({ path: p.landingPage, views: p._count.landingPage })),
+      topPages: topPages.map((p) => ({
+        path: p.landingPage,
+        views: p._count.landingPage,
+      })),
       osByCount: osByCount.map((o) => ({
         os: o.os || "Unknown",
         count: o._count.os,

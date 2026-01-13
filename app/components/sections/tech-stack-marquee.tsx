@@ -121,14 +121,18 @@ export function TechStackMarquee() {
         {/* Marquee */}
         <motion.div
           className="flex gap-6 sm:gap-12"
-          animate={{
-            x: [0, -1400],
-          }}
+          animate={
+            isPaused
+              ? {}
+              : {
+                  x: [0, -1400],
+                }
+          }
           transition={{
             x: {
               repeat: Infinity,
               repeatType: "loop",
-              duration: isPaused ? 10000000 : 40,
+              duration: 40,
               ease: "linear",
             },
           }}

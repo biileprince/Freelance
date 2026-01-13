@@ -3,11 +3,53 @@ import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 import { Metadata } from "next";
 import { GoogleOneTap } from "../components/auth/google-one-tap";
+import {
+  generateOrganizationSchema,
+  generateBreadcrumbSchema,
+} from "@/lib/schema-org";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://webaxiom.com";
 
 export const metadata: Metadata = {
-  title: "Work | WebAxiom",
+  title:
+    "Our Work & Portfolio | Web Development Projects by WebAxiom | Ghana Developer",
   description:
-    "Explore our portfolio of web development projects. See case studies of successful websites and web applications we've built for our clients.",
+    "Explore our portfolio of successful web development and mobile app projects. See case studies of websites, e-commerce stores, and web applications we've built for clients in Ghana and worldwide. Quality work that speaks for itself!",
+  keywords: [
+    "web development portfolio",
+    "website examples ghana",
+    "web developer projects",
+    "e-commerce website examples",
+    "mobile app portfolio",
+    "web application case studies",
+    "best websites ghana",
+    "professional website examples",
+    "successful web projects",
+  ],
+  alternates: {
+    canonical: `${SITE_URL}/work`,
+  },
+  openGraph: {
+    title: "Our Work & Portfolio | Web Development Projects by WebAxiom",
+    description:
+      "Explore our portfolio of successful web development and mobile app projects. See case studies of websites we've built for clients worldwide.",
+    url: `${SITE_URL}/work`,
+    type: "website",
+    images: [
+      {
+        url: `${SITE_URL}/portfolio-og.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "WebAxiom Portfolio - Web Development Projects",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Our Work & Portfolio | WebAxiom",
+    description:
+      "Explore our portfolio of successful web development and mobile app projects.",
+  },
 };
 
 async function getProjects(options?: {
@@ -85,8 +127,25 @@ export default async function WorkPage({
   const featuredProjects = projects.filter((p) => p.featured);
   const regularProjects = projects.filter((p) => !p.featured);
 
+  // Generate JSON-LD schemas
+  const organizationSchema = generateOrganizationSchema();
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: SITE_URL },
+    { name: "Work", url: `${SITE_URL}/work` },
+  ]);
+
   return (
     <>
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       {/* Google One Tap for non-authenticated users */}
       <GoogleOneTap />
 

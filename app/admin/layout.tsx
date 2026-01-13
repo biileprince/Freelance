@@ -1,7 +1,20 @@
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
 import { getAdminUser } from "@/lib/admin";
 import { AdminSidebar } from "./components/admin-sidebar";
 import { AdminHeader } from "./components/admin-header";
+
+export const metadata: Metadata = {
+  title: "Admin Dashboard",
+  robots: {
+    index: false,
+    follow: false,
+    noarchive: true,
+    nosnippet: true,
+    noimageindex: true,
+    nocache: true,
+  },
+};
 
 export default async function AdminLayout({
   children,

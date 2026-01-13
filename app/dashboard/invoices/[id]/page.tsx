@@ -111,8 +111,8 @@ export default function InvoiceDetailPage({
           <FileText className="mx-auto h-16 w-16 text-muted-foreground/50" />
           <h1 className="mt-4 text-2xl font-bold">Invoice not found</h1>
           <p className="text-muted-foreground mt-2">
-            The invoice you&apos;re looking for doesn&apos;t exist or you don&apos;t have
-            access to it.
+            The invoice you&apos;re looking for doesn&apos;t exist or you
+            don&apos;t have access to it.
           </p>
           <Link href="/dashboard/invoices" className="mt-6 inline-block">
             <Button>Back to Invoices</Button>
@@ -252,27 +252,37 @@ export default function InvoiceDetailPage({
                 Invoice Items
               </h3>
               <div className="space-y-2 sm:space-y-3">
-                {lineItems.map((item: { description: string; quantity: number; rate: number; amount: number }, index: number) => (
-                  <div
-                    key={index}
-                    className="flex items-start sm:items-center justify-between py-1.5 sm:py-2 gap-2"
-                  >
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-xs sm:text-sm truncate">
-                        {item.description}
-                      </p>
-                      {item.quantity && (
-                        <p className="text-sm text-muted-foreground">
-                          Qty: {item.quantity}
-                          {item.rate && ` × $${item.rate}`}
+                {lineItems.map(
+                  (
+                    item: {
+                      description: string;
+                      quantity: number;
+                      rate: number;
+                      amount: number;
+                    },
+                    index: number
+                  ) => (
+                    <div
+                      key={index}
+                      className="flex items-start sm:items-center justify-between py-1.5 sm:py-2 gap-2"
+                    >
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium text-xs sm:text-sm truncate">
+                          {item.description}
                         </p>
-                      )}
+                        {item.quantity && (
+                          <p className="text-sm text-muted-foreground">
+                            Qty: {item.quantity}
+                            {item.rate && ` × $${item.rate}`}
+                          </p>
+                        )}
+                      </div>
+                      <p className="font-semibold">
+                        ${item.amount.toLocaleString()}
+                      </p>
                     </div>
-                    <p className="font-semibold">
-                      ${item.amount.toLocaleString()}
-                    </p>
-                  </div>
-                ))}
+                  )
+                )}
                 <div className="flex items-center justify-between pt-3 border-t border-border">
                   <p className="font-semibold">Total</p>
                   <p className="text-xl font-bold">

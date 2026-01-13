@@ -11,11 +11,52 @@ import {
   Shield,
   Users,
 } from "lucide-react";
+import {
+  generatePersonSchema,
+  generateBreadcrumbSchema,
+} from "@/lib/schema-org";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://webaxiom.com";
 
 export const metadata: Metadata = {
-  title: "About | WebAxiom",
+  title: "About WebAxiom | Freelance Web Developer & App Developer in Ghana",
   description:
-    "Learn about WebAxiom - a passionate web developer dedicated to creating stunning, high-performance websites for businesses of all sizes.",
+    "Meet WebAxiom - a passionate freelance web developer and app developer based in Ghana. With 5+ years of experience, we create stunning, high-performance websites and mobile apps for businesses worldwide. Learn about our story, values, and expertise.",
+  keywords: [
+    "about webaxiom",
+    "freelance web developer ghana",
+    "web developer accra",
+    "app developer ghana",
+    "professional web developer",
+    "experienced developer ghana",
+    "full stack developer",
+    "react developer",
+    "next.js expert",
+  ],
+  alternates: {
+    canonical: `${SITE_URL}/about`,
+  },
+  openGraph: {
+    title: "About WebAxiom | Freelance Web Developer & App Developer in Ghana",
+    description:
+      "Meet WebAxiom - a passionate freelance web developer based in Ghana. 5+ years of experience creating stunning websites and mobile apps for businesses worldwide.",
+    url: `${SITE_URL}/about`,
+    type: "profile",
+    images: [
+      {
+        url: `${SITE_URL}/about-og.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "About WebAxiom - Freelance Web Developer in Ghana",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About WebAxiom | Freelance Web Developer Ghana",
+    description:
+      "Meet WebAxiom - a passionate freelance web developer based in Ghana with 5+ years of experience.",
+  },
 };
 
 const values = [
@@ -52,9 +93,28 @@ const stats = [
   { value: "24h", label: "Response Time" },
 ];
 
+const SITE_URL_CONST =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://webaxiom.com";
+
 export default function AboutPage() {
+  const personSchema = generatePersonSchema();
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: SITE_URL_CONST },
+    { name: "About", url: `${SITE_URL_CONST}/about` },
+  ]);
+
   return (
     <main className="relative min-h-screen bg-background">
+      {/* JSON-LD Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       {/* Grid background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border)/0.3)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)/0.3)_1px,transparent_1px)] bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 

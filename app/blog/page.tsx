@@ -4,11 +4,50 @@ import { format } from "date-fns";
 import { prisma } from "@/lib/prisma";
 import { Metadata } from "next";
 import { GoogleOneTap } from "../components/auth/google-one-tap";
+import { generateBreadcrumbSchema } from "@/lib/schema-org";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://webaxiom.com";
 
 export const metadata: Metadata = {
-  title: "Blog | WebAxiom",
+  title: "Blog | Web Development Tips, Tutorials & Insights | WebAxiom Ghana",
   description:
-    "Insights, tutorials, and updates from WebAxiom. Stay up to date with the latest in web development, design, and technology.",
+    "Stay updated with the latest web development trends, tutorials, and insights from WebAxiom. Learn about React, Next.js, mobile app development, SEO, and more. Expert tips from a professional freelance developer in Ghana.",
+  keywords: [
+    "web development blog",
+    "coding tutorials",
+    "react tutorials",
+    "next.js tips",
+    "web development ghana",
+    "developer blog",
+    "programming tutorials",
+    "frontend development",
+    "full stack development tips",
+    "seo tips for websites",
+  ],
+  alternates: {
+    canonical: `${SITE_URL}/blog`,
+  },
+  openGraph: {
+    title: "Blog | Web Development Tips, Tutorials & Insights | WebAxiom",
+    description:
+      "Stay updated with the latest web development trends, tutorials, and insights. Expert tips from a professional freelance developer in Ghana.",
+    url: `${SITE_URL}/blog`,
+    type: "website",
+    images: [
+      {
+        url: `${SITE_URL}/blog-og.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "WebAxiom Blog - Web Development Tips and Tutorials",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Blog | Web Development Tips & Tutorials | WebAxiom",
+    description:
+      "Stay updated with the latest web development trends, tutorials, and insights.",
+  },
 };
 
 async function getBlogPosts(options?: {
@@ -99,8 +138,20 @@ export default async function BlogPage({
   const activeTag = params.tag;
   const searchQuery = params.search;
 
+  // Generate JSON-LD schema
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: SITE_URL },
+    { name: "Blog", url: `${SITE_URL}/blog` },
+  ]);
+
   return (
     <>
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       {/* Google One Tap for non-authenticated users */}
       <GoogleOneTap />
 

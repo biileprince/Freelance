@@ -4,6 +4,12 @@ import { notFound } from "next/navigation";
 import { format } from "date-fns";
 import { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
+import {
+  generateBlogPostSchema,
+  generateBreadcrumbSchema,
+} from "@/lib/schema-org";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://webaxiom.com";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -55,21 +61,57 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = await prisma.blogPost.findUnique({
     where: { slug, published: true },
+    include: { category: true },
   });
 
   if (!post) {
     return { title: "Post Not Found | WebAxiom" };
   }
 
+  const keywords = [
+    post.title.toLowerCase(),
+    "web development",
+    "webaxiom blog",
+    post.category?.name?.toLowerCase() || "tutorial",
+    "ghana developer",
+  ];
+
   return {
-    title: `${post.title} | WebAxiom Blog`,
-    description: post.excerpt || `Read ${post.title} on WebAxiom Blog`,
+    title: `${post.title} | WebAxiom Blog - Web Development Insights`,
+    description:
+      post.excerpt ||
+      `Read ${post.title} on WebAxiom Blog. Expert web development tips, tutorials, and insights from a professional freelance developer in Ghana.`,
+    keywords,
+    alternates: {
+      canonical: `${SITE_URL}/blog/${slug}`,
+    },
     openGraph: {
       title: post.title,
-      description: post.excerpt || undefined,
-      images: post.coverImage ? [post.coverImage] : undefined,
+      description:
+        post.excerpt ||
+        `Read ${post.title} - Expert web development tips and insights.`,
+      images: post.coverImage
+        ? [
+            {
+              url: post.coverImage,
+              width: 1200,
+              height: 630,
+              alt: post.title,
+            },
+          ]
+        : undefined,
       type: "article",
       publishedTime: post.publishedAt?.toISOString(),
+      modifiedTime: post.updatedAt?.toISOString(),
+      authors: ["WebAxiom"],
+      section: post.category?.name || "Web Development",
+      url: `${SITE_URL}/blog/${slug}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt || `Read ${post.title} on WebAxiom Blog`,
+      images: post.coverImage ? [post.coverImage] : undefined,
     },
   };
 }
@@ -88,8 +130,36 @@ export default async function BlogPostPage({ params }: Props) {
   const wordCount = post.content.replace(/<[^>]*>/g, "").split(/\s+/).length;
   const readTime = Math.max(1, Math.ceil(wordCount / 200));
 
+  // Generate JSON-LD schemas
+  const blogPostSchema = generateBlogPostSchema({
+    title: post.title,
+    description: post.excerpt || "",
+    slug: post.slug,
+    datePublished:
+      post.publishedAt?.toISOString() || post.createdAt.toISOString(),
+    dateModified: post.updatedAt?.toISOString(),
+    image: post.coverImage || undefined,
+    category: post.category?.name || undefined,
+  });
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: SITE_URL },
+    { name: "Blog", url: `${SITE_URL}/blog` },
+    { name: post.title, url: `${SITE_URL}/blog/${post.slug}` },
+  ]);
+
   return (
     <main className="min-h-screen bg-background">
+      {/* JSON-LD Schemas */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       {/* Hero */}
       <section className="py-12 border-b border-border">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
