@@ -9,12 +9,51 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin", "/dashboard", "/api", "/login", "/register"],
+        disallow: [
+          "/admin",
+          "/dashboard",
+          "/api",
+          "/login",
+          "/register",
+          "/_next",
+          "/static",
+        ],
       },
       {
         userAgent: "Googlebot",
         allow: "/",
         disallow: ["/admin", "/dashboard", "/api", "/login", "/register"],
+      },
+      {
+        userAgent: "Googlebot-Image",
+        allow: "/",
+      },
+      {
+        userAgent: "Bingbot",
+        allow: "/",
+        disallow: ["/admin", "/dashboard", "/api", "/login", "/register"],
+      },
+      {
+        userAgent: "Slurp",
+        allow: "/",
+        disallow: ["/admin", "/dashboard", "/api", "/login", "/register"],
+      },
+      {
+        userAgent: "DuckDuckBot",
+        allow: "/",
+        disallow: ["/admin", "/dashboard", "/api", "/login", "/register"],
+      },
+      {
+        userAgent: "facebookexternalhit",
+        allow: "/",
+      },
+      {
+        userAgent: "Twitterbot",
+        allow: "/",
+      },
+      {
+        userAgent: "LinkedInBot",
+        allow: "/",
       },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,

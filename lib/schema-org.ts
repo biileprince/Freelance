@@ -700,6 +700,15 @@ export const SEO_KEYWORDS = {
     "custom web application development",
     "small business website ghana",
   ],
+  brand: [
+    "axiomcraft",
+    "axiomcraft web development",
+    "axiomcraft ghana",
+    "axiomcraft developer",
+    "axiomcraft.dev",
+    "axiom craft",
+    "axiom craft web developer",
+  ],
 };
 
 // Generate all keywords as a flat array
@@ -711,5 +720,6 @@ export function getAllKeywords(): string[] {
     ...SEO_KEYWORDS.location,
     ...SEO_KEYWORDS.intent,
     ...SEO_KEYWORDS.longTail,
+    ...SEO_KEYWORDS.brand,
   ];
 }
