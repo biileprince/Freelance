@@ -111,7 +111,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const portfolioWithTech = await prisma.portfolioProject.findMany({
     where: {
       published: true,
-      technologies: { isEmpty: false },
     },
     select: { technologies: true },
   });
@@ -119,7 +118,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Extract unique technologies
   const uniqueTechnologies = new Set<string>();
   portfolioWithTech.forEach((project) => {
-    project.technologies.forEach((tech) => uniqueTechnologies.add(tech));
+    if (project.technologies && project.technologies.length > 0) {
+      project.technologies.forEach((tech) => uniqueTechnologies.add(tech));
+    }
   });
 
   const technologyPages = Array.from(uniqueTechnologies).map((tech) => ({
