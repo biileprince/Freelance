@@ -6,8 +6,16 @@ export const authClient = createAuthClient({
   plugins: [
     oneTapClient({
       clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "",
+      autoSelect: true, // Auto-select account if user is already signed in to Google
+      cancelOnTapOutside: true, // Close popup when clicking outside
+      context: "signin", // Context: "signin", "signup", or "use"
+      // Disable exponential backoff - don't retry if user dismisses
+      promptOptions: {
+        baseDelay: 0, // No delay for retries
+        maxAttempts: 1, // Only show once, no retries
+      },
     }),
   ],
 });
 
-export const { signIn, signUp, signOut, useSession, oneTap } = authClient;
+export const { signIn, signUp, signOut, useSession } = authClient;
