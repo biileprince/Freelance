@@ -122,7 +122,7 @@ export const metadata: Metadata = {
     google: "51UCvm6DPhB9JQQzHfPBZfmzAYuKlG_YoqtnqXpQQoA",
     yandex: "your-yandex-verification-code",
     other: {
-      "msvalidate.01": "your-bing-verification-code",
+      "msvalidate.01": "4FBE1C1585CD841FF62A227164FF3065",
     },
   },
   appleWebApp: {

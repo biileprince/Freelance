@@ -109,9 +109,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Portfolio technologies (Next.js, React, TypeScript, etc.)
   const portfolioWithTech = await prisma.portfolioProject.findMany({
-    where: { 
+    where: {
       published: true,
-      technologies: { isEmpty: false }
+      technologies: { isEmpty: false },
     },
     select: { technologies: true },
   });
@@ -136,7 +136,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .forEach((catProject) => {
       Array.from(uniqueTechnologies).forEach((tech) => {
         combinedWorkPages.push({
-          url: `${SITE_URL}/work?technology=${encodeURIComponent(tech)}&category=${encodeURIComponent(catProject.category!)}`,
+          url: `${SITE_URL}/work?technology=${encodeURIComponent(
+            tech
+          )}&category=${encodeURIComponent(catProject.category!)}`,
           lastModified: new Date(),
           changeFrequency: "monthly" as const,
           priority: 0.5,
