@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useAnimationControls } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 import {
   SiNextdotjs,
@@ -82,7 +82,7 @@ export function TechStackMarquee() {
     }
     return false;
   });
-  const [isPaused, setIsPaused] = useState(false);
+  const controls = useAnimationControls();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -98,6 +98,35 @@ export function TechStackMarquee() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    // Start the animation
+    controls.start({
+      x: [0, -1400],
+      transition: {
+        repeat: Infinity,
+        repeatType: "loop",
+        duration: 40,
+        ease: "linear",
+      },
+    });
+  }, [controls]);
+
+  const handleMouseEnter = () => {
+    controls.stop();
+  };
+
+  const handleMouseLeave = () => {
+    controls.start({
+      x: [null, -1400], // null means continue from current position
+      transition: {
+        repeat: Infinity,
+        repeatType: "loop",
+        duration: 40,
+        ease: "linear",
+      },
+    });
+  };
+
   return (
     <section className="relative w-full border-y border-border/50 bg-background py-12 sm:py-16 overflow-hidden">
       {/* Section Header */}
@@ -111,32 +140,15 @@ export function TechStackMarquee() {
       <div
         ref={containerRef}
         className="relative"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
         {/* Gradient Overlays */}
         <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-16 sm:w-32 bg-linear-to-r from-background to-transparent" />
         <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 sm:w-32 bg-linear-to-l from-background to-transparent" />
 
         {/* Marquee */}
-        <motion.div
-          className="flex gap-6 sm:gap-12"
-          animate={
-            isPaused
-              ? {}
-              : {
-                  x: [0, -1400],
-                }
-          }
-          transition={{
-            x: {
-              repeat: Infinity,
-              repeatType: "loop",
-              duration: 40,
-              ease: "linear",
-            },
-          }}
-        >
+        <motion.div className="flex gap-6 sm:gap-12" animate={controls}>
           {[...technologies, ...technologies, ...technologies].map(
             (tech, index) => {
               const Icon = tech.icon;

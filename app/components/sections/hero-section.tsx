@@ -89,8 +89,8 @@ export function HeroSection() {
               className="mb-6 sm:mb-8 text-base sm:text-lg text-muted-foreground md:text-xl max-w-2xl lg:max-w-none leading-relaxed"
             >
               Whether you need an online store, business website, or custom web
-              app, we design and develop professional websites that attract
-              customers and help your business succeed.
+              app, we design and develop professional websites and mobile apps
+              that attract customers and help your business succeed.
             </motion.p>
 
             {/* Trust points - Quick value props */}
@@ -121,10 +121,10 @@ export function HeroSection() {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="flex flex-col gap-3 sm:gap-4 sm:flex-row sm:justify-center lg:justify-start"
             >
-              <Link href="/#contact" className="w-full sm:w-auto">
+              <Link href="/contact" className="w-full sm:w-auto">
                 <Button
                   size="lg"
-                  className="group h-11 sm:h-12 w-full sm:w-auto rounded-full px-6 sm:px-8 text-sm sm:text-base font-semibold shadow-none"
+                  className="group h-11 sm:h-12 w-full sm:w-auto rounded-full px-6 sm:px-8 text-sm sm:text-base font-semibold shadow-none cursor-pointer"
                 >
                   Tell Us Your Project
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -134,7 +134,7 @@ export function HeroSection() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="h-11 sm:h-12 w-full sm:w-auto rounded-full px-6 sm:px-8 text-sm sm:text-base font-semibold border-border hover:bg-accent"
+                  className="h-11 sm:h-12 w-full sm:w-auto rounded-full px-6 sm:px-8 text-sm sm:text-base font-semibold border-border hover:bg-accent cursor-pointer"
                 >
                   <Sparkles className="mr-2 h-4 w-4" />
                   View Our Work

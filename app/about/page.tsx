@@ -22,7 +22,7 @@ const SITE_URL =
 export const metadata: Metadata = {
   title: "About AxiomCraft | Freelance Web Developer & App Developer in Ghana",
   description:
-    "Meet AxiomCraft - a passionate freelance web developer and app developer based in Ghana. With 5+ years of experience, we create stunning, high-performance websites and mobile apps for businesses worldwide. Learn about our story, values, and expertise.",
+    "Meet AxiomCraft - a passionate freelance web developer and app developer based in Ghana. With 5+ years of experience, I create stunning, high-performance websites and mobile apps for businesses worldwide. Learn about my story, values, and expertise.",
   keywords: [
     "about axiomcraft",
     "freelance web developer ghana",
@@ -72,7 +72,7 @@ const values = [
     icon: Zap,
     title: "Fast & Reliable",
     description:
-      "I deliver on time and build websites that are blazing fast. Your visitors won't wait around for slow pages.",
+      "We deliver on time and build websites that are blazing fast. Your visitors won't wait around for slow pages.",
   },
   {
     icon: Shield,
@@ -84,15 +84,8 @@ const values = [
     icon: Heart,
     title: "Client-Focused",
     description:
-      "Your success is my success. I'm not happy until you're thrilled with the final result and seeing real results.",
+      "Your success is our success. We're not happy until you're thrilled with the final result and seeing real results.",
   },
-];
-
-const stats = [
-  { value: "50+", label: "Projects Completed" },
-  { value: "5+", label: "Years Experience" },
-  { value: "100%", label: "Client Satisfaction" },
-  { value: "24h", label: "Response Time" },
 ];
 
 const SITE_URL_CONST =
@@ -125,7 +118,7 @@ export default function AboutPage() {
         <div className="text-center mb-16 sm:mb-24">
           <div className="mb-4 sm:mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-background/50 backdrop-blur-sm px-3 py-1.5 text-xs font-medium uppercase tracking-wider text-muted-foreground">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-            About Me
+            About Us
           </div>
           <h1 className="mb-4 sm:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
             Building the web,{" "}
@@ -139,26 +132,7 @@ export default function AboutPage() {
           </p>
         </div>
 
-        {/* Stats */}
-        <div className="mb-16 sm:mb-24">
-          <div className="grid grid-cols-2 gap-4 sm:gap-8 md:grid-cols-4">
-            {stats.map((stat) => (
-              <div
-                key={stat.label}
-                className="rounded-2xl border border-border bg-background/50 backdrop-blur-sm p-4 sm:p-6 text-center"
-              >
-                <div className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-1 sm:mb-2">
-                  {stat.value}
-                </div>
-                <div className="text-xs sm:text-sm text-muted-foreground">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Story Section */}
+        {/* Story Section - Stats removed */}
         <div className="mb-16 sm:mb-24">
           <div className="grid gap-8 lg:grid-cols-2 lg:gap-16 items-center">
             <div>
@@ -191,14 +165,17 @@ export default function AboutPage() {
             <div className="relative">
               <div className="rounded-2xl border border-border bg-muted/30 aspect-square flex items-center justify-center">
                 <div className="text-center p-8">
-                  <div className="flex h-20 w-20 sm:h-24 sm:w-24 mx-auto items-center justify-center rounded-2xl bg-foreground text-background mb-4 sm:mb-6">
+                  <div className="flex h-20 w-20 sm:h-24 sm:w-24 mx-auto items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 text-white mb-4 sm:mb-6 shadow-lg">
                     <Code2 className="h-10 w-10 sm:h-12 sm:w-12" />
                   </div>
                   <p className="text-lg sm:text-xl font-semibold mb-2">
                     AxiomCraft
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    Web Development Studio
+                    Freelance Developer
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-2">
+                    Prince Biile
                   </p>
                 </div>
               </div>
@@ -210,7 +187,7 @@ export default function AboutPage() {
         <div className="mb-16 sm:mb-24">
           <div className="text-center mb-10 sm:mb-12">
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-3 sm:mb-4">
-              What I Stand For
+              What We Stand For
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
               These core values guide every project I take on.
@@ -245,7 +222,7 @@ export default function AboutPage() {
             <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
               <div>
                 <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-4 sm:mb-6">
-                  What I Can Do
+                  What We Can Do
                 </h2>
                 <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-6">
                   I&apos;ve spent years mastering modern web technologies to
@@ -270,6 +247,12 @@ export default function AboutPage() {
                   <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-500 shrink-0" />
                   <span className="text-sm sm:text-base">
                     Backend Development (Node.js, NestJS, PHP)
+                  </span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-500 shrink-0" />
+                  <span className="text-sm sm:text-base">
+                    Mobile App Development (React Native, iOS & Android)
                   </span>
                 </div>
                 <div className="flex items-center gap-3">

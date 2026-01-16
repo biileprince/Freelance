@@ -1,5 +1,13 @@
 import { Metadata } from "next";
-import { Mail, Phone, MapPin, Clock, Send, ArrowRight } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Clock,
+  Send,
+  ArrowRight,
+  MessageSquare,
+} from "lucide-react";
 import Link from "next/link";
 import { GoogleOneTap } from "../components/auth/google-one-tap";
 import {
@@ -91,7 +99,7 @@ export default function ContactPage() {
               Let&apos;s work together
             </h1>
             <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              Have a project in mind? I&apos;d love to hear about it. Whether
+              Have a project in mind? We&apos;d love to hear about it. Whether
               you need a new website, a redesign, or custom development,
               let&apos;s chat.
             </p>
@@ -142,6 +150,25 @@ export default function ContactPage() {
 
                   <div className="flex items-start gap-4">
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border bg-muted/50">
+                      <MessageSquare className="h-5 w-5 text-emerald-500" />
+                    </div>
+                    <div>
+                      <p className="text-xs sm:text-sm text-muted-foreground mb-1">
+                        WhatsApp
+                      </p>
+                      <a
+                        href="https://wa.me/233555902675"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm sm:text-base font-medium hover:text-foreground/80 transition-colors"
+                      >
+                        0555 902 675
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border bg-muted/50">
                       <MapPin className="h-5 w-5 text-muted-foreground" />
                     </div>
                     <div>
@@ -178,24 +205,30 @@ export default function ContactPage() {
                 <div className="space-y-3">
                   <Link
                     href="/work"
-                    className="flex items-center justify-between p-3 rounded-lg border border-border hover:bg-accent transition-colors group"
+                    className="flex items-center justify-between p-3 rounded-lg border border-border bg-background hover:bg-emerald-500/10 hover:border-emerald-500/50 transition-all duration-300 group shadow-sm hover:shadow-md"
                   >
-                    <span className="text-sm font-medium">View My Work</span>
-                    <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:translate-x-1 transition-transform" />
+                    <span className="text-sm font-medium group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                      View our Work
+                    </span>
+                    <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-emerald-600 dark:group-hover:text-emerald-400 group-hover:translate-x-1 transition-all" />
                   </Link>
                   <Link
                     href="/about"
-                    className="flex items-center justify-between p-3 rounded-lg border border-border hover:bg-accent transition-colors group"
+                    className="flex items-center justify-between p-3 rounded-lg border border-border bg-background hover:bg-emerald-500/10 hover:border-emerald-500/50 transition-all duration-300 group shadow-sm hover:shadow-md"
                   >
-                    <span className="text-sm font-medium">About Me</span>
-                    <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:translate-x-1 transition-transform" />
+                    <span className="text-sm font-medium group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                      About Us
+                    </span>
+                    <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-emerald-600 dark:group-hover:text-emerald-400 group-hover:translate-x-1 transition-all" />
                   </Link>
                   <Link
                     href="/#services"
-                    className="flex items-center justify-between p-3 rounded-lg border border-border hover:bg-accent transition-colors group"
+                    className="flex items-center justify-between p-3 rounded-lg border border-border bg-background hover:bg-emerald-500/10 hover:border-emerald-500/50 transition-all duration-300 group shadow-sm hover:shadow-md"
                   >
-                    <span className="text-sm font-medium">Services</span>
-                    <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:translate-x-1 transition-transform" />
+                    <span className="text-sm font-medium group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                      Services
+                    </span>
+                    <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-emerald-600 dark:group-hover:text-emerald-400 group-hover:translate-x-1 transition-all" />
                   </Link>
                 </div>
               </div>
@@ -236,7 +269,7 @@ export default function ContactPage() {
                         type="email"
                         id="email"
                         name="email"
-                        placeholder="you@example.com"
+                        placeholder="you@gmail.com"
                         className="w-full h-10 sm:h-11 rounded-lg border border-border bg-background px-3 sm:px-4 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20 transition-all"
                         required
                       />
@@ -249,7 +282,7 @@ export default function ContactPage() {
                         htmlFor="phone"
                         className="block text-xs sm:text-sm font-medium mb-2"
                       >
-                        Phone (Optional)
+                        Phone
                       </label>
                       <input
                         type="tel"
@@ -320,7 +353,7 @@ export default function ContactPage() {
                       id="message"
                       name="message"
                       rows={5}
-                      placeholder="Tell me about your project..."
+                      placeholder="Tell us about your project..."
                       className="w-full rounded-lg border border-border bg-background px-3 sm:px-4 py-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20 transition-all resize-none"
                       required
                     />
@@ -335,7 +368,7 @@ export default function ContactPage() {
                   </button>
 
                   <p className="text-xs sm:text-sm text-muted-foreground text-center">
-                    I&apos;ll get back to you within 24 hours.
+                    We&apos;ll get back to you within 24 hours.
                   </p>
                 </form>
               </div>

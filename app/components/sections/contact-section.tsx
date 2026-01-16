@@ -115,6 +115,22 @@ export function ContactSection() {
               </div>
               <div className="flex items-center gap-3 sm:gap-4 rounded-xl border border-border bg-background p-3 sm:p-4">
                 <div className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-lg bg-muted">
+                  <MessageSquare className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-500" />
+                </div>
+                <div>
+                  <p className="text-xs sm:text-sm font-medium">WhatsApp</p>
+                  <a
+                    href="https://wa.me/233555902675"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    0555 902 675
+                  </a>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 sm:gap-4 rounded-xl border border-border bg-background p-3 sm:p-4">
+                <div className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-lg bg-muted">
                   <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-500" />
                 </div>
                 <div>
@@ -194,8 +210,7 @@ export function ContactSection() {
                     htmlFor="phone"
                     className="text-xs sm:text-sm font-medium"
                   >
-                    Phone{" "}
-                    <span className="text-muted-foreground">(Optional)</span>
+                    Phone
                   </Label>
                   <Input
                     id="phone"

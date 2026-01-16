@@ -120,7 +120,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   portfolioWithTech.forEach((project) => {
     if (project.technologies && project.technologies.trim().length > 0) {
       // Split comma-separated string into array
-      const techArray = project.technologies.split(',').map(t => t.trim());
+      const techArray = project.technologies.split(",").map((t) => t.trim());
       techArray.forEach((tech) => {
         if (tech) uniqueTechnologies.add(tech);
       });

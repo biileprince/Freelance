@@ -163,7 +163,7 @@ export default async function ProjectPage({ params }: Props) {
         <section className="py-12 border-b border-border">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
             {/* Breadcrumb */}
-            <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
+            <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-8 mt-16 sm:mt-20">
               <Link
                 href="/"
                 className="hover:text-foreground transition-colors"

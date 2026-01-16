@@ -229,4 +229,13 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none; /* Chrome, Safari and Opera */
   }
+
+  /* Form error messages - ensure they are red */
+  .text-destructive {
+    color: hsl(0 84.2% 50%) !important;
+  }
+
+  .dark .text-destructive {
+    color: hsl(0 72% 55%) !important;
+  }
 }

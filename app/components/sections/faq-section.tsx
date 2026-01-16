@@ -39,7 +39,7 @@ const faqs: FAQItem[] = [
   {
     question: "What happens if something breaks on the website?",
     answer:
-      "I offer ongoing maintenance and support packages to keep your website secure and running smoothly. If something breaks, I'm just an email away. For urgent issues, I typically respond within 24 hours.",
+      "We offer ongoing maintenance and support packages to keep your website secure and running smoothly. If something breaks, I'm just an email away. For urgent issues, I typically respond within 24 hours.",
   },
   {
     question: "Do you help with website hosting and domain?",

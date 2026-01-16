@@ -73,13 +73,13 @@ const companyItems = [
   {
     icon: Code2,
     title: "Work",
-    description: "View my portfolio",
+    description: "View our portfolio",
     href: "/work",
   },
   {
     icon: Users,
     title: "About",
-    description: "Learn about me",
+    description: "Learn about us",
     href: "/about",
   },
   {
@@ -176,8 +176,8 @@ export function Navigation() {
             href="/"
             className="group flex items-center gap-2 transition-opacity hover:opacity-80"
           >
-            <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg bg-foreground text-background">
-              <span className="text-xs sm:text-sm font-bold">A</span>
+            <div className="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-md">
+              <Code2 className="h-3 w-3 sm:h-4 sm:w-4" />
             </div>
             <span className="text-base sm:text-lg font-bold tracking-tight">
               AxiomCraft
@@ -447,7 +447,7 @@ export function Navigation() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="text-muted-foreground hover:text-foreground"
+                    className="text-muted-foreground hover:text-foreground cursor-pointer"
                   >
                     Log in
                   </Button>
@@ -455,7 +455,7 @@ export function Navigation() {
                 <Link href="/contact">
                   <Button
                     size="sm"
-                    className="group rounded-full px-5 font-medium shadow-none bg-emerald-600 hover:bg-emerald-700 text-white"
+                    className="group rounded-full px-5 font-medium shadow-none bg-emerald-600 hover:bg-emerald-700 text-white cursor-pointer"
                   >
                     Get Started
                     <ArrowRight className="ml-1.5 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
@@ -751,7 +751,7 @@ export function Navigation() {
                           <Link href="/login" onClick={() => setIsOpen(false)}>
                             <Button
                               variant="outline"
-                              className="w-full justify-center rounded-full h-11"
+                              className="w-full justify-center rounded-full h-11 cursor-pointer"
                             >
                               Log in
                             </Button>
@@ -760,7 +760,7 @@ export function Navigation() {
                             href="/contact"
                             onClick={() => setIsOpen(false)}
                           >
-                            <Button className="w-full justify-center rounded-full h-11 bg-emerald-600 hover:bg-emerald-700 text-white">
+                            <Button className="w-full justify-center rounded-full h-11 bg-emerald-600 hover:bg-emerald-700 text-white cursor-pointer">
                               Get Started
                               <ArrowRight className="ml-1.5 h-4 w-4" />
                             </Button>

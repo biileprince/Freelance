@@ -17,7 +17,6 @@ import {
   CheckCircle2,
   Circle,
   FileIcon,
-  Download,
 } from "lucide-react";
 import { format } from "date-fns";
 import { headers } from "next/headers";

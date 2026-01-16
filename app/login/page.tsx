@@ -6,7 +6,7 @@ import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
 import Link from "next/link";
-import { Loader2, ArrowLeft } from "lucide-react";
+import { Loader2, ArrowLeft, Code2 } from "lucide-react";
 import { signIn, useSession } from "@/lib/auth-client";
 
 function LoginContent() {
@@ -103,8 +103,8 @@ function LoginContent() {
         {/* Card */}
         <div className="rounded-2xl border border-border bg-background p-8 shadow-sm">
           <div className="mb-8 text-center">
-            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-foreground text-background">
-              <span className="text-lg font-bold">W</span>
+            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-md">
+              <Code2 className="h-6 w-6" />
             </div>
             <h1 className="mb-2 text-2xl font-bold tracking-tight">
               Welcome back
