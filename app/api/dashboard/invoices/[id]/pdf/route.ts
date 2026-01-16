@@ -191,7 +191,7 @@ export async function GET(
 </head>
 <body>
   <div class="header">
-    <div class="company-name">WebAxiom</div>
+    <div class="company-name">AxiomCraft</div>
     <div class="invoice-title">Invoice</div>
     <div class="invoice-number">${invoice.invoiceNumber}</div>
   </div>

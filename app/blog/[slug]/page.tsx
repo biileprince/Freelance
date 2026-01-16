@@ -9,7 +9,8 @@ import {
   generateBreadcrumbSchema,
 } from "@/lib/schema-org";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://webaxiom.com";
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.axiomcraft.dev";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -65,22 +66,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
 
   if (!post) {
-    return { title: "Post Not Found | WebAxiom" };
+    return { title: "Post Not Found | AxiomCraft" };
   }
 
   const keywords = [
     post.title.toLowerCase(),
     "web development",
-    "webaxiom blog",
+    "axiomcraft blog",
     post.category?.name?.toLowerCase() || "tutorial",
     "ghana developer",
   ];
 
   return {
-    title: `${post.title} | WebAxiom Blog - Web Development Insights`,
+    title: `${post.title} | AxiomCraft Blog - Web Development Insights`,
     description:
       post.excerpt ||
-      `Read ${post.title} on WebAxiom Blog. Expert web development tips, tutorials, and insights from a professional freelance developer in Ghana.`,
+      `Read ${post.title} on AxiomCraft Blog. Expert web development tips, tutorials, and insights from a professional freelance developer in Ghana.`,
     keywords,
     alternates: {
       canonical: `${SITE_URL}/blog/${slug}`,
@@ -103,14 +104,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: "article",
       publishedTime: post.publishedAt?.toISOString(),
       modifiedTime: post.updatedAt?.toISOString(),
-      authors: ["WebAxiom"],
+      authors: ["AxiomCraft"],
       section: post.category?.name || "Web Development",
       url: `${SITE_URL}/blog/${slug}`,
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
-      description: post.excerpt || `Read ${post.title} on WebAxiom Blog`,
+      description: post.excerpt || `Read ${post.title} on AxiomCraft Blog`,
       images: post.coverImage ? [post.coverImage] : undefined,
     },
   };

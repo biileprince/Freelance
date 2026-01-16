@@ -8,13 +8,14 @@ import { GoogleOneTap } from "./components/auth/google-one-tap";
 import { generateHomePageSchema } from "@/lib/schema-org";
 import { Metadata } from "next";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://webaxiom.com";
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.axiomcraft.dev";
 
 export const metadata: Metadata = {
   title:
-    "WebAxiom | Freelance Web Developer & App Developer Ghana | Build Your Website Today",
+    "AxiomCraft | Freelance Web Developer & App Developer Ghana | Build Your Website Today",
   description:
-    "Looking for a freelance web developer in Ghana? WebAxiom builds stunning websites, e-commerce stores, mobile apps, and web applications. Professional, fast, and SEO-optimized. Get a free quote today! We serve clients in Accra, Kumasi, and worldwide.",
+    "Looking for a freelance web developer in Ghana? AxiomCraft builds stunning websites, e-commerce stores, mobile apps, and web applications. Professional, fast, and SEO-optimized. Get a free quote today! We serve clients in Accra, Kumasi, and worldwide.",
   keywords: [
     "freelance web developer",
     "web developer ghana",
@@ -37,9 +38,9 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title:
-      "WebAxiom | Freelance Web Developer & App Developer Ghana | Build Your Website",
+      "AxiomCraft | Freelance Web Developer & App Developer Ghana | Build Your Website",
     description:
-      "Need a website or app? WebAxiom is a professional freelance web developer in Ghana. We build stunning websites, e-commerce stores, and mobile apps. Fast, SEO-optimized, and affordable!",
+      "Need a website or app? AxiomCraft is a professional freelance web developer in Ghana. We build stunning websites, e-commerce stores, and mobile apps. Fast, SEO-optimized, and affordable!",
     url: SITE_URL,
     type: "website",
     images: [
@@ -47,13 +48,13 @@ export const metadata: Metadata = {
         url: `${SITE_URL}/og-image.jpg`,
         width: 1200,
         height: 630,
-        alt: "WebAxiom - Professional Freelance Web Developer in Ghana",
+        alt: "AxiomCraft - Professional Freelance Web Developer in Ghana",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "WebAxiom | Freelance Web Developer & App Developer Ghana",
+    title: "AxiomCraft | Freelance Web Developer & App Developer Ghana",
     description:
       "Need a website or app? Professional freelance web developer in Ghana. Build stunning websites, e-commerce stores, and mobile apps!",
     images: [`${SITE_URL}/twitter-image.jpg`],

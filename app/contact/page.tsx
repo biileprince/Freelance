@@ -7,13 +7,14 @@ import {
   generateBreadcrumbSchema,
 } from "@/lib/schema-org";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://webaxiom.com";
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.axiomcraft.dev";
 
 export const metadata: Metadata = {
   title:
-    "Contact WebAxiom | Get a Free Quote for Your Website or App | Ghana Web Developer",
+    "Contact AxiomCraft | Get a Free Quote for Your Website or App | Ghana Web Developer",
   description:
-    "Ready to build your website or mobile app? Contact WebAxiom for a free consultation and quote. We're a professional freelance web developer in Ghana serving clients worldwide. Fast response, affordable prices, quality work!",
+    "Ready to build your website or mobile app? Contact AxiomCraft for a free consultation and quote. We're a professional freelance web developer in Ghana serving clients worldwide. Fast response, affordable prices, quality work!",
   keywords: [
     "contact web developer",
     "get website quote",
@@ -29,9 +30,9 @@ export const metadata: Metadata = {
     canonical: `${SITE_URL}/contact`,
   },
   openGraph: {
-    title: "Contact WebAxiom | Get a Free Quote for Your Website or App",
+    title: "Contact AxiomCraft | Get a Free Quote for Your Website or App",
     description:
-      "Ready to build your website or mobile app? Contact WebAxiom for a free consultation. Professional freelance web developer in Ghana.",
+      "Ready to build your website or mobile app? Contact AxiomCraft for a free consultation. Professional freelance web developer in Ghana.",
     url: `${SITE_URL}/contact`,
     type: "website",
     images: [
@@ -39,15 +40,15 @@ export const metadata: Metadata = {
         url: `${SITE_URL}/contact-og.jpg`,
         width: 1200,
         height: 630,
-        alt: "Contact WebAxiom - Get Your Free Website Quote",
+        alt: "Contact AxiomCraft - Get Your Free Website Quote",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Contact WebAxiom | Get a Free Quote",
+    title: "Contact AxiomCraft | Get a Free Quote",
     description:
-      "Ready to build your website or app? Contact WebAxiom for a free consultation!",
+      "Ready to build your website or app? Contact AxiomCraft for a free consultation!",
   },
 };
 

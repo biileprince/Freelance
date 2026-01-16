@@ -7,7 +7,8 @@ import { getAllKeywords } from "@/lib/schema-org";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://webaxiom.com";
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.axiomcraft.dev";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -23,15 +24,18 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default:
-      "WebAxiom | Freelance Web Developer & App Developer in Ghana | Build Your Website",
-    template: "%s | WebAxiom - Professional Web Development",
+      "AxiomCraft | Freelance Web Developer & App Developer in Ghana | Build Your Website",
+    template: "%s | AxiomCraft - Professional Web Development",
   },
   description:
-    "Need a website or mobile app? WebAxiom is a professional freelance web developer and app developer in Ghana. We build stunning, fast, SEO-optimized websites, e-commerce stores, and mobile apps for businesses worldwide. Get a free quote today!",
+    "Need a website or mobile app? AxiomCraft is a professional freelance web developer and app developer in Ghana. We build stunning, fast, SEO-optimized websites, e-commerce stores, and mobile apps for businesses worldwide. Get a free quote today!",
   keywords: getAllKeywords(),
-  authors: [{ name: "WebAxiom", url: SITE_URL }, { name: "WebAxiom Ghana" }],
-  creator: "WebAxiom",
-  publisher: "WebAxiom",
+  authors: [
+    { name: "AxiomCraft", url: SITE_URL },
+    { name: "AxiomCraft Ghana" },
+  ],
+  creator: "AxiomCraft",
+  publisher: "AxiomCraft",
   formatDetection: {
     email: true,
     address: true,
@@ -57,9 +61,9 @@ export const metadata: Metadata = {
     locale: "en_US",
     alternateLocale: ["en_GB"],
     url: SITE_URL,
-    siteName: "WebAxiom",
+    siteName: "AxiomCraft",
     title:
-      "WebAxiom | Freelance Web Developer & App Developer in Ghana | Build Your Website",
+      "AxiomCraft | Freelance Web Developer & App Developer in Ghana | Build Your Website",
     description:
       "Need a website or mobile app? Professional freelance web developer in Ghana. We build stunning websites, e-commerce stores, and mobile apps for businesses worldwide. Fast, SEO-optimized, and affordable.",
     images: [
@@ -67,23 +71,23 @@ export const metadata: Metadata = {
         url: `${SITE_URL}/og-image.jpg`,
         width: 1200,
         height: 630,
-        alt: "WebAxiom - Professional Freelance Web Developer and App Developer in Ghana",
+        alt: "AxiomCraft - Professional Freelance Web Developer and App Developer in Ghana",
         type: "image/jpeg",
       },
       {
         url: `${SITE_URL}/og-image-square.jpg`,
         width: 600,
         height: 600,
-        alt: "WebAxiom Logo",
+        alt: "AxiomCraft Logo",
         type: "image/jpeg",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    site: "@webaxiom",
-    creator: "@webaxiom",
-    title: "WebAxiom | Freelance Web Developer & App Developer in Ghana",
+    site: "@axiomcraft",
+    creator: "@axiomcraft",
+    title: "AxiomCraft | Freelance Web Developer & App Developer in Ghana",
     description:
       "Need a website or mobile app? Professional freelance web developer in Ghana. Build stunning websites, e-commerce stores, and mobile apps. Fast & affordable!",
     images: [`${SITE_URL}/twitter-image.jpg`],
@@ -124,9 +128,9 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "WebAxiom",
+    title: "AxiomCraft",
   },
-  applicationName: "WebAxiom",
+  applicationName: "AxiomCraft",
   other: {
     "geo.region": "GH-AA",
     "geo.placename": "Accra, Ghana",
@@ -134,8 +138,9 @@ export const metadata: Metadata = {
     ICBM: "5.6037, -0.187",
     "revisit-after": "7 days",
     rating: "general",
-    "dc.title": "WebAxiom - Freelance Web Developer and App Developer in Ghana",
-    "dc.creator": "WebAxiom",
+    "dc.title":
+      "AxiomCraft - Freelance Web Developer and App Developer in Ghana",
+    "dc.creator": "AxiomCraft",
     "dc.subject": "Web Development, Mobile App Development, E-Commerce",
     "dc.description":
       "Professional freelance web developer and app developer in Ghana",

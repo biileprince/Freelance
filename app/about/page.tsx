@@ -16,14 +16,15 @@ import {
   generateBreadcrumbSchema,
 } from "@/lib/schema-org";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://webaxiom.com";
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.axiomcraft.dev";
 
 export const metadata: Metadata = {
-  title: "About WebAxiom | Freelance Web Developer & App Developer in Ghana",
+  title: "About AxiomCraft | Freelance Web Developer & App Developer in Ghana",
   description:
-    "Meet WebAxiom - a passionate freelance web developer and app developer based in Ghana. With 5+ years of experience, we create stunning, high-performance websites and mobile apps for businesses worldwide. Learn about our story, values, and expertise.",
+    "Meet AxiomCraft - a passionate freelance web developer and app developer based in Ghana. With 5+ years of experience, we create stunning, high-performance websites and mobile apps for businesses worldwide. Learn about our story, values, and expertise.",
   keywords: [
-    "about webaxiom",
+    "about axiomcraft",
     "freelance web developer ghana",
     "web developer accra",
     "app developer ghana",
@@ -37,9 +38,10 @@ export const metadata: Metadata = {
     canonical: `${SITE_URL}/about`,
   },
   openGraph: {
-    title: "About WebAxiom | Freelance Web Developer & App Developer in Ghana",
+    title:
+      "About AxiomCraft | Freelance Web Developer & App Developer in Ghana",
     description:
-      "Meet WebAxiom - a passionate freelance web developer based in Ghana. 5+ years of experience creating stunning websites and mobile apps for businesses worldwide.",
+      "Meet AxiomCraft - a passionate freelance web developer based in Ghana. 5+ years of experience creating stunning websites and mobile apps for businesses worldwide.",
     url: `${SITE_URL}/about`,
     type: "profile",
     images: [
@@ -47,15 +49,15 @@ export const metadata: Metadata = {
         url: `${SITE_URL}/about-og.jpg`,
         width: 1200,
         height: 630,
-        alt: "About WebAxiom - Freelance Web Developer in Ghana",
+        alt: "About AxiomCraft - Freelance Web Developer in Ghana",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "About WebAxiom | Freelance Web Developer Ghana",
+    title: "About AxiomCraft | Freelance Web Developer Ghana",
     description:
-      "Meet WebAxiom - a passionate freelance web developer based in Ghana with 5+ years of experience.",
+      "Meet AxiomCraft - a passionate freelance web developer based in Ghana with 5+ years of experience.",
   },
 };
 
@@ -94,7 +96,7 @@ const stats = [
 ];
 
 const SITE_URL_CONST =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://webaxiom.com";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.axiomcraft.dev";
 
 export default function AboutPage() {
   const personSchema = generatePersonSchema();
@@ -193,7 +195,7 @@ export default function AboutPage() {
                     <Code2 className="h-10 w-10 sm:h-12 sm:w-12" />
                   </div>
                   <p className="text-lg sm:text-xl font-semibold mb-2">
-                    WebAxiom
+                    AxiomCraft
                   </p>
                   <p className="text-sm text-muted-foreground">
                     Web Development Studio

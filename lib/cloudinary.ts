@@ -3,7 +3,7 @@
 
 export const uploadToCloudinary = async (
   file: File,
-  folder: string = "webaxiom"
+  folder: string = "axiomcraft"
 ): Promise<{ url: string; publicId: string }> => {
   const formData = new FormData();
   formData.append("file", file);

@@ -26,7 +26,7 @@ export async function submitContactForm(data: ContactFormData) {
     // Send email using Resend
     try {
       const emailResult = await resend.emails.send({
-        from: "WebAxiom Contact <onboarding@resend.dev>",
+        from: "AxiomCraft Contact <onboarding@resend.dev>",
         to: ["biileprinceyennuyar5@gmail.com"],
         replyTo: validatedData.email,
         subject: `New Project Inquiry from ${validatedData.name}`,
@@ -94,7 +94,7 @@ export async function submitContactForm(data: ContactFormData) {
                   <p>Reply directly to this email to respond to ${
                     validatedData.name
                   }</p>
-                  <p style="margin-top: 10px; font-size: 12px;">Sent from WebAxiom Contact Form</p>
+                  <p style="margin-top: 10px; font-size: 12px;">Sent from AxiomCraft Contact Form</p>
                 </div>
               </div>
             </div>

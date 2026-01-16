@@ -21,7 +21,7 @@ export function ImageUpload({
   value,
   onChange,
   onRemove,
-  folder = "webaxiom",
+  folder = "axiomcraft",
   disabled,
   className = "",
   label = "Upload Image",

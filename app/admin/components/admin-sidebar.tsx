@@ -144,10 +144,10 @@ export function AdminSidebar() {
           {/* Logo */}
           <div className="flex h-16 items-center gap-2 border-b border-border px-6">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-foreground text-background">
-              <span className="text-sm font-bold">W</span>
+              <span className="text-sm font-bold">A</span>
             </div>
             <div className="flex items-center">
-              <span className="text-lg font-bold">WebAxiom</span>
+              <span className="text-lg font-bold">AxiomCraft</span>
               <span className="ml-2 rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
                 Admin
               </span>

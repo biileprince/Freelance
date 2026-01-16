@@ -21,7 +21,7 @@ const testimonials: Testimonial[] = [
     role: "Founder",
     company: "TechStart Inc",
     content:
-      "Working with WebAxiom was an incredible experience. They delivered our e-commerce site ahead of schedule and it exceeded all expectations. Sales increased by 40% in the first month!",
+      "Working with AxiomCraft was an incredible experience. They delivered our e-commerce site ahead of schedule and it exceeded all expectations. Sales increased by 40% in the first month!",
     rating: 5,
     avatar: "SJ",
   },
@@ -61,7 +61,7 @@ const testimonials: Testimonial[] = [
     role: "Owner",
     company: "Bella Boutique",
     content:
-      "As a small business owner, I needed someone who could explain things simply. WebAxiom made the whole process easy and my online store looks amazing!",
+      "As a small business owner, I needed someone who could explain things simply. AxiomCraft made the whole process easy and my online store looks amazing!",
     rating: 5,
     avatar: "LT",
   },

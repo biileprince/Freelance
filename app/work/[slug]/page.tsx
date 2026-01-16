@@ -9,7 +9,8 @@ import {
   generateBreadcrumbSchema,
 } from "@/lib/schema-org";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://webaxiom.com";
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.axiomcraft.dev";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -51,17 +52,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
 
   if (!project) {
-    return { title: "Project Not Found | WebAxiom" };
+    return { title: "Project Not Found | AxiomCraft" };
   }
 
   const technologies =
     project.technologies?.split(",").map((t) => t.trim()) || [];
 
   return {
-    title: `${project.title} | Web Development Case Study | WebAxiom Portfolio`,
+    title: `${project.title} | Web Development Case Study | AxiomCraft Portfolio`,
     description:
       project.description ||
-      `View the ${project.title} case study. See how WebAxiom built this ${
+      `View the ${project.title} case study. See how AxiomCraft built this ${
         project.category || "web"
       } project using ${
         technologies.slice(0, 3).join(", ") || "modern technologies"
@@ -78,10 +79,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       canonical: `${SITE_URL}/work/${slug}`,
     },
     openGraph: {
-      title: `${project.title} | WebAxiom Portfolio`,
+      title: `${project.title} | AxiomCraft Portfolio`,
       description:
         project.description ||
-        `View the ${project.title} case study on WebAxiom`,
+        `View the ${project.title} case study on AxiomCraft`,
       images: project.coverImage
         ? [
             {
@@ -97,10 +98,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: `${project.title} | WebAxiom Portfolio`,
+      title: `${project.title} | AxiomCraft Portfolio`,
       description:
         project.description ||
-        `View the ${project.title} case study on WebAxiom`,
+        `View the ${project.title} case study on AxiomCraft`,
       images: project.coverImage ? [project.coverImage] : undefined,
     },
   };

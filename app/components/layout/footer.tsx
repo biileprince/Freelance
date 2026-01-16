@@ -33,10 +33,10 @@ export function Footer() {
           <div className="col-span-2 lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
               <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg bg-foreground text-background">
-                <span className="text-xs sm:text-sm font-bold">W</span>
+                <span className="text-xs sm:text-sm font-bold">A</span>
               </div>
               <span className="text-base sm:text-lg font-bold tracking-tight">
-                WebAxiom
+                AxiomCraft
               </span>
             </Link>
             <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-xs mb-4 sm:mb-6">
@@ -157,7 +157,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="mt-10 sm:mt-16 flex flex-col items-center justify-between gap-4 border-t border-border/50 pt-6 sm:pt-8 sm:flex-row">
           <p className="text-xs sm:text-sm text-muted-foreground text-center sm:text-left">
-            © {new Date().getFullYear()} WebAxiom. All rights reserved.
+            © {new Date().getFullYear()} AxiomCraft. All rights reserved.
           </p>
           <div className="flex gap-4 sm:gap-6 text-xs sm:text-sm text-muted-foreground">
             <Link

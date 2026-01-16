@@ -177,10 +177,10 @@ export function Navigation() {
             className="group flex items-center gap-2 transition-opacity hover:opacity-80"
           >
             <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg bg-foreground text-background">
-              <span className="text-xs sm:text-sm font-bold">W</span>
+              <span className="text-xs sm:text-sm font-bold">A</span>
             </div>
             <span className="text-base sm:text-lg font-bold tracking-tight">
-              WebAxiom
+              AxiomCraft
             </span>
           </Link>
 
@@ -520,9 +520,9 @@ export function Navigation() {
                       onClick={() => setIsOpen(false)}
                     >
                       <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-foreground text-background">
-                        <span className="text-sm font-bold">W</span>
+                        <span className="text-sm font-bold">A</span>
                       </div>
-                      <span className="text-lg font-bold">WebAxiom</span>
+                      <span className="text-lg font-bold">AxiomCraft</span>
                     </Link>
                     <button
                       onClick={() => setIsOpen(false)}

@@ -1,10 +1,11 @@
 // Comprehensive JSON-LD Schema Markup for Advanced SEO
 // Targets: Freelance Web Developer, App Developer, Ghana, Worldwide
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://webaxiom.com";
-const BUSINESS_NAME = "WebAxiom";
-const OWNER_NAME = "WebAxiom";
-const BUSINESS_EMAIL = "contact@webaxiom.com";
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.axiomcraft.dev";
+const BUSINESS_NAME = "AxiomCraft";
+const OWNER_NAME = "AxiomCraft";
+const BUSINESS_EMAIL = "contact@axiomcraft.dev";
 const BUSINESS_PHONE = "+233 XX XXX XXXX"; // Update with actual phone
 
 // Main Organization/Local Business Schema
@@ -15,9 +16,9 @@ export function generateOrganizationSchema() {
     "@id": `${SITE_URL}/#organization`,
     name: BUSINESS_NAME,
     alternateName: [
-      "WebAxiom Web Development",
-      "WebAxiom Ghana",
-      "WebAxiom Freelance Developer",
+      "AxiomCraft Web Development",
+      "AxiomCraft Ghana",
+      "AxiomCraft Freelance Developer",
     ],
     description:
       "Professional freelance web developer and mobile app developer in Ghana. We build stunning websites, e-commerce stores, mobile apps, and custom web applications for businesses worldwide. Get a modern, fast, and SEO-optimized website today.",
@@ -88,11 +89,11 @@ export function generateOrganizationSchema() {
       closes: "18:00",
     },
     sameAs: [
-      "https://twitter.com/webaxiom",
-      "https://linkedin.com/company/webaxiom",
-      "https://github.com/webaxiom",
-      "https://facebook.com/webaxiom",
-      "https://instagram.com/webaxiom",
+      "https://twitter.com/axiomcraft",
+      "https://linkedin.com/company/axiomcraft",
+      "https://github.com/axiomcraft",
+      "https://facebook.com/axiomcraft",
+      "https://instagram.com/axiomcraft",
     ],
     aggregateRating: {
       "@type": "AggregateRating",
@@ -287,9 +288,9 @@ export function generatePersonSchema() {
       name: BUSINESS_NAME,
     },
     sameAs: [
-      "https://linkedin.com/in/webaxiom",
-      "https://github.com/webaxiom",
-      "https://twitter.com/webaxiom",
+      "https://linkedin.com/in/axiomcraft",
+      "https://github.com/axiomcraft",
+      "https://twitter.com/axiomcraft",
     ],
   };
 }
@@ -301,7 +302,7 @@ export function generateWebsiteSchema() {
     "@type": "WebSite",
     "@id": `${SITE_URL}/#website`,
     name: BUSINESS_NAME,
-    alternateName: "WebAxiom - Freelance Web Developer Ghana",
+    alternateName: "AxiomCraft - Freelance Web Developer Ghana",
     description:
       "Professional freelance web development and mobile app development services. Get a stunning website or mobile app built by an experienced developer.",
     url: SITE_URL,
@@ -555,7 +556,7 @@ export function generateHowToSchema() {
     "@type": "HowTo",
     name: "How to Get a Website Built",
     description:
-      "Step-by-step guide to getting your professional website built by WebAxiom",
+      "Step-by-step guide to getting your professional website built by AxiomCraft",
     step: [
       {
         "@type": "HowToStep",

@@ -6,12 +6,13 @@ import { Metadata } from "next";
 import { GoogleOneTap } from "../components/auth/google-one-tap";
 import { generateBreadcrumbSchema } from "@/lib/schema-org";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://webaxiom.com";
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.axiomcraft.dev";
 
 export const metadata: Metadata = {
-  title: "Blog | Web Development Tips, Tutorials & Insights | WebAxiom Ghana",
+  title: "Blog | Web Development Tips, Tutorials & Insights | AxiomCraft Ghana",
   description:
-    "Stay updated with the latest web development trends, tutorials, and insights from WebAxiom. Learn about React, Next.js, mobile app development, SEO, and more. Expert tips from a professional freelance developer in Ghana.",
+    "Stay updated with the latest web development trends, tutorials, and insights from AxiomCraft. Learn about React, Next.js, mobile app development, SEO, and more. Expert tips from a professional freelance developer in Ghana.",
   keywords: [
     "web development blog",
     "coding tutorials",
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
     canonical: `${SITE_URL}/blog`,
   },
   openGraph: {
-    title: "Blog | Web Development Tips, Tutorials & Insights | WebAxiom",
+    title: "Blog | Web Development Tips, Tutorials & Insights | AxiomCraft",
     description:
       "Stay updated with the latest web development trends, tutorials, and insights. Expert tips from a professional freelance developer in Ghana.",
     url: `${SITE_URL}/blog`,
@@ -38,13 +39,13 @@ export const metadata: Metadata = {
         url: `${SITE_URL}/blog-og.jpg`,
         width: 1200,
         height: 630,
-        alt: "WebAxiom Blog - Web Development Tips and Tutorials",
+        alt: "AxiomCraft Blog - Web Development Tips and Tutorials",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Blog | Web Development Tips & Tutorials | WebAxiom",
+    title: "Blog | Web Development Tips & Tutorials | AxiomCraft",
     description:
       "Stay updated with the latest web development trends, tutorials, and insights.",
   },

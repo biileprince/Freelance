@@ -8,11 +8,12 @@ import {
   generateBreadcrumbSchema,
 } from "@/lib/schema-org";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://webaxiom.com";
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.axiomcraft.dev";
 
 export const metadata: Metadata = {
   title:
-    "Our Work & Portfolio | Web Development Projects by WebAxiom | Ghana Developer",
+    "Our Work & Portfolio | Web Development Projects by AxiomCraft | Ghana Developer",
   description:
     "Explore our portfolio of successful web development and mobile app projects. See case studies of websites, e-commerce stores, and web applications we've built for clients in Ghana and worldwide. Quality work that speaks for itself!",
   keywords: [
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
     canonical: `${SITE_URL}/work`,
   },
   openGraph: {
-    title: "Our Work & Portfolio | Web Development Projects by WebAxiom",
+    title: "Our Work & Portfolio | Web Development Projects by AxiomCraft",
     description:
       "Explore our portfolio of successful web development and mobile app projects. See case studies of websites we've built for clients worldwide.",
     url: `${SITE_URL}/work`,
@@ -40,13 +41,13 @@ export const metadata: Metadata = {
         url: `${SITE_URL}/portfolio-og.jpg`,
         width: 1200,
         height: 630,
-        alt: "WebAxiom Portfolio - Web Development Projects",
+        alt: "AxiomCraft Portfolio - Web Development Projects",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Our Work & Portfolio | WebAxiom",
+    title: "Our Work & Portfolio | AxiomCraft",
     description:
       "Explore our portfolio of successful web development and mobile app projects.",
   },
