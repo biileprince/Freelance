@@ -115,11 +115,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     select: { technologies: true },
   });
 
-  // Extract unique technologies
+  // Extract unique technologies from comma-separated strings
   const uniqueTechnologies = new Set<string>();
   portfolioWithTech.forEach((project) => {
-    if (project.technologies && project.technologies.length > 0) {
-      project.technologies.forEach((tech) => uniqueTechnologies.add(tech));
+    if (project.technologies && project.technologies.trim().length > 0) {
+      // Split comma-separated string into array
+      const techArray = project.technologies.split(',').map(t => t.trim());
+      techArray.forEach((tech) => {
+        if (tech) uniqueTechnologies.add(tech);
+      });
     }
   });
 
