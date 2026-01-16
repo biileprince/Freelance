@@ -120,7 +120,7 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
   verification: {
     google: "51UCvm6DPhB9JQQzHfPBZfmzAYuKlG_YoqtnqXpQQoA",
-    yandex: "your-yandex-verification-code",
+    yandex: "7d94a8ee010c8182",
     other: {
       "msvalidate.01": "4FBE1C1585CD841FF62A227164FF3065",
     },
