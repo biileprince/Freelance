@@ -119,7 +119,7 @@ export const metadata: Metadata = {
   },
   manifest: "/site.webmanifest",
   verification: {
-    google: "your-google-verification-code", // Add your Google Search Console verification
+    google: "51UCvm6DPhB9JQQzHfPBZfmzAYuKlG_YoqtnqXpQQoA",
     yandex: "your-yandex-verification-code",
     other: {
       "msvalidate.01": "your-bing-verification-code",
