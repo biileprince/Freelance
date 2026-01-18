@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     title:
       "Axiom Craft | I Need a Website? Ghana Web Developer",
     description:
-      \"I need a website? Axiom Craft (AxiomCraft) builds stunning websites & mobile apps in Ghana. Rank #1 on Google with our SEO-optimized websites. Affordable & professional web development services!\",
+      "I need a website? Axiom Craft (AxiomCraft) builds stunning websites & mobile apps in Ghana. Rank #1 on Google with our SEO-optimized websites. Affordable & professional web development services!",
     url: SITE_URL,
     type: "website",
     images: [

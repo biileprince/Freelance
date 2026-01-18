@@ -3,6 +3,8 @@
 import { Resend } from "resend";
 import { contactFormSchema, type ContactFormData } from "@/lib/schemas";
 import { prisma } from "@/lib/prisma";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -11,7 +13,12 @@ export async function submitContactForm(data: ContactFormData) {
     // Validate the data
     const validatedData = contactFormSchema.parse(data);
 
-    // Save to database
+    // Get session to check if user is logged in
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
+
+    // Save to database with userId if logged in
     await prisma.contact.create({
       data: {
         name: validatedData.name,
@@ -20,16 +27,17 @@ export async function submitContactForm(data: ContactFormData) {
         projectType: validatedData.projectType,
         budget: validatedData.budget || null,
         message: validatedData.message,
+        userId: session?.user?.id || null, // Link to user if logged in
       },
     });
 
     // Send email using Resend
     try {
       const emailResult = await resend.emails.send({
-        from: "AxiomCraft Contact <onboarding@resend.dev>",
+        from: "AxiomCraft <onboarding@resend.dev>", // Using Resend test domain
         to: ["biileprinceyennuyar5@gmail.com"],
         replyTo: validatedData.email,
-        subject: `New Project Inquiry from ${validatedData.name}`,
+        subject: `🎯 New Website Inquiry from ${validatedData.name}${session?.user ? " (Registered User)" : ""}`,
         html: `
         <!DOCTYPE html>
         <html>
@@ -52,6 +60,21 @@ export async function submitContactForm(data: ContactFormData) {
                 <p style="margin: 10px 0 0 0; opacity: 0.9;">Someone wants to work with you!</p>
               </div>
               <div class="content">
+                ${
+                  session?.user
+                    ? `
+                <div class="field">
+                  <div class="label">✅ User Status</div>
+                  <div class="value" style="background: #d1fae5; border-left-color: #10b981;">Registered User - User ID: ${session.user.id}</div>
+                </div>
+                `
+                    : `
+                <div class="field">
+                  <div class="label">👤 User Status</div>
+                  <div class="value" style="background: #fef3c7; border-left-color: #f59e0b;">Guest (Not logged in)</div>
+                </div>
+                `
+                }
                 <div class="field">
                   <div class="label">👤 Name</div>
                   <div class="value">${validatedData.name}</div>

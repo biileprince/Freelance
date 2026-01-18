@@ -23,6 +23,7 @@ model User {
   sessions      Session[]
   accounts      Account[]
   projects      Project[]
+  contacts      Contact[]
 }
 
 model Session {
@@ -122,12 +123,15 @@ model Contact {
   budget      String?
   message     String
   status      String   @default("New") // New, Read, Replied
+  userId      String?  // Optional - track if user is logged in
+  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   
   @@index([email])
   @@index([status])
   @@index([createdAt])
+  @@index([userId])
 }
 
 // Blog Models

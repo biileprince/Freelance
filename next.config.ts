@@ -27,10 +27,13 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // Add headers for both development and production
+  // Add headers for FedCM and Better Auth CORS
   async headers() {
-    return [
-      {
+    const headers = [];
+
+    // FedCM requires specific Referrer-Policy in development
+    if (process.env.NODE_ENV !== "production") {
+      headers.push({
         source: "/:path*",
         headers: [
           {
@@ -38,30 +41,36 @@ const nextConfig: NextConfig = {
             value: "no-referrer-when-downgrade",
           },
         ],
-      },
-      // CORS headers for Better Auth API endpoints
-      {
-        source: "/api/auth/:path*",
-        headers: [
-          {
-            key: "Access-Control-Allow-Origin",
-            value: process.env.NEXT_PUBLIC_BETTER_AUTH_URL || "*",
-          },
-          {
-            key: "Access-Control-Allow-Methods",
-            value: "GET, POST, PUT, DELETE, OPTIONS",
-          },
-          {
-            key: "Access-Control-Allow-Headers",
-            value: "Content-Type, Authorization",
-          },
-          {
-            key: "Access-Control-Allow-Credentials",
-            value: "true",
-          },
-        ],
-      },
-    ];
+      });
+    }
+
+    // CORS headers for Better Auth API endpoints (both dev and prod)
+    headers.push({
+      source: "/api/auth/:path*",
+      headers: [
+        {
+          key: "Access-Control-Allow-Origin",
+          value:
+            process.env.NODE_ENV === "production"
+              ? process.env.NEXT_PUBLIC_SITE_URL || "https://www.axiomcraft.dev"
+              : "http://localhost:3000",
+        },
+        {
+          key: "Access-Control-Allow-Methods",
+          value: "GET, POST, PUT, DELETE, OPTIONS",
+        },
+        {
+          key: "Access-Control-Allow-Headers",
+          value: "Content-Type, Authorization, X-Requested-With",
+        },
+        {
+          key: "Access-Control-Allow-Credentials",
+          value: "true",
+        },
+      ],
+    });
+
+    return headers;
   },
 };
 

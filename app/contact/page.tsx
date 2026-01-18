@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { GoogleOneTap } from "../components/auth/google-one-tap";
+import { ContactForm } from "../components/contact-form";
 import {
   generateLocalBusinessSchema,
   generateBreadcrumbSchema,
@@ -239,137 +240,7 @@ export default function ContactPage() {
                 <h2 className="text-base sm:text-lg font-semibold mb-4 sm:mb-6">
                   Send a Message
                 </h2>
-                <form className="space-y-4 sm:space-y-6">
-                  <div className="grid gap-4 sm:gap-6 sm:grid-cols-2">
-                    <div>
-                      <label
-                        htmlFor="name"
-                        className="block text-xs sm:text-sm font-medium mb-2"
-                      >
-                        Name
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        placeholder="Your name"
-                        className="w-full h-10 sm:h-11 rounded-lg border border-border bg-background px-3 sm:px-4 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20 transition-all"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="email"
-                        className="block text-xs sm:text-sm font-medium mb-2"
-                      >
-                        Email
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="you@gmail.com"
-                        className="w-full h-10 sm:h-11 rounded-lg border border-border bg-background px-3 sm:px-4 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20 transition-all"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid gap-4 sm:gap-6 sm:grid-cols-2">
-                    <div>
-                      <label
-                        htmlFor="phone"
-                        className="block text-xs sm:text-sm font-medium mb-2"
-                      >
-                        Phone
-                      </label>
-                      <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        placeholder="+1 (555) 123-4567"
-                        className="w-full h-10 sm:h-11 rounded-lg border border-border bg-background px-3 sm:px-4 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20 transition-all"
-                      />
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="subject"
-                        className="block text-xs sm:text-sm font-medium mb-2"
-                      >
-                        Subject
-                      </label>
-                      <input
-                        type="text"
-                        id="subject"
-                        name="subject"
-                        placeholder="What's this about?"
-                        className="w-full h-10 sm:h-11 rounded-lg border border-border bg-background px-3 sm:px-4 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20 transition-all"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="project-type"
-                      className="block text-xs sm:text-sm font-medium mb-2"
-                    >
-                      Project Type
-                    </label>
-                    <input
-                      type="text"
-                      id="project-type"
-                      name="projectType"
-                      placeholder="E.g., E-Commerce, Business Website, Landing Page"
-                      className="w-full h-10 sm:h-11 rounded-lg border border-border bg-background px-3 sm:px-4 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20 transition-all"
-                    />
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="budget"
-                      className="block text-xs sm:text-sm font-medium mb-2"
-                    >
-                      Estimated Budget
-                    </label>
-                    <input
-                      type="text"
-                      id="budget"
-                      name="budget"
-                      placeholder="E.g., $2,000 - $5,000"
-                      className="w-full h-10 sm:h-11 rounded-lg border border-border bg-background px-3 sm:px-4 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20 transition-all"
-                    />
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="message"
-                      className="block text-xs sm:text-sm font-medium mb-2"
-                    >
-                      Message
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      rows={5}
-                      placeholder="Tell us about your project..."
-                      className="w-full rounded-lg border border-border bg-background px-3 sm:px-4 py-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20 transition-all resize-none"
-                      required
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="w-full h-11 sm:h-12 rounded-full bg-foreground text-background font-semibold text-sm sm:text-base flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
-                  >
-                    <Send className="h-4 w-4" />
-                    Send Message
-                  </button>
-
-                  <p className="text-xs sm:text-sm text-muted-foreground text-center">
-                    We&apos;ll get back to you within 24 hours.
-                  </p>
-                </form>
+                <ContactForm />
               </div>
             </div>
           </div>
