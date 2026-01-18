@@ -25,11 +25,6 @@ export const auth = betterAuth({
   ],
   secret: process.env.BETTER_AUTH_SECRET || "secret-key-change-in-production",
   baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
-  trustedOrigins: [
-    "http://localhost:3000",
-    "https://www.axiomcraft.dev",
-    process.env.NEXT_PUBLIC_SITE_URL,
-  ].filter(Boolean) as string[],
 });
 
 export type Session = typeof auth.$Infer.Session;
