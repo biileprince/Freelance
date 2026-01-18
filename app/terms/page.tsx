@@ -14,7 +14,7 @@ const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://www.axiomcraft.dev";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | AxiomCraft - Web Development Services Ghana",
+  title: "Terms of Service | AxiomCraft Ghana",
   description:
     "Read the terms and conditions for using AxiomCraft's web development services. Learn about our service agreements, payment terms, and user responsibilities.",
   keywords: [

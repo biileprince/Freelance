@@ -23,9 +23,8 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default:
-      "Axiom Craft | I Need a Website? Professional Web Developer in Ghana | AxiomCraft",
-    template: "%s | Axiom Craft - Build Your Website Today",
+    default: "Axiom Craft | Web Developer Ghana | AxiomCraft",
+    template: "%s | Axiom Craft Ghana",
   },
   description:
     "I need a website? Axiom Craft (AxiomCraft) is Ghana's top freelance web developer. We build stunning, fast, SEO-optimized websites, e-commerce stores, and mobile apps for businesses. Need a website built? Contact Axiom Craft today for affordable, professional web development services.",
@@ -76,8 +75,7 @@ export const metadata: Metadata = {
     alternateLocale: ["en_GB"],
     url: SITE_URL,
     siteName: "Axiom Craft | AxiomCraft",
-    title:
-      "Axiom Craft - I Need a Website? Professional Web Developer in Ghana",
+    title: "Axiom Craft | Professional Web Developer Ghana",
     description:
       "Need a website? Axiom Craft (AxiomCraft) is Ghana's leading freelance web developer. We build stunning websites, e-commerce stores, and mobile apps. Affordable, fast, and SEO-optimized web development services.",
     images: [

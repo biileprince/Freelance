@@ -413,7 +413,7 @@ export function generateFAQSchema() {
 
 // Breadcrumb Schema
 export function generateBreadcrumbSchema(
-  items: { name: string; url: string }[]
+  items: { name: string; url: string }[],
 ) {
   return {
     "@context": "https://schema.org",
@@ -599,7 +599,7 @@ export function generateReviewSchema(
     rating: number;
     review: string;
     date: string;
-  }[]
+  }[],
 ) {
   return reviews.map((review) => ({
     "@context": "https://schema.org",

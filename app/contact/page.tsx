@@ -19,8 +19,7 @@ const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://www.axiomcraft.dev";
 
 export const metadata: Metadata = {
-  title:
-    "Contact AxiomCraft | Get a Free Quote for Your Website or App | Ghana Web Developer",
+  title: "Contact AxiomCraft | Free Quote | Ghana Web Developer",
   description:
     "Ready to build your website or mobile app? Contact AxiomCraft for a free consultation and quote. We're a professional freelance web developer in Ghana serving clients worldwide. Fast response, affordable prices, quality work!",
   keywords: [

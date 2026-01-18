@@ -13,7 +13,7 @@ const SITE_URL =
 
 export const metadata: Metadata = {
   title:
-    "AxiomCraft | Freelance Web Developer & App Developer Ghana | Build Your Website Today",
+    "AxiomCraft | Web & App Developer Ghana | I Need a Website",
   description:
     "Looking for a freelance web developer in Ghana? AxiomCraft builds stunning websites, e-commerce stores, mobile apps, and web applications. Professional, fast, and SEO-optimized. Get a free quote today! We serve clients in Accra, Kumasi, and worldwide.",
   keywords: [
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title:
-      \"Axiom Craft | I Need a Website? Ghana's Best Web Developer\",
+      "Axiom Craft | I Need a Website? Ghana Web Developer",
     description:
       \"I need a website? Axiom Craft (AxiomCraft) builds stunning websites & mobile apps in Ghana. Rank #1 on Google with our SEO-optimized websites. Affordable & professional web development services!\",
     url: SITE_URL,

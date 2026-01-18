@@ -12,8 +12,7 @@ const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://www.axiomcraft.dev";
 
 export const metadata: Metadata = {
-  title:
-    "Our Work & Portfolio | Web Development Projects by AxiomCraft | Ghana Developer",
+  title: "Portfolio | Web Projects by AxiomCraft | Ghana Developer",
   description:
     "Explore our portfolio of successful web development and mobile app projects. See case studies of websites, e-commerce stores, and web applications we've built for clients in Ghana and worldwide. Quality work that speaks for itself!",
   keywords: [

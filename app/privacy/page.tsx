@@ -6,7 +6,7 @@ const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://www.axiomcraft.dev";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | AxiomCraft - Web Development Services Ghana",
+  title: "Privacy Policy | AxiomCraft Ghana",
   description:
     "Learn how AxiomCraft collects, uses, and protects your personal information. Our privacy policy explains our commitment to your data security and privacy.",
   keywords: [

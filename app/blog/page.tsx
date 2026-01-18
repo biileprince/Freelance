@@ -10,7 +10,7 @@ const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://www.axiomcraft.dev";
 
 export const metadata: Metadata = {
-  title: "Blog | Web Development Tips, Tutorials & Insights | AxiomCraft Ghana",
+  title: "Blog | Web Dev Tips & Tutorials | AxiomCraft Ghana",
   description:
     "Stay updated with the latest web development trends, tutorials, and insights from AxiomCraft. Learn about React, Next.js, mobile app development, SEO, and more. Expert tips from a professional freelance developer in Ghana.",
   keywords: [
@@ -320,7 +320,7 @@ export default async function BlogPage({
                           <time className="text-sm text-muted-foreground">
                             {format(
                               new Date(featuredPost.publishedAt),
-                              "MMMM d, yyyy"
+                              "MMMM d, yyyy",
                             )}
                           </time>
                         )}
@@ -350,7 +350,7 @@ export default async function BlogPage({
                         post.id !== featuredPost.id ||
                         activeCategory ||
                         activeTag ||
-                        searchQuery
+                        searchQuery,
                     )
                     .map((post) => (
                       <Link
@@ -388,7 +388,7 @@ export default async function BlogPage({
                               <time className="text-xs text-muted-foreground">
                                 {format(
                                   new Date(post.publishedAt),
-                                  "MMM d, yyyy"
+                                  "MMM d, yyyy",
                                 )}
                               </time>
                             )}
