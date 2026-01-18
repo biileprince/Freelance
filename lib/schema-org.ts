@@ -636,6 +636,10 @@ export function generateHomePageSchema() {
 // SEO Keywords and Meta Data
 export const SEO_KEYWORDS = {
   primary: [
+    "axiom craft",
+    "axiomcraft",
+    "axiom craft ghana",
+    "axiom craft web developer",
     "freelance web developer",
     "web developer ghana",
     "freelance developer",
@@ -646,6 +650,13 @@ export const SEO_KEYWORDS = {
   ],
   secondary: [
     "i need a website",
+    "need a website",
+    "i need a website developer",
+    "i need someone to build my website",
+    "looking for web developer",
+    "build my website",
+    "create my website",
+    "make me a website",
     "build my website",
     "create a website",
     "website for my business",

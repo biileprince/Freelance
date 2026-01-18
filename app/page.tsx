@@ -38,9 +38,9 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title:
-      "AxiomCraft | Freelance Web Developer & App Developer Ghana | Build Your Website",
+      \"Axiom Craft | I Need a Website? Ghana's Best Web Developer\",
     description:
-      "Need a website or app? AxiomCraft is a professional freelance web developer in Ghana. We build stunning websites, e-commerce stores, and mobile apps. Fast, SEO-optimized, and affordable!",
+      \"I need a website? Axiom Craft (AxiomCraft) builds stunning websites & mobile apps in Ghana. Rank #1 on Google with our SEO-optimized websites. Affordable & professional web development services!\",
     url: SITE_URL,
     type: "website",
     images: [
