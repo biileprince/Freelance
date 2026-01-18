@@ -36,9 +36,6 @@ export function ContactForm() {
       if (session.user.email) {
         setValue("email", session.user.email);
       }
-      if (session.user.phone) {
-        setValue("phone", session.user.phone);
-      }
     }
   }, [session, setValue]);
 
