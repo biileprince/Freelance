@@ -21,10 +21,7 @@ export const auth = betterAuth({
     },
   },
   plugins: [
-    oneTap({
-      // Disable FedCM for now due to Chrome compatibility issues
-      disableFedCM: true,
-    }),
+    oneTap(),
   ],
   secret: process.env.BETTER_AUTH_SECRET || "secret-key-change-in-production",
   baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
