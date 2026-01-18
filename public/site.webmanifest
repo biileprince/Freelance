@@ -1,0 +1,18 @@
+{
+  "name": "AxiomCraft - Professional Web Development",
+  "short_name": "AxiomCraft",
+  "description": "Professional freelance web developer in Ghana. Build stunning websites, e-commerce stores, and mobile apps.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#10b981",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -73,7 +73,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   });
 
   const categoryPages = blogCategories.map((category) => ({
-    url: `${SITE_URL}/blog?category=${category.slug}`,
+    url: `${SITE_URL}/blog?category=${encodeURIComponent(category.slug)}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
     priority: 0.6,
@@ -85,7 +85,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   });
 
   const tagPages = blogTags.map((tag) => ({
-    url: `${SITE_URL}/blog?tag=${tag.slug}`,
+    url: `${SITE_URL}/blog?tag=${encodeURIComponent(tag.slug)}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
     priority: 0.6,
@@ -134,22 +134,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  // Combined work filters (technology + category)
-  const combinedWorkPages: MetadataRoute.Sitemap = [];
-  portfolioCategories
-    .filter((p) => p.category)
-    .forEach((catProject) => {
-      Array.from(uniqueTechnologies).forEach((tech) => {
-        combinedWorkPages.push({
-          url: `${SITE_URL}/work?technology=${encodeURIComponent(
-            tech
-          )}&category=${encodeURIComponent(catProject.category!)}`,
-          lastModified: new Date(),
-          changeFrequency: "monthly" as const,
-          priority: 0.5,
-        });
-      });
-    });
+  // Remove combined work pages to avoid XML entity encoding issues
+  // These complex URLs with multiple query parameters can cause XML parsing errors
+  // If needed in the future, ensure proper XML entity encoding for & character
 
   return [
     ...staticPages,
@@ -159,6 +146,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...tagPages,
     ...portfolioCategoryPages,
     ...technologyPages,
-    ...combinedWorkPages,
   ];
 }
