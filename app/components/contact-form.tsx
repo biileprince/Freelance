@@ -106,7 +106,7 @@ export function ContactForm() {
           <input
             type="email"
             id="email"
-            placeholder="you@example.com"
+            placeholder="biileprince@gmail.com"
             {...register("email")}
             className={`w-full h-10 sm:h-11 rounded-lg border bg-background px-3 sm:px-4 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20 transition-all ${
               errors.email ? "border-destructive" : "border-border"
@@ -132,7 +132,7 @@ export function ContactForm() {
           <input
             type="tel"
             id="phone"
-            placeholder="+233 555 902 675"
+            placeholder="0555902675"
             {...register("phone")}
             className="w-full h-10 sm:h-11 rounded-lg border border-border bg-background px-3 sm:px-4 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20 transition-all"
           />

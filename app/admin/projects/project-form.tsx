@@ -62,10 +62,22 @@ export function ProjectForm({ users, project }: ProjectFormProps) {
       formData.set("imageUrl", imageUrl);
     }
     
-    if (isEditing) {
-      await updateProject(project.id, formData);
-    } else {
-      await createProject(formData);
+    try {
+      if (isEditing) {
+        await updateProject(project.id, formData);
+      } else {
+        await createProject(formData);
+      }
+    } catch (error: unknown) {
+      // redirect() in Next.js throws an error, so we need to check if it's that
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      if (errorMessage.includes("NEXT_REDIRECT") || errorMessage.includes("redirect")) {
+        // This is a successful redirect, not an actual error
+        return;
+      }
+      // If it's a real error from the action, it will have a message
+      console.error("Failed to save project:", error);
+      // Don't throw, let the form stay open so user can see the error
     }
   };
 

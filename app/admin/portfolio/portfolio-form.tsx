@@ -112,7 +112,15 @@ export function PortfolioForm({ project, categories }: PortfolioFormProps) {
       } else {
         await createPortfolioProject(data);
       }
-    } catch (error) {
+      // If we reach here, the operation succeeded (redirect will take over)
+      // The error catch block below handles redirect() throws
+    } catch (error: unknown) {
+      // redirect() in Next.js throws an error, so we need to check if it's that
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      if (errorMessage.includes("NEXT_REDIRECT") || errorMessage.includes("redirect")) {
+        // This is a successful redirect, not an actual error
+        return;
+      }
       console.error("Failed to save project:", error);
       alert("Failed to save project");
       setLoading(false);
