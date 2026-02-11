@@ -130,7 +130,7 @@ export function ServicesSection() {
             <p className="text-base sm:text-lg text-muted-foreground md:text-xl leading-relaxed px-2">
               From simple landing pages to fully-featured online stores and
               mobile apps, we can develop any website or mobile application that
-              helps your business succeed online. No tech jargon, just results.
+              helps your business succeed online.
             </p>
           </motion.div>
         </div>

@@ -132,7 +132,7 @@ export function FAQSection() {
             Common questions
           </h2>
           <p className="text-base sm:text-lg text-muted-foreground md:text-xl max-w-2xl mx-auto">
-            Everything you need to know about working with me. Can&apos;t find
+            Everything you need to know about working with us. Can&apos;t find
             what you&apos;re looking for? Feel free to reach out!
           </p>
         </motion.div>

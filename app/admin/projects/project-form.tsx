@@ -46,8 +46,8 @@ function SubmitButton({ isEditing }: { isEditing: boolean }) {
           ? "Updating..."
           : "Creating..."
         : isEditing
-        ? "Update Project"
-        : "Create Project"}
+          ? "Update Project"
+          : "Create Project"}
     </Button>
   );
 }
@@ -61,7 +61,7 @@ export function ProjectForm({ users, project }: ProjectFormProps) {
     if (imageUrl) {
       formData.set("imageUrl", imageUrl);
     }
-    
+
     try {
       if (isEditing) {
         await updateProject(project.id, formData);
@@ -70,8 +70,12 @@ export function ProjectForm({ users, project }: ProjectFormProps) {
       }
     } catch (error: unknown) {
       // redirect() in Next.js throws an error, so we need to check if it's that
-      const errorMessage = error instanceof Error ? error.message : String(error);
-      if (errorMessage.includes("NEXT_REDIRECT") || errorMessage.includes("redirect")) {
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
+      if (
+        errorMessage.includes("NEXT_REDIRECT") ||
+        errorMessage.includes("redirect")
+      ) {
         // This is a successful redirect, not an actual error
         return;
       }
