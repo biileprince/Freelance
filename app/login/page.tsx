@@ -174,7 +174,7 @@ function LoginContent() {
                 id="email"
                 name="email"
                 type="email"
-                placeholder="john@gmail.com"
+                placeholder="biileprince@gmail.com"
                 required
                 className="h-11 rounded-lg"
               />

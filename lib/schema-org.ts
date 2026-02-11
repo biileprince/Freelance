@@ -3,7 +3,7 @@
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://www.axiomcraft.dev";
-const BUSINESS_NAME = "AxiomCraft";
+const BUSINESS_NAME = "Axiom Craft";
 const OWNER_NAME = "AxiomCraft";
 const BUSINESS_EMAIL = "contact@axiomcraft.dev";
 const BUSINESS_PHONE = "+233 XX XXX XXXX"; // Update with actual phone
@@ -16,7 +16,10 @@ export function generateOrganizationSchema() {
     "@id": `${SITE_URL}/#organization`,
     name: BUSINESS_NAME,
     alternateName: [
+      "AxiomCraft",
+      "Axiom Craft Ghana",
       "AxiomCraft Web Development",
+      "Axiom Craft Web Developer",
       "AxiomCraft Ghana",
       "AxiomCraft Freelance Developer",
     ],

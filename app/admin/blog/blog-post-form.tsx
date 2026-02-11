@@ -92,8 +92,12 @@ export function BlogPostForm({ post, categories, tags }: BlogPostFormProps) {
       // The error catch block below handles redirect() throws
     } catch (error: unknown) {
       // redirect() in Next.js throws an error, so we need to check if it's that
-      const errorMessage = error instanceof Error ? error.message : String(error);
-      if (errorMessage.includes("NEXT_REDIRECT") || errorMessage.includes("redirect")) {
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
+      if (
+        errorMessage.includes("NEXT_REDIRECT") ||
+        errorMessage.includes("redirect")
+      ) {
         // This is a successful redirect, not an actual error
         return;
       }

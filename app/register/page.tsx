@@ -164,7 +164,7 @@ export default function RegisterPage() {
                 id="name"
                 name="name"
                 type="text"
-                placeholder="John Doe"
+                placeholder="Kwame Mensah"
                 required
                 className="h-11 rounded-lg"
               />
@@ -178,7 +178,7 @@ export default function RegisterPage() {
                 id="email"
                 name="email"
                 type="email"
-                placeholder="john@example.com"
+                placeholder="biileprince@gmail.com"
                 required
                 className="h-11 rounded-lg"
               />

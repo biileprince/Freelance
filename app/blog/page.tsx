@@ -16,7 +16,7 @@ export async function generateMetadata({
   searchParams: Promise<{ category?: string; tag?: string; search?: string }>;
 }): Promise<Metadata> {
   const params = await searchParams;
-  
+
   // Build URL with query params
   let url = `${SITE_URL}/blog`;
   const queryParts: string[] = [];
@@ -24,12 +24,13 @@ export async function generateMetadata({
   if (params.tag) queryParts.push(`tag=${params.tag}`);
   if (params.search) queryParts.push(`search=${params.search}`);
   if (queryParts.length > 0) {
-    url += `?${queryParts.join('&')}`;
+    url += `?${queryParts.join("&")}`;
   }
 
   // Customize title and description based on filters
   let title = "Blog | Web Dev Tips & Tutorials | AxiomCraft Ghana";
-  let description = "Stay updated with the latest web development trends, tutorials, and insights from AxiomCraft. Learn about React, Next.js, mobile app development, SEO, and more. Expert tips from a professional freelance developer in Ghana.";
+  let description =
+    "Stay updated with the latest web development trends, tutorials, and insights from AxiomCraft. Learn about React, Next.js, mobile app development, SEO, and more. Expert tips from a professional freelance developer in Ghana.";
 
   if (params.category) {
     title = `${params.category.charAt(0).toUpperCase() + params.category.slice(1)} Articles | AxiomCraft Blog`;

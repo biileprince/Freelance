@@ -23,32 +23,36 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Axiom Craft | Web Developer Ghana | AxiomCraft",
-    template: "%s | Axiom Craft Ghana",
+    default: "Axiom Craft | AxiomCraft | Web Developer Ghana",
+    template: "%s | Axiom Craft",
   },
   description:
-    "I need a website? Axiom Craft (AxiomCraft) is Ghana's top freelance web developer. We build stunning, fast, SEO-optimized websites, e-commerce stores, and mobile apps for businesses. Need a website built? Contact Axiom Craft today for affordable, professional web development services.",
+    "Axiom Craft (AxiomCraft) is Ghana's top freelance web developer. I need a website? We build stunning, fast, SEO-optimized websites, e-commerce stores, and mobile apps for businesses. Professional web development services in Accra, Kumasi & worldwide.",
   keywords: [
     ...getAllKeywords(),
     "axiom craft",
     "axiomcraft",
+    "axiom craft ghana",
+    "axiomcraft ghana",
+    "axiom craft web developer",
+    "axiomcraft developer",
     "i need a website",
     "need a website",
     "build my website",
     "website developer near me",
-    "axiom craft ghana",
-    "axiom craft web developer",
     "i need someone to build my website",
     "looking for web developer",
     "hire web developer ghana",
-    "axiom craft developer",
+    "axiom craft accra",
+    "axiom craft kumasi",
   ],
   authors: [
+    { name: "Axiom Craft", url: SITE_URL },
     { name: "AxiomCraft", url: SITE_URL },
     { name: "AxiomCraft Ghana" },
   ],
-  creator: "AxiomCraft",
-  publisher: "AxiomCraft",
+  creator: "Axiom Craft (AxiomCraft)",
+  publisher: "Axiom Craft",
   formatDetection: {
     email: true,
     address: true,
@@ -74,10 +78,10 @@ export const metadata: Metadata = {
     locale: "en_US",
     alternateLocale: ["en_GB"],
     url: SITE_URL,
-    siteName: "Axiom Craft | AxiomCraft",
-    title: "Axiom Craft | Professional Web Developer Ghana",
+    siteName: "Axiom Craft (AxiomCraft)",
+    title: "Axiom Craft | Professional Web Developer Ghana | AxiomCraft",
     description:
-      "Need a website? Axiom Craft (AxiomCraft) is Ghana's leading freelance web developer. We build stunning websites, e-commerce stores, and mobile apps. Affordable, fast, and SEO-optimized web development services.",
+      "Axiom Craft (AxiomCraft) is Ghana's leading freelance web developer. Need a website? We build stunning websites, e-commerce stores, and mobile apps. Affordable, fast, and SEO-optimized web development services.",
     images: [
       {
         url: `${SITE_URL}/og-image.jpg`,
