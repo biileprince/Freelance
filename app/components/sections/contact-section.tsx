@@ -168,7 +168,7 @@ export function ContactSection() {
                     </Label>
                     <Input
                       id="name"
-                      placeholder="John Doe"
+                      placeholder="Kwame Mensah"
                       {...register("name")}
                       className={`h-10 sm:h-11 rounded-lg text-sm ${
                         errors.name ? "border-destructive" : ""
@@ -190,7 +190,7 @@ export function ContactSection() {
                     <Input
                       id="email"
                       type="email"
-                      placeholder="john@example.com"
+                      placeholder="biileprince@gmail.com"
                       {...register("email")}
                       className={`h-10 sm:h-11 rounded-lg text-sm ${
                         errors.email ? "border-destructive" : ""
@@ -215,7 +215,7 @@ export function ContactSection() {
                   <Input
                     id="phone"
                     type="tel"
-                    placeholder="+1 (555) 000-0000"
+                    placeholder="0555902675"
                     {...register("phone")}
                     className="h-10 sm:h-11 rounded-lg text-sm"
                   />
@@ -255,7 +255,7 @@ export function ContactSection() {
                   </Label>
                   <Input
                     id="budget"
-                    placeholder="E.g., $5,000 - $10,000"
+                    placeholder="E.g., GH₵2,000 - GH₵5,000"
                     {...register("budget")}
                     className="h-10 sm:h-11 rounded-lg text-sm"
                   />
