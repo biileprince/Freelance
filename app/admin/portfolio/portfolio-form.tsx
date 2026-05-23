@@ -87,46 +87,34 @@ export function PortfolioForm({ project, categories }: PortfolioFormProps) {
     e.preventDefault();
     setLoading(true);
 
-    try {
-      const data = {
-        ...formData,
-        description: formData.description || undefined,
-        content: formData.content || undefined,
-        coverImage: formData.coverImage || undefined,
-        images:
-          formData.images.length > 0
-            ? JSON.stringify(formData.images)
-            : undefined,
-        category: formData.category || undefined,
-        technologies: formData.technologies || undefined,
-        client: formData.client || undefined,
-        liveUrl: formData.liveUrl || undefined,
-        githubUrl: formData.githubUrl || undefined,
-        completedAt: formData.completedAt
-          ? new Date(formData.completedAt)
+    const data = {
+      ...formData,
+      description: formData.description || undefined,
+      content: formData.content || undefined,
+      coverImage: formData.coverImage || undefined,
+      images:
+        formData.images.length > 0
+          ? JSON.stringify(formData.images)
           : undefined,
-      };
+      category: formData.category || undefined,
+      technologies: formData.technologies || undefined,
+      client: formData.client || undefined,
+      liveUrl: formData.liveUrl || undefined,
+      githubUrl: formData.githubUrl || undefined,
+      completedAt: formData.completedAt
+        ? new Date(formData.completedAt)
+        : undefined,
+    };
 
-      if (project) {
-        await updatePortfolioProject(project.id, data);
-      } else {
-        await createPortfolioProject(data);
-      }
-      // If we reach here, the operation succeeded (redirect will take over)
-      // The error catch block below handles redirect() throws
-    } catch (error: unknown) {
-      // redirect() in Next.js throws an error, so we need to check if it's that
-      const errorMessage =
-        error instanceof Error ? error.message : String(error);
-      if (
-        errorMessage.includes("NEXT_REDIRECT") ||
-        errorMessage.includes("redirect")
-      ) {
-        // This is a successful redirect, not an actual error
-        return;
-      }
-      console.error("Failed to save project:", error);
-      alert("Failed to save project");
+    const result = project
+      ? await updatePortfolioProject(project.id, data)
+      : await createPortfolioProject(data);
+
+    if (result?.success) {
+      router.push("/admin/portfolio");
+    } else {
+      console.error("Failed to save project:", result?.error);
+      alert(result?.error || "Failed to save project");
       setLoading(false);
     }
   };

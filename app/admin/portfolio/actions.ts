@@ -2,7 +2,6 @@
 
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { v2 as cloudinary } from "cloudinary";
 
 // Configure Cloudinary (server-side only)
@@ -101,13 +100,16 @@ export async function createPortfolioProject(data: {
   published?: boolean;
   completedAt?: Date;
 }) {
-  await prisma.portfolioProject.create({
-    data,
-  });
+  try {
+    await prisma.portfolioProject.create({ data });
+  } catch (error) {
+    console.error("Failed to create portfolio project:", error);
+    return { success: false, error: "Failed to create portfolio project" };
+  }
 
   revalidatePath("/admin/portfolio");
   revalidatePath("/work");
-  redirect("/admin/portfolio");
+  return { success: true };
 }
 
 export async function updatePortfolioProject(
@@ -129,25 +131,27 @@ export async function updatePortfolioProject(
     completedAt?: Date | null;
   }
 ) {
-  // Get existing project to check for old images
-  const existingProject = await prisma.portfolioProject.findUnique({
-    where: { id },
-  });
+  let projectSlug: string;
+  try {
+    const existingProject = await prisma.portfolioProject.findUnique({
+      where: { id },
+    });
 
-  // Delete old cover image if a new one is provided
-  if (data.coverImage && existingProject?.coverImage && data.coverImage !== existingProject.coverImage) {
-    await deleteCloudinaryImage(existingProject.coverImage);
+    if (data.coverImage && existingProject?.coverImage && data.coverImage !== existingProject.coverImage) {
+      await deleteCloudinaryImage(existingProject.coverImage);
+    }
+
+    const project = await prisma.portfolioProject.update({ where: { id }, data });
+    projectSlug = project.slug;
+  } catch (error) {
+    console.error("Failed to update portfolio project:", error);
+    return { success: false, error: "Failed to update portfolio project" };
   }
-
-  const project = await prisma.portfolioProject.update({
-    where: { id },
-    data,
-  });
 
   revalidatePath("/admin/portfolio");
   revalidatePath("/work");
-  revalidatePath(`/work/${project.slug}`);
-  redirect("/admin/portfolio");
+  revalidatePath(`/work/${projectSlug}`);
+  return { success: true };
 }
 
 export async function deletePortfolioProject(id: string) {
